@@ -843,16 +843,14 @@ class StrategyEngine:
                 next_ft = min(5, remaining_ft_after_gw + 1)
 
             updated_lineup = self.pick_optimal_lineup_for_gw(active_squad_ids, gw, player_multi_xp_map)
-            step_xp = updated_lineup["total_xi_xp"]
+            gross_step_xp = updated_lineup["total_xi_xp"]
             if chip_action == "3xc" and updated_lineup["captain"]:
                 cap_extra = next((g["xp"] for g in player_multi_xp_map[updated_lineup["captain"]["id"]]["gw_breakdown"] if g["gameweek"] == gw), 0.0)
-                step_xp += cap_extra
+                gross_step_xp += cap_extra
             elif chip_action == "bboost":
-                step_xp += updated_lineup["total_bench_xp"]
+                gross_step_xp += updated_lineup["total_bench_xp"]
 
-            if hits_taken > 0:
-                step_xp = round(step_xp - hit_cost, 2)
-
+            step_xp = round(gross_step_xp - hit_cost, 2)
             optimized_total_xp += step_xp
 
             step_squad_value = round(sum(player_projected_costs.get(pid, self.players_by_id[pid]["cost"]) for pid in active_squad_ids if pid in self.players_by_id), 1)
@@ -889,6 +887,8 @@ class StrategyEngine:
                     "team_short": updated_lineup["vice_captain"]["team_short"] if updated_lineup["vice_captain"] else "",
                     "xp": next((g["xp"] for g in player_multi_xp_map[updated_lineup["vice_captain"]["id"]]["gw_breakdown"] if g["gameweek"] == gw), 0.0) if updated_lineup["vice_captain"] else 0.0
                 },
+                "gross_xi_xp": round(gross_step_xp, 2),
+                "net_xi_xp": round(step_xp, 2),
                 "projected_xi_xp": round(step_xp, 2),
                 "formation": updated_lineup["formation"]
             })
@@ -930,6 +930,8 @@ class StrategyEngine:
         solver_name: str = "HiGHS-MILP"
     ) -> Dict[str, Any]:
         """Formats the unified strategy response payload for the API and Pitch UI."""
+        total_hit_cost = total_hits_taken * 4
+        gross_total_xp = round(optimized_total_xp + total_hit_cost, 2)
         optimized_total_xp = round(optimized_total_xp, 2)
         net_gain = round(optimized_total_xp - baseline_total_xp, 2)
 
@@ -994,6 +996,9 @@ class StrategyEngine:
             "ending_team_value": ending_team_value,
             "team_value_change": team_value_change,
             "baseline_total_xp": baseline_total_xp,
+            "gross_total_xp": gross_total_xp,
+            "total_hits_taken": total_hits_taken,
+            "total_hit_cost": total_hit_cost,
             "optimized_total_xp": optimized_total_xp,
             "net_xp_gain": net_gain,
             "summary": {

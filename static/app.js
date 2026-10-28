@@ -664,13 +664,28 @@ function renderMultiGwKpis(data) {
   const ftTrajEl = document.getElementById("mgwFtTrajectory");
   const ftSub = document.getElementById("mgwFtSubtext");
 
-  if (totalXpEl) totalXpEl.textContent = `${data.optimized_total_xp} xP`;
+  const totalHitCost = (data.total_hit_cost !== undefined)
+    ? data.total_hit_cost
+    : ((data.summary && data.summary.total_hit_cost) ? data.summary.total_hit_cost : 0);
+
+  if (totalXpEl) {
+    totalXpEl.textContent = `${data.optimized_total_xp} xP`;
+    if (totalHitCost > 0) {
+      totalXpEl.title = `Gross: ${data.gross_total_xp || (data.optimized_total_xp + totalHitCost).toFixed(1)} xP | Deductions: -${totalHitCost} Hits | Net Horizon Score: ${data.optimized_total_xp} xP`;
+    } else {
+      totalXpEl.title = `Projected Horizon Score: ${data.optimized_total_xp} xP (0 Hits)`;
+    }
+  }
   if (netGainEl) {
     const sign = data.net_xp_gain >= 0 ? "+" : "";
     netGainEl.textContent = `${sign}${data.net_xp_gain} xP Uplift`;
+    if (totalHitCost > 0) {
+      netGainEl.title = `Net uplift incorporates -${totalHitCost} in transfer hits`;
+    }
   }
   if (baselineSub) {
-    baselineSub.textContent = `vs ${data.baseline_total_xp} xP status quo (GW${data.start_gameweek}–GW${data.end_gameweek})`;
+    const hitSuffix = totalHitCost > 0 ? ` • Net of -${totalHitCost} hit deduction${totalHitCost === 4 ? '' : 's'}` : '';
+    baselineSub.textContent = `vs ${data.baseline_total_xp} xP status quo (GW${data.start_gameweek}–GW${data.end_gameweek})${hitSuffix}`;
   }
   // 2. Change in Team Value Projected KPI Card
   const tvChangeEl = document.getElementById("mgwTeamValueChange");
@@ -890,9 +905,11 @@ function renderMultiGwRoadmap(roadmap) {
             <span class="stat-chip-label">Captain</span>
             <span class="stat-chip-val">${step.captain ? escapeHtml(step.captain.web_name) : '--'}</span>
           </div>
-          <div class="roadmap-list-stat-chip" title="Projected Starting XI Score">
-            <span class="stat-chip-label">Projected</span>
-            <span class="stat-chip-val" style="color:var(--fpl-cyan);">${step.projected_xi_xp} xP</span>
+          <div class="roadmap-list-stat-chip" title="${(step.hit_cost > 0 || step.hits_taken > 0) ? `Gross XI: ${(step.gross_xi_xp !== undefined ? step.gross_xi_xp : (step.projected_xi_xp + (step.hit_cost || step.hits_taken * 4))).toFixed(1)} xP | Deduction: -${step.hit_cost || step.hits_taken * 4} Hit | Net: ${step.projected_xi_xp} xP` : 'Projected Starting XI Score'}">
+            <span class="stat-chip-label">${(step.hit_cost > 0 || step.hits_taken > 0) ? 'Net Projected' : 'Projected'}</span>
+            <span class="stat-chip-val" style="color:var(--fpl-cyan);">
+              ${step.projected_xi_xp} xP${(step.hit_cost > 0 || step.hits_taken > 0) ? `<span style="font-size:0.75rem;color:#f87171;font-weight:700;display:inline-block;margin-left:3px;" title="-${step.hit_cost || step.hits_taken * 4} point transfer hit deducted">(-${step.hit_cost || step.hits_taken * 4})</span>` : ''}
+            </span>
           </div>
           <div class="roadmap-list-stat-chip" title="Money in the Bank after transfers">
             <span class="stat-chip-label">In Bank</span>

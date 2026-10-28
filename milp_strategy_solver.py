@@ -484,7 +484,8 @@ class MILPStrategySolver:
             cap_xp = next((g["xp"] for g in player_multi_xp_map.get(all_candidates[step_cap_idx]["id"], {}).get("gw_breakdown", []) if g["gameweek"] == gw), 0.0)
             vc_xp = next((g["xp"] for g in player_multi_xp_map.get(all_candidates[step_vc_idx]["id"], {}).get("gw_breakdown", []) if g["gameweek"] == gw), 0.0)
 
-            step_xp = starter_xp_sum + (2.0 if chip_action == "3xc" else 1.0) * cap_xp - hit_cost
+            gross_step_xp = starter_xp_sum + (2.0 if chip_action == "3xc" else 1.0) * cap_xp
+            step_xp = round(gross_step_xp - hit_cost, 2)
             optimized_total_xp += step_xp
 
             # 2. Gameweek Performance & Price Fluctuations based on Selected by % and Performance
@@ -538,16 +539,21 @@ class MILPStrategySolver:
                     "team_short": vc_player.get("team_short", ""),
                     "xp": vc_xp
                 },
+                "gross_xi_xp": round(gross_step_xp, 2),
+                "net_xi_xp": round(step_xp, 2),
                 "projected_xi_xp": round(step_xp, 2),
                 "formation": formation_str,
                 "is_milp_optimal": True
             })
 
+        total_hit_cost = total_hits_taken * 4
         return {
             "roadmap": roadmap,
+            "gross_total_xp": round(optimized_total_xp + total_hit_cost, 2),
             "optimized_total_xp": round(optimized_total_xp, 2),
             "total_transfers_made": total_transfers_made,
             "total_transfers_rolled": total_transfers_rolled,
             "total_hits_taken": total_hits_taken,
+            "total_hit_cost": total_hit_cost,
             "solver": "HiGHS-MILP"
         }
