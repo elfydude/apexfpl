@@ -49,3 +49,38 @@ jobs:
           cp deployment/.firebaserc ./.firebaserc
           npx -y firebase-tools deploy --only hosting:apex-fpl --project ${{ env.PROJECT_ID }} --non-interactive
           rm -f ./firebase.json ./.firebaserc
+
+      - name: Prune Old Cloud Run Revisions & Images (Retain Previous 3)
+        run: |
+          echo "🧹 Cleaning up old Cloud Run revisions (retaining previous 3 versions)..."
+          OLD_REVISIONS=$(gcloud run revisions list \
+            --service ${{ env.SERVICE_NAME }} \
+            --project ${{ env.PROJECT_ID }} \
+            --region ${{ env.REGION }} \
+            --format="value(metadata.name)" \
+            --sort-by="~metadata.creationTimestamp" | tail -n +5)
+
+          for REV in ${OLD_REVISIONS}; do
+            if [ -n "${REV}" ]; then
+              echo "Deleting inactive revision: ${REV}"
+              gcloud run revisions delete "${REV}" \
+                --project ${{ env.PROJECT_ID }} \
+                --region ${{ env.REGION }} \
+                --quiet || true
+            fi
+          done
+
+          echo "🧹 Cleaning up old Artifact Registry container images..."
+          REPO_PATH="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/cloud-run-source-deploy/${{ env.SERVICE_NAME }}"
+          OLD_IMAGES=$(gcloud artifacts docker images list "${REPO_PATH}" \
+            --format="value(DIGEST)" \
+            --sort-by="~CREATE_TIME" 2>/dev/null | tail -n +9 || true)
+
+          for DIGEST in ${OLD_IMAGES}; do
+            if [ -n "${DIGEST}" ]; then
+              echo "Deleting old container image: ${DIGEST}"
+              gcloud artifacts docker images delete "${REPO_PATH}@${DIGEST}" \
+                --delete-tags \
+                --quiet || true
+            fi
+          done
