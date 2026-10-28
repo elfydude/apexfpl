@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="apex_purple" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4f0056"/>
+      <stop offset="55%" stop-color="#2a002f"/>
+      <stop offset="100%" stop-color="#140017"/>
+    </linearGradient>
+    <linearGradient id="apex_neon" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00ff87"/>
+      <stop offset="100%" stop-color="#04f5ff"/>
+    </linearGradient>
+    <filter id="apex_glow" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="0" stdDeviation="2.2" flood-color="#00ff87" flood-opacity="0.65"/>
+    </filter>
+  </defs>
+  <!-- Hexagonal Tournament Crest Shield -->
+  <polygon points="32,3.5 58.5,15.5 58.5,46.5 32,60.5 5.5,46.5 5.5,15.5" fill="url(#apex_purple)" stroke="#00ff87" stroke-width="2.4" stroke-linejoin="round"/>
+  
+  <!-- Subtle Internal Pitch Arc -->
+  <path d="M12 28 Q 32 38 52 28" stroke="#ffffff" stroke-opacity="0.14" stroke-width="1.6" fill="none"/>
+
+  <!-- Twin Upward Ascent Chevrons (Rank Rise to Apex) -->
+  <path d="M32 11 L48 26 L41 26 L32 18 L23 26 L16 26 Z" fill="url(#apex_neon)" filter="url(#apex_glow)"/>
+  <path d="M32 24 L48 39 L41 39 L32 31 L23 39 L16 39 Z" fill="url(#apex_neon)" fill-opacity="0.8"/>
+
+  <!-- Tactical Football Node at Crest Base -->
+  <circle cx="32" cy="48" r="6" fill="#1e0024" stroke="#00ff87" stroke-width="1.6"/>
+  <polygon points="32,44.5 34.8,46.8 33.7,49.8 30.3,49.8 29.2,46.8" fill="#00ff87"/>
+</svg>

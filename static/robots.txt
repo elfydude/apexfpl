@@ -1,0 +1,13 @@
+# robots.txt for Apex FPL Recommender
+User-agent: *
+Allow: /
+Disallow: /api/auth/
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# XML Sitemap
+Sitemap: https://apex-fpl.web.app/sitemap.xml

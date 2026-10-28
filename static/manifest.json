@@ -1,0 +1,30 @@
+{
+  "name": "Apex FPL Recommender",
+  "short_name": "Apex FPL",
+  "description": "Real-Time Expected Points, Optimal Transfers and Lineup Strategy for Fantasy Premier League",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0a0d14",
+  "theme_color": "#00ff87",
+  "orientation": "any",
+  "categories": [
+    "sports",
+    "utilities",
+    "entertainment"
+  ],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

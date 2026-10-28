@@ -1,0 +1,24 @@
+# Environment & Secrets
+.env
+*.env
+data/users.json
+data/sessions.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# Logs & temp
+*.log
+scratch/
+.firebase/
+
+# OS artifacts
+.DS_Store
+Thumbs.db
