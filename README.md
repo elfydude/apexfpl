@@ -125,7 +125,13 @@ http://localhost:5050
 
 ## 📦 Deployment & CI/CD Pipeline
 
-The project features a unified continuous delivery pipeline configured in [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
+All cloud deployment assets, container specifications, and configurations are organized in the [`deployment/`](deployment/) directory:
+- [`Dockerfile`](deployment/Dockerfile) & [`.dockerignore`](deployment/.dockerignore): Production Python container definition
+- [`cloudbuild.yaml`](deployment/cloudbuild.yaml) & [`.gcloudignore`](deployment/.gcloudignore): GCP Cloud Build pipeline
+- [`firebase.json`](deployment/firebase.json) & [`.firebaserc`](deployment/.firebaserc): Firebase Hosting edge proxy configuration
+- [`deploy.sh`](deployment/deploy.sh): Automated local / terminal deployment script
+
+Continuous delivery is configured in [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
 
 ### Triggering Deployments
 Every `git push` to `main` automatically runs:

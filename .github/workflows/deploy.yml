@@ -31,6 +31,8 @@ jobs:
 
       - name: Deploy to Cloud Run
         run: |
+          cp deployment/Dockerfile ./Dockerfile
+          cp deployment/.dockerignore ./.dockerignore
           gcloud run deploy ${{ env.SERVICE_NAME }} \
             --source . \
             --project ${{ env.PROJECT_ID }} \
@@ -39,7 +41,11 @@ jobs:
             --allow-unauthenticated \
             --set-env-vars PYTHONUNBUFFERED=1 \
             --quiet
+          rm -f ./Dockerfile ./.dockerignore
 
       - name: Deploy to Firebase Hosting
         run: |
+          cp deployment/firebase.json ./firebase.json
+          cp deployment/.firebaserc ./.firebaserc
           npx -y firebase-tools deploy --only hosting:apex-fpl --project ${{ env.PROJECT_ID }} --non-interactive
+          rm -f ./firebase.json ./.firebaserc
