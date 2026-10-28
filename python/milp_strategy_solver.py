@@ -49,7 +49,7 @@ class MILPStrategySolver:
         player_multi_xp_map: Dict[int, Dict[str, Any]],
         player_projected_costs: Dict[int, float],
         chips_used: Optional[Dict[str, bool]] = None,
-        max_transfers_per_gw: int = 5
+        max_transfers_per_gw: int = 2
     ) -> Optional[Dict[str, Any]]:
         """
         Solves the MILP formulation for the target gameweeks.
@@ -177,11 +177,14 @@ class MILPStrategySolver:
                 # Captain points (1x extra, or 2x extra if TC is active)
                 c[idx_c(t_idx, i)] -= round((2.0 if is_tc_step else 1.0) * gw_temporal_weight * gw_xp, 4)
 
-            # Hit penalty: exactly 4.0 points penalty matching official FPL scoring deduction
-            c[idx_hits(t_idx)] += 4.0
+                # Transfer transaction friction: 0.35 xP per transfer to heavily discourage unnecessary transfer churn
+                c[idx_u(t_idx, i)] += 0.35
 
-            # Free Transfer equity incentive: 0.1 xP per banked FT to preserve transfer equity when rolling
-            c[idx_ft_banked(t_idx)] -= 0.10
+            # Hit penalty: 4.8 points (4.0 official FPL points deduction + 0.8 hurdle to strictly prevent low-conviction hits)
+            c[idx_hits(t_idx)] += 4.8
+
+            # Free Transfer equity incentive: 0.25 xP per banked FT to reward accumulating banked FTs (up to 5 FTs)
+            c[idx_ft_banked(t_idx)] -= 0.25
 
         # 5. Integrality and Bounds
         integrality = np.ones(TOTAL_VARS, dtype=np.int64)
@@ -302,8 +305,10 @@ class MILPStrategySolver:
                 add_constraint({idx_u(t_idx, i): 1.0, idx_w(t_idx, i): 1.0}, 0.0, 1.0)
 
             # Max transfers per gameweek to prevent excessive -4 hit churn
-            # Allow up to max_transfers_per_gw (or max(max_transfers_per_gw, ft_banked))
-            add_constraint({idx_u(t_idx, i): 1.0 for i in range(N)}, 0.0, float(max_transfers_per_gw))
+            # Cap regular gameweek transfers to max_transfers_per_gw (unless Wildcard/Free Hit chip is active)
+            is_wc_or_fh = (chip_action in ["wildcard", "freehit"] and t_idx == 0)
+            max_t_limit = 15.0 if is_wc_or_fh else float(max(1, min(2, max_transfers_per_gw)))
+            add_constraint({idx_u(t_idx, i): 1.0 for i in range(N)}, 0.0, max_t_limit)
 
             # C10: Budget Constraint
             cost_row = {}

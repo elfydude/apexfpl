@@ -585,8 +585,14 @@ class ChatFPLEngine:
                 "- Disciplinary risk reduces points: yellow cards (-1.0/90), red cards (-3.0/90), and fouls committed (-0.10/90).\n"
                 "- There is NO line-breaking pass boost added to xP (it was removed).\n"
                 "- Transfers in the Starting XI are heavily prioritized over bench depth.\n"
-                "- Only recommend transfers that provide positive net expected points improvement or free up budget; otherwise, rolling the transfer is recommended.\n"
-                "- Extra transfers beyond free transfers incur a -4 point hit.\n"
+                "- TRANSFER DISCIPLINE (CRITICAL):\n"
+                "  * Strongly DISCOURAGE making too many transfers in a single gameweek.\n"
+                "  * In the 2026/27 season, FPL rules permit banking up to 5 Free Transfers. Rolling transfers accumulates critical transfer equity for upcoming fixture swings and double gameweeks.\n"
+                "  * Discourage making sideways transfers for marginal (<0.5 xP) expected gains.\n"
+                "  * Strictly discourage taking -4 point hits. Only recommend a hit if the user has multiple confirmed injured or suspended starters.\n"
+                "  * Ground all advice directly in the user's starting XI, bench, budget in the bank, and available Free Transfers.\n"
+                "- REAL-TIME WEB SEARCH GROUNDING:\n"
+                "  * Google Search is enabled for your responses. Actively search the web for the latest breaking Premier League injury updates, press conference manager quotes, lineup confirmations, and live news when relevant.\n"
                 "- TRANSFERRED OUT PLAYERS: Players marked as is_transferred_out (or who moved abroad like Watkins to Al-Hilal, Martinelli to Al-Hilal, Jesus to Barcelona, Digne to PSG, Bailey, etc.) are INACTIVE in FPL. You must NEVER suggest buying them. If asked, confirm they have transferred out of the Premier League.\n"
                 "- INJURED & DOUBTFUL PLAYERS: NEVER recommend bringing in players marked as is_unavailable (0% chance) or doubtful (is_doubtful / chance_of_playing < 75%). Only recommend active, fully fit players.\n"
                 "- Conversational Guidelines: Be sharp, direct, intelligent, and insightful. Avoid reciting raw mathematical formulas unless asked.\n\n"
@@ -627,40 +633,79 @@ class ChatFPLEngine:
             if HAS_GOOGLE_GENAI:
                 client = genai.Client(api_key=self.gemini_api_key)
                 models_to_try = [
-                    "gemini-3.6-flash",
-                    "gemini-3.5-flash",
+                    "gemini-2.5-flash",
+                    "gemini-2.0-flash",
+                    "gemini-1.5-flash",
                     "gemini-flash-latest",
                     "gemini-3.8-flash",
-                    "gemini-3.5-flash-lite"
+                    "gemini-flash-lite-latest",
+                    "gemini-2.5-pro"
                 ]
+
+                # Google Search Tool initialization
+                search_tool = None
+                try:
+                    search_tool = types.Tool(google_search=types.GoogleSearch())
+                except Exception as e:
+                    print(f"[ChatFPL] GoogleSearch tool init: {e}")
+
+                # Format conversation history ensuring strict role alternation (user, model, user, ...)
+                contents = []
+                last_role = None
+                if history:
+                    for h in history[-8:]:
+                        r = "user" if h.get("role") in ["user", "human"] else "model"
+                        t = (h.get("text") or "").strip()
+                        if not t:
+                            continue
+                        if len(t) > 800:
+                            t = t[:800] + "..."
+                        if r == last_role and contents:
+                            prev_t = contents[-1].parts[0].text
+                            contents[-1] = types.Content(role=r, parts=[types.Part.from_text(text=f"{prev_t}\n{t}")])
+                        else:
+                            contents.append(types.Content(role=r, parts=[types.Part.from_text(text=t)]))
+                            last_role = r
+
+                if contents and contents[-1].role == "user":
+                    prev_t = contents[-1].parts[0].text
+                    contents[-1] = types.Content(role="user", parts=[types.Part.from_text(text=f"{prev_t}\n{user_msg}")])
+                else:
+                    contents.append(types.Content(role="user", parts=[types.Part.from_text(text=user_msg)]))
+
                 for model_name in models_to_try:
                     executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
                     try:
-                        # Assemble multi-turn conversation contents using types.Content
-                        contents = []
-                        if history:
-                            for h in history[-8:]:
-                                r = "user" if h.get("role") in ["user", "human"] else "model"
-                                t = (h.get("text") or "").strip()
-                                if t:
-                                    if len(t) > 600:
-                                        t = t[:600] + "..."
-                                    contents.append(types.Content(role=r, parts=[types.Part.from_text(text=t)]))
-                        contents.append(types.Content(role="user", parts=[types.Part.from_text(text=user_msg)]))
-
-                        config = types.GenerateContentConfig(
+                        config_search = types.GenerateContentConfig(
                             system_instruction=system_instruction,
-                            max_output_tokens=1200,
+                            tools=[search_tool] if search_tool else None,
+                            max_output_tokens=1500,
+                            temperature=0.6
+                        )
+                        config_basic = types.GenerateContentConfig(
+                            system_instruction=system_instruction,
+                            max_output_tokens=1500,
                             temperature=0.6
                         )
 
-                        future = executor.submit(
-                            client.models.generate_content,
-                            model=model_name,
-                            contents=contents,
-                            config=config
-                        )
-                        response = future.result(timeout=15.0)
+                        def execute_genai_call():
+                            if search_tool:
+                                try:
+                                    return client.models.generate_content(
+                                        model=model_name,
+                                        contents=contents,
+                                        config=config_search
+                                    )
+                                except Exception as st_err:
+                                    print(f"[ChatFPL] Google Search tool on {model_name} failed ({st_err}), falling back to direct generation")
+                            return client.models.generate_content(
+                                model=model_name,
+                                contents=contents,
+                                config=config_basic
+                            )
+
+                        future = executor.submit(execute_genai_call)
+                        response = future.result(timeout=20.0)
                         executor.shutdown(wait=False, cancel_futures=True)
 
                         if response and response.text:
@@ -785,17 +830,32 @@ class ChatFPLEngine:
         return "\n".join(lines)
 
     def _format_squad_context(self, user_squad: Optional[Dict[str, Any]], target_gw: int = 5) -> str:
-        """Constructs a compact context string of the user's squad."""
+        """Constructs a comprehensive, rich context string of the user's active squad."""
         if not user_squad or not user_squad.get("starters"):
             user_squad = self.re.get_default_squad()
 
         starters = [self.re.players_by_id[pid] for pid in user_squad.get("starters", []) if pid in self.re.players_by_id]
         bench = [self.re.players_by_id[pid] for pid in user_squad.get("bench", []) if pid in self.re.players_by_id]
-        bank = user_squad.get("bank", 0.5)
-        ft = user_squad.get("free_transfers", 1)
+        bank = float(user_squad.get("bank", 0.5))
+        ft = int(user_squad.get("free_transfers", 1))
 
-        starters_str = ", ".join([f"{p['web_name']} ({p['position']}, £{p['cost']}m, {p['expected_points']} xP)" for p in starters])
-        bench_str = ", ".join([f"{p['web_name']} ({p['position']}, £{p['cost']}m, {p['expected_points']} xP)" for p in bench])
+        def format_player_line(p):
+            fix = (p.get("upcoming_fixtures") or [{}])[0]
+            opp = fix.get("opponent", "OPP")
+            fdr = fix.get("difficulty", 3)
+            venue = "H" if fix.get("is_home") else "A"
+            flag = ""
+            if p.get("is_unavailable"):
+                flag = f" [INJURED/SUSPENDED: {p.get('injury_reason', 'Out')}]"
+            elif p.get("is_doubtful"):
+                flag = f" [DOUBTFUL: {p.get('chance_of_playing', 50)}% - {p.get('injury_reason', 'Flagged')}]"
+            return (
+                f"- {p['web_name']} ({p.get('team_short', 'PL')}, {p['position']}) | Price: £{p['cost']:.1f}m | "
+                f"GW{target_gw} xP: {p.get('expected_points', 0):.2f} | Fixture: vs {opp} ({venue}) [FDR {fdr}]{flag}"
+            )
+
+        starters_lines = [format_player_line(p) for p in starters]
+        bench_lines = [format_player_line(p) for p in bench]
 
         rec = self.re.recommend_transfers_and_chips(
             starters=[p["id"] for p in starters],
@@ -805,15 +865,24 @@ class ChatFPLEngine:
         )
 
         all_players = starters + bench
-        flagged = [f"{p['web_name']} ({p.get('injury_reason', 'Doubtful')}, {p.get('chance_of_playing', 0)}%)" for p in all_players if p.get('is_doubtful') or p.get('is_unavailable')]
-        flagged_str = f"\nInjuries/Flags in squad: {', '.join(flagged)}" if flagged else "\nNo injury flags in squad."
+        flagged = [p for p in all_players if p.get('is_doubtful') or p.get('is_unavailable')]
+        flagged_strs = [f"{p.get('web_name')} ({p.get('injury_reason', 'Flagged')})" for p in flagged]
+        flagged_summary = (
+            f"Injuries/Flags in squad: {', '.join(flagged_strs)}"
+            if flagged else "No active injury flags in squad."
+        )
+
+        top_captains = sorted(starters, key=lambda p: -p.get("expected_points", 0))[:2]
+        cap_summary = ", ".join([f"{p['web_name']} ({p.get('expected_points', 0):.2f} xP)" for p in top_captains])
 
         return (
-            f"Active Gameweek Target: Gameweek {target_gw} | Bank: £{bank:.1f}m | Free Transfers: {ft}\n"
-            f"Starters: {starters_str}\n"
-            f"Bench: {bench_str}\n"
-            f"Recommender Strategy: {rec.get('action')} | Net Gain: +{rec.get('net_xp_gain', 0):.2f} xP"
-            f"{flagged_str}"
+            f"USER SQUAD METRICS (GAMEWEEK {target_gw}):\n"
+            f"- In Bank: £{bank:.1f}m | Available Free Transfers: {ft} FT\n"
+            f"- Top Captaincy Contenders: {cap_summary}\n"
+            f"- Recommended Action: {rec.get('action_title', rec.get('action', 'Hold/Roll'))}\n"
+            f"- Squad Health: {flagged_summary}\n\n"
+            f"STARTING XI (11 players):\n" + "\n".join(starters_lines) + "\n\n"
+            f"BENCH (4 players):\n" + "\n".join(bench_lines)
         )
 
     def _process_native_query(self, text: str, user_squad: Optional[Dict[str, Any]] = None, history: Optional[List[Dict[str, Any]]] = None) -> Dict[str, Any]:
@@ -879,8 +948,16 @@ class ChatFPLEngine:
         if any(kw in low for kw in ["penalty", "penalties", "pen taker", "penalty taker", "free kick", "free-kick", "corners", "set piece", "set-piece"]):
             return self._handle_set_piece_query(text)
 
-        # 3. FPL Chips & Rule Inquiries (Wildcard, Free Hit, Bench Boost, TC, BPS, Hits)
-        if any(kw in low for kw in ["wildcard", "free hit", "bench boost", "triple captain", "tc", "chip", "chips", "bonus point", "bps", "price change", "price rise", "price fall", "-4 hit", "minus 4", "points hit", "how does free hit", "when to wildcard"]):
+        # 3. Transfer Volume, Discipline & Hit Penalty Inquiries ("How many transfers", "Should I take a hit", "Too many transfers")
+        if any(kw in low for kw in [
+            "how many transfer", "too many transfer", "take a hit", "should i take a hit",
+            "worth taking a hit", "multiple transfer", "how many transfers should i make",
+            "is a hit worth it", "take minus 4", "take a -4"
+        ]):
+            return self._handle_transfer_count_and_hit_discipline(text, user_squad)
+
+        # 3b. FPL Chips & Rule Inquiries (Wildcard, Free Hit, Bench Boost, TC, BPS)
+        if any(kw in low for kw in ["wildcard", "free hit", "bench boost", "triple captain", "tc", "chip", "chips", "bonus point", "bps", "price change", "price rise", "price fall", "how does free hit", "when to wildcard"]):
             return self._handle_fpl_rules_and_chips(text)
 
         # 4. Fixtures, Difficulty & Upcoming Schedules
@@ -1571,9 +1648,10 @@ class ChatFPLEngine:
             reply += f"- **Buy**: **{p_in['web_name']}** ({p_in['team_short']} • £{p_in['cost']:.1f}m • {p_in['expected_points']:.1f} pts)\n"
             reply += f"- **Why**: Easier fixture and higher goal threat. You gain **+{t['gain']:.1f} points** with £{t['new_bank']:.1f}m in the bank.\n\n"
         else:
-            reply = f"### 🛡️ Recommended Move: **Roll Your Transfer**\n\n"
-            reply += f"- **Why**: Your starting team is well set for this week. No single move provides a worthwhile boost.\n"
-            reply += f"- **Benefit**: Rolling gives you **2 free transfers** for Gameweek {target_gw + 1} to make bigger upgrades.\n\n"
+            next_ft = min(5, ft + 1)
+            reply = f"### 🛡️ Recommended Move: **Roll Your Free Transfer**\n\n"
+            reply += f"- **Why**: Your starting eleven is solid and fixture ratings are favorable. No single transfer provides a substantial enough upgrade to justify spending your transfer.\n"
+            reply += f"- **Transfer Discipline**: Rolling preserves your transfer equity and grows your balance to **{next_ft} Free Transfer{'s' if next_ft > 1 else ''}** for upcoming fixture swings, avoiding unnecessary point hits or squad churn.\n\n"
 
         # Flag any injured players
         injured = [p for p in starters if p.get("is_unavailable") or p.get("is_doubtful")]
@@ -1595,7 +1673,43 @@ class ChatFPLEngine:
             "suggestions": [
                 "Should I roll transfer?",
                 "Who should I captain this week?",
-                "Best replacement for my weakest player"
+                "Should I take a -4 hit?"
+            ]
+        }
+
+    def _handle_transfer_count_and_hit_discipline(self, text: str, user_squad: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        """Provides expert tactical guidance discouraging making too many transfers in a single GW or taking low-conviction hits."""
+        if not user_squad or not user_squad.get("starters"):
+            user_squad = self.re.get_default_squad()
+
+        bank = float(user_squad.get("bank", 0.5))
+        ft = int(user_squad.get("free_transfers", 1))
+        starters = [self.re.players_by_id[pid] for pid in user_squad.get("starters", []) if pid in self.re.players_by_id]
+        flagged_starters = [p for p in starters if p.get("is_unavailable") or p.get("is_doubtful")]
+
+        reply = "### 🛡️ Transfer Discipline & Hit Strategy Guide\n\n"
+        reply += f"You currently have **{ft} Free Transfer{'s' if ft != 1 else ''}** available and **£{bank:.1f}m** in the bank.\n\n"
+        reply += "**Key Principles on Transfer Volume in a Single Gameweek:**\n\n"
+        reply += "1. **Avoid Making Too Many Transfers in One GW**:\n"
+        reply += "   - Making 2+ or 3+ transfers in a single gameweek disrupts your starting XI continuity and burns valuable transfer equity on sideways moves that only yield fractional xP gains.\n"
+        reply += "   - Under official **2026/27 rules**, you can bank up to **5 Free Transfers**. Patience is heavily rewarded.\n\n"
+        reply += "2. **When to Roll Your Transfer**:\n"
+        reply += f"   - If your starting 11 is fit and has decent fixtures, **roll your transfer**! Rolling this week will grow your banked FT balance to **{min(5, ft + 1)} FTs** next gameweek.\n"
+        reply += "   - Multiple banked transfers allow you to target major fixture swings or double gameweeks without taking point penalties.\n\n"
+        reply += "3. **Should You Take a -4 Hit?**:\n"
+        if flagged_starters:
+            reply += f"   - ⚠️ You currently have **{len(flagged_starters)} flagged starter{'s' if len(flagged_starters) > 1 else ''}** ({', '.join(p['web_name'] for p in flagged_starters)}).\n"
+            reply += "   - A -4 point hit is **only justified** if an unavailable starter has 0 expected minutes and you have no playing bench cover, or if the incoming player has a massive immediate points advantage (>4.5 net xP).\n"
+        else:
+            reply += "   - ⛔ **Do not take a hit this gameweek**. Your starting XI has no confirmed injury crises. Taking a -4 point hit for speculative sideways transfers is statistically negative EV and damages your overall rank.\n"
+
+        return {
+            "success": True,
+            "reply": reply,
+            "suggestions": [
+                "Suggest a transfer strategy",
+                "Who should I captain this week?",
+                "Who should I bench?"
             ]
         }
 

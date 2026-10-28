@@ -518,8 +518,10 @@
         <div class="injuries-filter-pills" id="injuryFilterPills">
           <button type="button" class="inj-pill active" data-filter="ALL">All (<span id="injCountAll">0</span>)</button>
           <button type="button" class="inj-pill" data-filter="RED">🔴 Out (<span id="injCountRed">0</span>)</button>
-          <button type="button" class="inj-pill" data-filter="YELLOW">🟡 Doubt (<span id="injCountYellow">0</span>)</button>
-          <button type="button" class="inj-pill" data-filter="GREEN">🟢 Returning (<span id="injCountGreen">0</span>)</button>
+          <button type="button" class="inj-pill" data-filter="YELLOW">🟡 Doubt (<span
+              id="injCountYellow">0</span>)</button>
+          <button type="button" class="inj-pill" data-filter="GREEN">🟢 Returning (<span
+              id="injCountGreen">0</span>)</button>
         </div>
         <div class="injuries-scroll" id="injuryList">
           <div class="loading-state">Loading latest Premier League medical updates...</div>
@@ -689,7 +691,8 @@
       <!-- Executive KPI Dashboard -->
       <div class="mgw-kpi-grid">
         <div class="mgw-kpi-card highlight-card">
-          <div class="kpi-label">Net Projected Horizon Score</div>
+          <div class="kpi-label" title="Expected Points across the entire planning horizon. ">Net Projected Horizon
+            Score</div>
           <div class="kpi-value-row">
             <span class="kpi-value" id="mgwTotalXp">--</span>
             <span class="kpi-uplift-badge" id="mgwNetGainBadge">+0.0 xP Uplift</span>
@@ -981,7 +984,8 @@
             <div class="heatmap-pitch" id="heatmapPitch">
               <svg id="heatmapSvg" viewBox="0 0 105 68" class="heatmap-canvas"></svg>
             </div>
-            <div id="heatmapEmptyNote" class="heatmap-empty hidden">No positional activity recorded yet for this player.</div>
+            <div id="heatmapEmptyNote" class="heatmap-empty hidden">No positional activity recorded yet for this player.
+            </div>
           </div>
         </div>
 

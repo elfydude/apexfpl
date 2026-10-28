@@ -697,21 +697,17 @@ class StrategyEngine:
                 double_gain = best_double["horizon_gain"] if best_double else 0.0
                 triple_gain = best_triple["horizon_gain"] if best_triple else 0.0
 
-                # Priority A: Triple Transfer (When 3+ FTs banked and move improves team)
-                if current_ft >= 3 and best_triple and triple_gain >= 1.8 and (triple_gain >= double_gain + 0.3 or current_ft >= 4):
+                # Priority A: Triple Transfer (Strict: only when 4+ FTs banked and massive 3.5+ xP improvement)
+                if current_ft >= 4 and best_triple and triple_gain >= 3.5 and (triple_gain >= double_gain + 1.2 or current_ft >= 5):
                     chosen_move = best_triple
 
                 # Priority B: Double Transfer (When 2+ FTs banked and move improves team, or multiple flagged starters)
                 elif current_ft >= 2 and best_double:
                     if len(flagged_starters) >= 2:
                         chosen_move = best_double
-                    elif double_gain >= 1.2 and (double_gain >= single_gain + 0.3 or current_ft >= 3):
+                    elif double_gain >= 2.0 and (double_gain >= single_gain + 0.8 or current_ft >= 4):
                         chosen_move = best_double
-                    elif best_single and (single_gain >= 1.0 or len(flagged_starters) >= 1 or current_ft >= 5):
-                        chosen_move = best_single
-                    elif double_gain >= 0.8:
-                        chosen_move = best_double
-                    elif best_single and single_gain >= 0.6:
+                    elif best_single and (single_gain >= 1.2 or len(flagged_starters) >= 1 or current_ft >= 5):
                         chosen_move = best_single
                     else:
                         action = "ROLL_TRANSFER"
@@ -723,24 +719,21 @@ class StrategyEngine:
                             ft_s = "" if next_ft_count == 1 else "s"
                             action_title = f"Roll Free Transfer (Build to {next_ft_count} FT{ft_s})"
                             action_desc = (
-                                f"Starting XI is in peak form. Roll free transfer to accumulate transfer equity to {next_ft_count} FT{ft_s} "
-                                f"for upcoming fixture swings."
+                                f"Starting XI is balanced. Roll free transfer to accumulate transfer equity to {next_ft_count} FT{ft_s} "
+                                f"for upcoming fixture swings and avoid unnecessary squad churn."
                             )
                         total_transfers_rolled += 1
 
-                # Priority C: Double Transfer with Hit (-4) when 1 FT available but huge upside or crisis
-                elif current_ft == 1 and best_double and len(flagged_starters) >= 2:
-                    chosen_move = best_double
-
-                elif current_ft == 1 and best_double and (double_gain - 4.0 >= single_gain + 1.2) and double_gain >= 5.0:
+                # Priority C: Double Transfer with Hit (-4) only in an extreme injury crisis
+                elif current_ft == 1 and best_double and len(flagged_starters) >= 2 and double_gain >= 6.0:
                     chosen_move = best_double
 
                 # Priority D: Single Transfer (with 1+ FT available)
-                elif current_ft >= 1 and best_single and (current_ft >= 5 or len(flagged_starters) >= 1 or single_gain >= 0.8 or best_single["gw_gain"] >= 0.8):
+                elif current_ft >= 1 and best_single and (current_ft >= 5 or len(flagged_starters) >= 1 or single_gain >= 1.2 or best_single["gw_gain"] >= 1.0):
                     chosen_move = best_single
 
-                # Priority E: Single Transfer with -4 Hit when 0 FT available (only for injury crisis or huge gain)
-                elif current_ft == 0 and best_single and (len(flagged_starters) >= 1 or single_gain >= 4.5):
+                # Priority E: Single Transfer with -4 Hit when 0 FT available (strictly for injury crisis or 5.5+ xP gain)
+                elif current_ft == 0 and best_single and (len(flagged_starters) >= 1 or single_gain >= 5.5):
                     chosen_move = best_single
 
                 # Priority F: Roll Free Transfer (Under official 5-FT cap)
