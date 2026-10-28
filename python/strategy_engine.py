@@ -467,15 +467,15 @@ class StrategyEngine:
                 and p.get("status") not in ['u', 'n']
             ]
 
-            # Cache top targets per position sorted by remaining horizon xP with synergy
+            # Cache top targets per position sorted to maximize both horizon and immediate gameweek xP
             top_pool_by_pos = {}
             for pos in ["GKP", "DEF", "MID", "FWD"]:
                 pos_cands = [p for p in viable_pool if p["position"] == pos]
                 pos_cands.sort(
-                    key=lambda p: (get_p_horizon_xp(p["id"]) + get_rotation_synergy_bonus(p)),
+                    key=lambda p: (get_p_horizon_xp(p["id"]) + 1.25 * get_p_gw_xp(p["id"]) + get_rotation_synergy_bonus(p)),
                     reverse=True
                 )
-                top_pool_by_pos[pos] = pos_cands[:16]
+                top_pool_by_pos[pos] = pos_cands[:20]
 
             # ----------------------------------------------------
             # 1. Evaluate Single Transfers
@@ -505,7 +505,7 @@ class StrategyEngine:
                                 "cost_diff": round(p_in_cost - p_out_cost, 2)
                             })
 
-            single_candidates.sort(key=lambda m: m["horizon_gain"], reverse=True)
+            single_candidates.sort(key=lambda m: (m["horizon_gain"] + 0.6 * m.get("gw_gain", 0.0)), reverse=True)
             best_single = single_candidates[0] if single_candidates else None
 
             # ----------------------------------------------------
@@ -593,7 +593,7 @@ class StrategyEngine:
                                             "cost_diff": round(total_in_cost - (p_out1_cost + p_out2_cost), 2)
                                         })
 
-            double_candidates.sort(key=lambda m: m["horizon_gain"], reverse=True)
+            double_candidates.sort(key=lambda m: (m["horizon_gain"] + 0.6 * m.get("gw_gain", 0.0)), reverse=True)
             best_double = double_candidates[0] if double_candidates else None
 
             # ----------------------------------------------------
@@ -642,7 +642,7 @@ class StrategyEngine:
                                 })
 
                 if triple_candidates:
-                    triple_candidates.sort(key=lambda m: m["horizon_gain"], reverse=True)
+                    triple_candidates.sort(key=lambda m: (m["horizon_gain"] + 0.6 * m.get("gw_gain", 0.0)), reverse=True)
                     best_triple = triple_candidates[0]
 
             # ----------------------------------------------------

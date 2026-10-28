@@ -83,14 +83,22 @@ class MILPStrategySolver:
                 return 0.0
             return sum(next((g["xp"] for g in p_info["gw_breakdown"] if g["gameweek"] == gw), 0.0) for gw in target_gws)
 
-        # Select top candidates per position (Curated elite pool for ultra-fast solving)
+        # Select top candidates per position (Curated elite pool for maximizing both gameweek and horizon xP)
         cands_by_pos = {"GKP": [], "DEF": [], "MID": [], "FWD": []}
-        pos_quotas = {"GKP": 2, "DEF": 8, "MID": 8, "FWD": 5}
+        pos_quotas = {"GKP": 4, "DEF": 12, "MID": 12, "FWD": 8}
 
         for pos, quota in pos_quotas.items():
             pos_pool = [p for p in viable_pool if p["position"] == pos]
-            pos_pool.sort(key=lambda p: get_p_horizon_xp(p["id"]), reverse=True)
-            cands_by_pos[pos] = pos_pool[:quota]
+            top_h = sorted(pos_pool, key=lambda p: get_p_horizon_xp(p["id"]), reverse=True)[:quota]
+            top_gw = sorted(
+                pos_pool,
+                key=lambda p: max(
+                    [next((g["xp"] for g in player_multi_xp_map.get(p["id"], {}).get("gw_breakdown", []) if g["gameweek"] == gw), 0.0) for gw in target_gws] or [0.0]
+                ),
+                reverse=True
+            )[:max(2, quota // 2)]
+            combined = {p["id"]: p for p in top_h + top_gw}
+            cands_by_pos[pos] = list(combined.values())
 
         all_candidates = list(squad_players)
         added_ids = set(p["id"] for p in all_candidates)
@@ -152,26 +160,28 @@ class MILPStrategySolver:
 
         for t_idx, gw in enumerate(target_gws):
             is_tc_step = (t_idx == tc_step)
+            # Temporal weighting slightly favors earlier gameweeks (0.985^t) to guarantee maximum immediate GW points
+            # while driving global optimal points across the full horizon
+            gw_temporal_weight = round(0.985 ** t_idx, 4)
+
             for i, p in enumerate(all_candidates):
                 p_info = player_multi_xp_map.get(p["id"])
                 gw_xp = 0.0
                 if p_info:
                     gw_xp = next((g["xp"] for g in p_info["gw_breakdown"] if g["gameweek"] == gw), 0.0)
 
-                # Starter points (0.95 primary weight)
-                c[idx_x(t_idx, i)] -= round(0.95 * gw_xp, 4)
-                # Bench points (0.05 tie-breaker equity so solver maintains good squad depth)
-                c[idx_s(t_idx, i)] -= round(0.05 * gw_xp, 4)
+                # Starter points: Full 1.0 weight prioritized to maximize starting XI points every gameweek
+                c[idx_x(t_idx, i)] -= round(1.0 * gw_temporal_weight * gw_xp, 4)
+                # Bench points: minimal 0.01 tie-breaker so budget stays on the pitch in the starting XI
+                c[idx_s(t_idx, i)] -= round(0.01 * gw_temporal_weight * gw_xp, 4)
                 # Captain points (1x extra, or 2x extra if TC is active)
-                c[idx_c(t_idx, i)] -= round((2.0 if is_tc_step else 1.0) * gw_xp, 4)
+                c[idx_c(t_idx, i)] -= round((2.0 if is_tc_step else 1.0) * gw_temporal_weight * gw_xp, 4)
 
-            # Hit penalty: 4.0 points penalty + 0.2 hurdle to avoid low-conviction hits
-            c[idx_hits(t_idx)] += 4.2
+            # Hit penalty: exactly 4.0 points penalty matching official FPL scoring deduction
+            c[idx_hits(t_idx)] += 4.0
 
-            # Free Transfer equity incentive: Banked transfers provide strategic flexibility
-            # and optionality across the horizon. A modest incentive (-0.15 xP per banked FT)
-            # avoids wasteful sideways churn and ensures the solver accumulates FTs up to 5 when rolling.
-            c[idx_ft_banked(t_idx)] -= 0.15
+            # Free Transfer equity incentive: 0.1 xP per banked FT to preserve transfer equity when rolling
+            c[idx_ft_banked(t_idx)] -= 0.10
 
         # 5. Integrality and Bounds
         integrality = np.ones(TOTAL_VARS, dtype=np.int64)
