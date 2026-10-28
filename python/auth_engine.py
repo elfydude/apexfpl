@@ -16,7 +16,8 @@ import hashlib
 import re
 from typing import Dict, Any, Optional, Tuple
 
-DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..")) if os.path.exists(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))) else os.path.abspath(os.path.dirname(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "data")
 USERS_FILE = os.path.join(DATA_DIR, "users.json")
 SESSIONS_FILE = os.path.join(DATA_DIR, "sessions.json")
 

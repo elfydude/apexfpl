@@ -14,7 +14,8 @@ import urllib.request
 import time
 from typing import Dict, List, Any
 
-CACHE_DIR = os.path.join(os.path.dirname(__file__), "data")
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..")) if os.path.exists(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))) else os.path.abspath(os.path.dirname(__file__))
+CACHE_DIR = os.path.join(BASE_DIR, "data")
 HISTORY_CACHE_FILE = os.path.join(CACHE_DIR, "player_history_cache.json")
 BOOTSTRAP_FILE = os.path.join(CACHE_DIR, "fpl_bootstrap_cache.json")
 

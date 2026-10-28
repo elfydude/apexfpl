@@ -114,7 +114,7 @@ GEMINI_API_KEY=your_gemini_api_key_here
 
 ### 5. Run the Server
 ```bash
-python server.py
+python python/server.py
 ```
 Open your browser and navigate to:
 ```

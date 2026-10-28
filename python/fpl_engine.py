@@ -15,7 +15,8 @@ import urllib.request
 from datetime import datetime, timezone
 from typing import Dict, List, Any, Optional
 
-CACHE_DIR = os.path.join(os.path.dirname(__file__), "data")
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..")) if os.path.exists(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))) else os.path.abspath(os.path.dirname(__file__))
+CACHE_DIR = os.path.join(BASE_DIR, "data")
 FPL_CACHE_FILE = os.path.join(CACHE_DIR, "fpl_bootstrap_cache.json")
 FIXTURES_CACHE_FILE = os.path.join(CACHE_DIR, "fpl_fixtures_cache.json")
 CACHE_TTL_SECONDS = 900  # 15 minutes TTL for live FPL data

@@ -20,7 +20,7 @@ from datetime import datetime, timezone
 from typing import Dict, Any, Optional, List
 
 # Setup paths
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..")) if os.path.exists(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))) else os.path.abspath(os.path.dirname(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "data")
 STATUS_FILE = os.path.join(DATA_DIR, "gameweek_pipeline_status.json")
 

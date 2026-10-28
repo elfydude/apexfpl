@@ -19,7 +19,8 @@ except Exception:
 from fotmob import FotMob
 from recommender_engine import RecommenderEngine
 
-CACHE_PATH = os.path.join("data", "fotmob_player_details_cache.json")
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..")) if os.path.exists(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))) else os.path.abspath(os.path.dirname(__file__))
+CACHE_PATH = os.path.join(BASE_DIR, "data", "fotmob_player_details_cache.json")
 cache = {}
 if os.path.exists(CACHE_PATH):
     try:

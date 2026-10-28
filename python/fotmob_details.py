@@ -14,7 +14,8 @@ from typing import Dict, Any, Optional
 
 logger = logging.getLogger("FotMobDetails")
 
-CACHE_DIR = os.path.join(os.path.dirname(__file__), "data")
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..")) if os.path.exists(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))) else os.path.abspath(os.path.dirname(__file__))
+CACHE_DIR = os.path.join(BASE_DIR, "data")
 CACHE_FILE = os.path.join(CACHE_DIR, "fotmob_player_details_cache.json")
 
 class FotMobDetailsManager:

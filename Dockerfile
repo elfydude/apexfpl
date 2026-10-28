@@ -1,7 +1,8 @@
 FROM python:3.11-slim
 
 ENV PYTHONUNBUFFERED=1 \
-    PORT=8080
+    PORT=8080 \
+    PYTHONPATH=/app/python:/app
 
 WORKDIR /app
 
@@ -17,4 +18,4 @@ RUN mkdir -p data
 
 EXPOSE 8080
 
-CMD ["python", "server.py"]
+CMD ["python", "python/server.py"]

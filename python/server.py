@@ -35,8 +35,12 @@ try:
 except Exception:
     pass
 
+# Ensure python module directory is on sys.path
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 PORT = int(os.environ.get("PORT", 5050))
-STATIC_DIR = os.path.join(os.path.dirname(__file__), "static")
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..")) if os.path.exists(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "static"))) else os.path.abspath(os.path.dirname(__file__))
+STATIC_DIR = os.path.join(ROOT_DIR, "static")
 
 engine = RecommenderEngine()
 chat_engine = ChatFPLEngine(engine)

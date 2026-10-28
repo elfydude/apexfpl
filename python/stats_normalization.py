@@ -26,7 +26,8 @@ if not logger.handlers:
     logger.addHandler(handler)
     logger.setLevel(logging.INFO)
 
-CACHE_DIR = os.path.join(os.path.dirname(__file__), "data")
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..")) if os.path.exists(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))) else os.path.abspath(os.path.dirname(__file__))
+CACHE_DIR = os.path.join(BASE_DIR, "data")
 MATCH_HISTORY_CACHE_FILE = os.path.join(CACHE_DIR, "player_match_history_cache.json")
 CACHE_TTL_SECONDS = 3600 * 6  # 6 hours TTL for match histories
 
