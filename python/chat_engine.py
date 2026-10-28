@@ -48,18 +48,23 @@ class ChatFPLEngine:
         if key:
             return key.strip()
 
-        env_file = os.path.join(os.path.dirname(__file__), ".env")
-        if os.path.exists(env_file):
-            try:
-                with open(env_file, "r", encoding="utf-8") as f:
-                    for line in f:
-                        line = line.strip()
-                        if line.startswith("GEMINI_API_KEY=") or line.startswith("GOOGLE_API_KEY="):
-                            val = line.split("=", 1)[1].strip().strip('"').strip("'")
-                            if val:
-                                return val
-            except Exception:
-                pass
+        candidates = [
+            os.path.join(os.getcwd(), ".env"),
+            os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".env")),
+            os.path.abspath(os.path.join(os.path.dirname(__file__), ".env")),
+        ]
+        for env_file in candidates:
+            if os.path.exists(env_file):
+                try:
+                    with open(env_file, "r", encoding="utf-8") as f:
+                        for line in f:
+                            line = line.strip()
+                            if line.startswith("GEMINI_API_KEY=") or line.startswith("GOOGLE_API_KEY="):
+                                val = line.split("=", 1)[1].strip().strip('"').strip("'")
+                                if val:
+                                    return val
+                except Exception:
+                    pass
         return None
 
     def set_gemini_api_key(self, api_key: str) -> bool:
@@ -69,9 +74,9 @@ class ChatFPLEngine:
             return False
         self.gemini_api_key = clean_key
         os.environ["GEMINI_API_KEY"] = clean_key
-        env_file = os.path.join(os.path.dirname(__file__), ".env")
+        target_env = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".env"))
         try:
-            with open(env_file, "w", encoding="utf-8") as f:
+            with open(target_env, "w", encoding="utf-8") as f:
                 f.write(f"GEMINI_API_KEY={clean_key}\n")
         except Exception:
             pass
@@ -602,7 +607,8 @@ class ChatFPLEngine:
                 "3. ACCURATE STATS: Quote exact metrics from the verified FPL and FotMob database provided in context. When asked for a specific stat, highlight it prominently, but provide useful context (e.g. appearances, minutes, rank) if relevant to give a complete, helpful answer.\n"
                 "4. MOBILE-FRIENDLY FORMATTING: Use structured markdown (bold key names, bullet points for comparative breakdowns, short tables if <=3 columns). Avoid wide horizontal tables with more than 3 columns.\n"
                 "5. NATURAL CONVERSATIONAL TONE: Speak like an elite FPL analyst. Be engaging, nuanced, and strategic. Avoid repetitive robotic boilerplate.\n"
-                "6. MULTI-TURN MEMORY: Seamlessly carry context across turns ('him', 'replace him', 'who else', 'what about Saka?').\n\n"
+                "6. MULTI-TURN MEMORY: Seamlessly carry context across turns ('him', 'replace him', 'who else', 'what about Saka?').\n"
+                "7. SQUAD & INJURY DILEMMAS (DEEP REASONING): When the user asks about injuries, flagged players, who to sell, or squad trade-offs, NEVER output canned templates or lists of questions to ask. Provide thorough tactical reasoning: triage 0% unavailable players vs 75% doubtful players (who should be started with bench cover), calculate total budget (sale price + bank), recommend 2-3 specific verified candidates with xP and fixtures, and advise on 1 FT vs -4 hit trade-off against their bench cover.\n\n"
                 f"CURRENT USER SQUAD & RECS (GAMEWEEK {target_gw}):\n{squad_info}\n"
             )
 
@@ -969,6 +975,35 @@ class ChatFPLEngine:
             any(p in low for p in ["mid", "def", "fwd", "gk", "keeper", "striker", "defender", "midfielder"]) and any(w in low for w in ["best", "top", "pick", "good", "recommend", "under", "cheap", "value", "cost"])
         ):
             return self._handle_budget_scouting(text)
+
+        # 5b. Squad Health & Injury Triage Dilemmas ("who should I sell first", "saka and joao pedro are injured", "flagged players", "injury dilemma", "injuries in my squad")
+        injury_dilemma_cues = [
+            "who to sell first", "who should i sell first", "which to sell first", "which one to sell",
+            "injured players in my squad", "flagged players", "squad injuries", "injury dilemma",
+            "injury crisis", "what should i do with injuries", "what to do about injuries",
+            "multiple injuries", "too many injuries", "sell first", "prioritize selling",
+            "who is the priority sale", "who to get rid of first", "what to do with my injuries",
+            "injured starters", "injury problem", "injured in my team"
+        ]
+        squad_flags = []
+        if user_squad:
+            all_s = user_squad.get("starters", []) + user_squad.get("bench", [])
+            squad_flags = [
+                self.re.players_by_id[pid] for pid in all_s
+                if pid in self.re.players_by_id and (
+                    self.re.players_by_id[pid].get("is_doubtful")
+                    or self.re.players_by_id[pid].get("is_unavailable")
+                    or (self.re.players_by_id[pid].get("chance_of_playing") is not None and self.re.players_by_id[pid].get("chance_of_playing") < 100)
+                )
+            ]
+
+        flagged_names_mentioned = [p for p in squad_flags if p.get("web_name", "").lower() in low or p.get("second_name", "").lower() in low]
+        if (
+            any(kw in low for kw in injury_dilemma_cues)
+            or (len(flagged_names_mentioned) >= 2 and any(k in low for k in ["injured", "injury", "sell", "transfer", "replace", "do", "what", "first", "advice", "out"]))
+            or (len(squad_flags) >= 1 and any(k in low for k in ["injured", "injury", "injuries", "flags", "flagged", "doubt", "doubtful", "hurt", "out"]) and any(k in low for k in ["squad", "team", "my", "who", "what", "priority", "first", "sell", "deal", "do", "fix"]))
+        ):
+            return self._handle_squad_triage_and_reasoning(text, user_squad, history=history)
 
         # 6. Real-time Transfer Strategy Suggestions
         if any(kw in low for kw in ["strategy", "what transfer", "suggest transfer", "who to transfer", "transfers to make", "fix my team", "what should i do", "transfer advice"]):
@@ -2824,55 +2859,179 @@ class ChatFPLEngine:
             ]
         }
 
-    def _handle_smart_discovery(self, text: str, user_squad: Optional[Dict[str, Any]] = None, history: Optional[List[Dict[str, Any]]] = None) -> Dict[str, Any]:
-        """Squad-aware dynamic discovery response replacing the static boilerplate help."""
+    def _handle_squad_triage_and_reasoning(self, text: str, user_squad: Optional[Dict[str, Any]] = None, history: Optional[List[Dict[str, Any]]] = None) -> Dict[str, Any]:
+        """Deep tactical reasoning and priority triage for squad health, injuries, and transfer dilemmas."""
         if not user_squad or not user_squad.get("starters"):
             user_squad = self.re.get_default_squad()
 
         starters = [self.re.players_by_id[pid] for pid in user_squad.get("starters", []) if pid in self.re.players_by_id]
         bench = [self.re.players_by_id[pid] for pid in user_squad.get("bench", []) if pid in self.re.players_by_id]
-        bank = user_squad.get("bank", 0.5)
-        ft = user_squad.get("free_transfers", 1)
+        bank = float(user_squad.get("bank", 0.5))
+        ft = int(user_squad.get("free_transfers", 1))
 
         all_squad = starters + bench
-        all_squad.sort(key=lambda x: -x.get("expected_points", 0))
-        star_player = all_squad[0] if all_squad else None
+        target_gw = self.current_gameweek
 
-        flags = [p for p in all_squad if p.get("is_doubtful") or p.get("is_unavailable")]
+        # Categorize flagged players by availability
+        flags = [p for p in all_squad if p.get("is_doubtful") or p.get("is_unavailable") or (p.get("chance_of_playing") is not None and p.get("chance_of_playing") < 100)]
+        zero_or_out = [p for p in flags if (p.get("chance_of_playing", 0) or 0) <= 25 or p.get("is_unavailable")]
+        doubtful = [p for p in flags if p not in zero_or_out]
 
-        reply = f"### ⚡ ChatFPL Tactical Advisory\n\n"
-        reply += f"I analyzed your active squad (**£{bank:.1f}m** in bank • **{ft} Free Transfer{'s' if ft != 1 else ''}**):\n\n"
+        # Bench health
+        playing_bench = [p for p in bench if not p.get("is_unavailable") and not p.get("is_doubtful") and p.get("chance_of_playing", 100) >= 75]
 
-        if flags:
-            reply += f"🚨 **Priority Alert**: You have **{len(flags)} flagged player{'s' if len(flags) > 1 else ''}** in your squad:\n"
-            for p in flags:
-                reply += f"- **{p.get('web_name')}** ({p.get('position')}) — *{p.get('injury_reason', 'Doubtful')}* ({p.get('chance_of_playing', 0)}%)\n"
-            reply += "Consider addressing these availability issues before the gameweek deadline.\n\n"
-        elif star_player:
-            reply += f"🌟 **Key Talisman**: **{star_player.get('web_name')}** is projected for **{star_player.get('expected_points', 0):.2f} xP** and is your top captaincy contender this week.\n\n"
+        # If no flags exist, provide a comprehensive squad optimization review
+        if not flags:
+            starters_sorted = sorted(starters, key=lambda p: -p.get("expected_points", 0))
+            talisman = starters_sorted[0] if starters_sorted else None
+            weakest = starters_sorted[-1] if starters_sorted else None
+            
+            reply = f"### 🛡️ Active Squad Optimization (Gameweek {target_gw})\n\n"
+            reply += f"Your squad is currently in **excellent health** with **0 flagged players**, **£{bank:.1f}m in the bank**, and **{ft} Free Transfer{'s' if ft != 1 else ''}**.\n\n"
+            
+            if talisman:
+                fix = talisman.get("upcoming_fixtures", [{}])[0]
+                reply += f"🌟 **Key Talisman**: **{talisman.get('web_name')}** ({talisman.get('team_short')} • £{talisman.get('cost'):.1f}m) leads your squad with **{talisman.get('expected_points'):.2f} xP** vs {fix.get('opponent', 'OPP')} and is your primary captaincy pick.\n\n"
+            
+            if ft >= 2 and weakest:
+                reply += f"💡 **Transfer Recommendation**: With **{ft} FTs**, consider using 1 transfer to upgrade your lowest projected starter **{weakest.get('web_name')}** ({weakest.get('expected_points'):.2f} xP). With £{bank:.1f}m in reserve, you can comfortably target higher-ceiling options without disturbing your core.\n\n"
+            else:
+                reply += f"💡 **Transfer Strategy**: **Roll your Free Transfer**. Because you have no injury fires to put out, rolling allows you to accumulate up to 5 banked transfers for future fixture swings and double gameweeks.\n\n"
+                
+            return {
+                "success": True,
+                "reply": reply,
+                "suggestions": [
+                    "Who should I captain this week?",
+                    "Who should I bench?",
+                    "Suggest a transfer strategy"
+                ]
+            }
 
-        reply += (
-            "**Tactical Actions You Can Take Right Now:**\n"
-            "- 🎯 **Transfer Strategy**: Ask *\"Suggest a transfer strategy\"* or *\"Replace [Player]\"*\n"
-            "- 👑 **Captaincy Decision**: Ask *\"Who should I captain this week?\"*\n"
-            "- 📋 **Bench Optimization**: Ask *\"Who should I bench?\"*\n"
-            "- 🔍 **Player Scouting**: Ask *\"Best differential midfielder under 7.5m\"*\n"
-            "- ⚡ **Player & Set-Piece Stats**: Ask *\"What are Palmer's stats?\"* or *\"Who takes penalties for Arsenal?\"*\n\n"
-            "Ask any question about your squad, player replacements, or Premier League fixtures!"
-        )
+        # FLAG TRIAGE & INJURY REASONING
+        reply = f"### 🩺 Squad Injury Triage & Priority Analysis (Gameweek {target_gw})\n\n"
+        reply += f"I analyzed your squad: **£{bank:.1f}m in the bank** and **{ft} Free Transfer{'s' if ft != 1 else ''}** available across **{len(flags)} flagged player{'s' if len(flags) > 1 else ''}**.\n\n"
 
-        suggs = [
-            "Suggest a transfer strategy",
-            "Who should I bench this week?",
-            "Who should I captain?",
-            f"Best replacement for {flags[0].get('web_name')}" if flags else "Best differential forward under 7.5m"
-        ]
+        # 1. Availability Assessment & Urgency Tiering
+        reply += "#### 1. Urgency & Availability Assessment\n"
+        if zero_or_out:
+            zero_names = ", ".join([f"**{p.get('web_name')}** ({p.get('position')}, £{p.get('cost'):.1f}m)" for p in zero_or_out])
+            reply += f"- 🚨 **Tier 1 — High Urgency (0% chance / Ruled Out)**: {zero_names}\n"
+            for p in zero_or_out:
+                reason = p.get('injury_reason') or 'Ruled out'
+                reply += f"  * **{p.get('web_name')}**: *{reason}* (0% chance). Holding him as a starter guarantees 0 points unless covered by an autosub.\n"
+        
+        if doubtful:
+            doubt_names = ", ".join([f"**{p.get('web_name')}** ({p.get('position')}, £{p.get('cost'):.1f}m)" for p in doubtful])
+            reply += f"- 🟡 **Tier 2 — Manageable Doubt ({', '.join([str(p.get('chance_of_playing', 75)) + '%' for p in doubtful])})**: {doubt_names}\n"
+            for p in doubtful:
+                pct = p.get("chance_of_playing", 75)
+                reason = p.get("injury_reason") or "Minor knock"
+                reply += f"  * **{p.get('web_name')}**: *{reason}* ({pct}% chance). **Do not burn a transfer here.** A 75% flag indicates a high likelihood of starting or featuring; start him in your XI and let your first bench defender provide automatic cover.\n"
+        
+        reply += "\n"
+
+        # 2. Priority Sale Ranking & Financial Power
+        reply += "#### 2. Transfer Priority & Purchasing Power\n"
+        priority_sales = sorted(zero_or_out, key=lambda p: (-p.get("cost", 0), p.get("position") != "MID"))
+        
+        rep_recommendations = {}
+        for p in priority_sales[:2]:
+            pos = p.get("position")
+            out_cost = p.get("cost", 0)
+            max_budget = out_cost + bank
+            reps = [
+                c for c in self.re.unified_players
+                if c.get("position") == pos
+                and c.get("id") != p.get("id")
+                and c.get("id") not in [s.get("id") for s in all_squad]
+                and not c.get("is_unavailable")
+                and not c.get("is_doubtful")
+                and c.get("chance_of_playing", 100) >= 75
+                and c.get("cost", 99.0) <= max_budget
+            ]
+            reps.sort(key=lambda x: -x.get("expected_points", 0))
+            rep_recommendations[p.get("id")] = (p, max_budget, reps[:3])
+
+        if len(priority_sales) >= 2:
+            p1 = priority_sales[0]
+            p2 = priority_sales[1]
+            b1 = p1.get("cost", 0) + bank
+            b2 = p2.get("cost", 0) + bank
+            reply += (
+                f"You have **{ft} Free Transfer** to allocate between your confirmed absences:\n"
+                f"- **Option A (Priority Sale: {p1.get('web_name')} — £{p1.get('cost'):.1f}m)**: Unlocks a massive **£{b1:.1f}m** total budget. "
+                f"Because {p1.get('web_name')} ties up significant capital, replacing him allows you to bring in virtually any premium {p1.get('position')} in the game.\n"
+                f"- **Option B (Forward Sale: {p2.get('web_name')} — £{p2.get('cost'):.1f}m)**: Unlocks **£{b2:.1f}m** total budget to bring in an elite starting striker.\n\n"
+            )
+        elif priority_sales:
+            p1 = priority_sales[0]
+            b1 = p1.get("cost", 0) + bank
+            reply += (
+                f"With **{ft} Free Transfer**, your primary priority move is selling **{p1.get('web_name')}** (£{p1.get('cost'):.1f}m).\n"
+                f"Coupled with your £{bank:.1f}m bank balance, you have **£{b1:.1f}m** to secure an elite replacement.\n\n"
+            )
+
+        # 3. Top Replacement Options
+        reply += "#### 3. Top Recommended Replacements\n"
+        for pid, (p_out, max_b, candidates) in rep_recommendations.items():
+            reply += f"**Replacements for {p_out.get('web_name')} (Budget: £{max_b:.1f}m):**\n"
+            if candidates:
+                for idx, c in enumerate(candidates, 1):
+                    fix = c.get("upcoming_fixtures", [{}])[0]
+                    opp = fix.get("opponent", "OPP")
+                    diff = fix.get("difficulty", 3)
+                    diff_str = "Favorable" if diff <= 2 else ("Tough" if diff >= 4 else "Moderate")
+                    venue = "H" if fix.get("is_home") else "A"
+                    reply += (
+                        f"{idx}. **{c.get('web_name')}** ({c.get('team_short')} • £{c.get('cost'):.1f}m) — "
+                        f"**{c.get('expected_points'):.2f} xP** vs {opp} ({venue}, {diff_str})\n"
+                    )
+            else:
+                reply += "- No immediate candidates found within budget.\n"
+            reply += "\n"
+
+        # 4. Should You Take a -4 Hit? (Transfer Discipline)
+        reply += "#### 4. The -4 Point Hit Dilemma\n"
+        if len(zero_or_out) >= 2 and ft == 1:
+            if len(playing_bench) >= 1:
+                first_sub = playing_bench[0]
+                reply += (
+                    f"- ⛔ **Do NOT take a -4 hit**. Use your **1 Free Transfer** on your primary sale, and let your bench cover the other spot.\n"
+                    f"- You have playing bench cover: **{first_sub.get('web_name')}** ({first_sub.get('position')}, £{first_sub.get('cost'):.1f}m) is fit with expected minutes.\n"
+                    f"- **Statistical Reality**: A -4 hit requires the incoming player to outscore your bench replacement by **at least 5 points** just to achieve a net gain of +1 point. That is statistically negative EV.\n"
+                )
+            else:
+                reply += (
+                    "- ⚠️ **Consider a -4 hit ONLY if your bench has 0 playing minutes**. In that scenario, an extra transfer avoids fielding 10 men and guarantees starting points.\n"
+                )
+        elif ft >= len(zero_or_out):
+            reply += (
+                f"- ✅ **No point hit required**! You have **{ft} Free Transfers**, which completely covers your urgent transfers without taking any point penalty.\n"
+            )
+        else:
+            reply += (
+                "- ⛔ **Hold off on point hits**. Preserve your transfer equity unless you cannot field 11 active starters.\n"
+            )
+
+        # Dynamic contextual suggestions
+        suggs = []
+        if priority_sales:
+            suggs.append(f"Best replacement for {priority_sales[0].get('web_name')}")
+            if len(priority_sales) > 1:
+                suggs.append(f"Best replacement for {priority_sales[1].get('web_name')}")
+        suggs.append("Who should I bench this week?")
+        suggs.append("Who should I captain this week?")
 
         return {
             "success": True,
-            "reply": reply,
-            "suggestions": suggs
+            "reply": reply.strip(),
+            "suggestions": suggs[:3]
         }
+
+    def _handle_smart_discovery(self, text: str, user_squad: Optional[Dict[str, Any]] = None, history: Optional[List[Dict[str, Any]]] = None) -> Dict[str, Any]:
+        """Squad-aware dynamic discovery response with deep reasoning."""
+        return self._handle_squad_triage_and_reasoning(text, user_squad, history=history)
 
     def _generate_contextual_suggestions(self, query: str, reply_text: str = "") -> List[str]:
         """Generates dynamic follow-up suggestions based on query and response context."""

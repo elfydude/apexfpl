@@ -42,6 +42,13 @@ PORT = int(os.environ.get("PORT", 5050))
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..")) if os.path.exists(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "static"))) else os.path.abspath(os.path.dirname(__file__))
 STATIC_DIR = os.path.join(ROOT_DIR, "static")
 
+# Load environment variables from root .env
+try:
+    from dotenv import load_dotenv
+    load_dotenv(os.path.join(ROOT_DIR, ".env"))
+except ImportError:
+    pass
+
 engine = RecommenderEngine()
 chat_engine = ChatFPLEngine(engine)
 auth_engine = AuthEngine(engine.fpl)
