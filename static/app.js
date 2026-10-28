@@ -670,11 +670,7 @@ function renderMultiGwKpis(data) {
 
   if (totalXpEl) {
     totalXpEl.textContent = `${data.optimized_total_xp} xP`;
-    if (totalHitCost > 0) {
-      totalXpEl.title = `Net Projected Horizon Score: Total starting XI expected points across all gameweeks (${data.gross_total_xp || (data.optimized_total_xp + totalHitCost).toFixed(1)} xP) minus ${totalHitCost} pts transfer hit deductions = ${data.optimized_total_xp} net xP.`;
-    } else {
-      totalXpEl.title = `Net Projected Horizon Score: Total cumulative expected points (${data.optimized_total_xp} xP) of your starting XI across the entire horizon with 0 transfer hit deductions.`;
-    }
+    totalXpEl.removeAttribute("title");
   }
   if (netGainEl) {
     const sign = data.net_xp_gain >= 0 ? "+" : "";
@@ -905,7 +901,7 @@ function renderMultiGwRoadmap(roadmap) {
             <span class="stat-chip-label">Captain</span>
             <span class="stat-chip-val">${step.captain ? escapeHtml(step.captain.web_name) : '--'}</span>
           </div>
-          <div class="roadmap-list-stat-chip" title="${(step.hit_cost > 0 || step.hits_taken > 0) ? `Net Projected Expected Points (xP): Gross XI score (${(step.gross_xi_xp !== undefined ? step.gross_xi_xp : (step.projected_xi_xp + (step.hit_cost || step.hits_taken * 4))).toFixed(1)} xP) minus ${step.hit_cost || step.hits_taken * 4} pts transfer hit deduction = ${step.projected_xi_xp} net xP for GW ${step.gameweek}.` : `Net Projected Expected Points (xP): Expected starting XI score (${step.projected_xi_xp} xP) including captaincy multiplier and 0 hit penalties for GW ${step.gameweek}.`}">
+          <div class="roadmap-list-stat-chip" title="Net Projected xP for GW ${step.gameweek}">
             <span class="stat-chip-label">Net Projected xP</span>
             <span class="stat-chip-val" style="color:var(--fpl-cyan);">
               ${step.projected_xi_xp} xP
