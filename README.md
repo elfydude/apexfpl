@@ -46,20 +46,20 @@
 
 ```mermaid
 graph TD
-    User([FPL Manager]) -->|HTTPS / Browsing| Firebase[Firebase Hosting CDN: apex-fpl.web.app]
-    Firebase -->|Static Assets JS/CSS/HTML| User
-    Firebase -->|API Rewrites: /api/*| CloudRun[Google Cloud Run: apexfpl]
+    User(["FPL Manager"]) -->|"HTTPS / Browsing"| Firebase["Firebase Hosting CDN: apex-fpl.web.app"]
+    Firebase -->|"Static Assets JS/CSS/HTML"| User
+    Firebase -->|"API Rewrites: /api/*"| CloudRun["Google Cloud Run: apexfpl"]
     
-    CloudRun --> Recommender[Recommender Engine]
-    CloudRun --> MILP[MILP Strategy Solver (SciPy / NumPy)]
-    CloudRun --> ChatEngine[Gemini AI Chat Engine]
+    CloudRun --> Recommender["Recommender Engine"]
+    CloudRun --> MILP["MILP Strategy Solver (SciPy / NumPy)"]
+    CloudRun --> ChatEngine["Gemini AI Chat Engine"]
     
-    Recommender --> FPL[Official FPL API]
-    Recommender --> FotMob[FotMob Statistics API]
+    Recommender --> FPL["Official FPL API"]
+    Recommender --> FotMob["FotMob Statistics API"]
     
-    GitHub[(GitHub Repo)] -->|Push to main| GHActions[GitHub Actions CI/CD]
-    GHActions -->|Build & Deploy| CloudRun
-    GHActions -->|Deploy & Invalidate| Firebase
+    GitHub[("GitHub Repo")] -->|"Push to main"| GHActions["GitHub Actions CI/CD"]
+    GHActions -->|"Build & Deploy"| CloudRun
+    GHActions -->|"Deploy & Invalidate"| Firebase
 ```
 
 ---
