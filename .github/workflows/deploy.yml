@@ -42,6 +42,4 @@ jobs:
 
       - name: Deploy to Firebase Hosting
         run: |
-          npm install -g firebase-tools
-          export GOOGLE_APPLICATION_CREDENTIALS="${{ steps.auth.outputs.credentials_file_path }}"
-          firebase deploy --only hosting --project ${{ env.PROJECT_ID }} --non-interactive
+          npx -y firebase-tools deploy --only hosting:apex-fpl --project ${{ env.PROJECT_ID }} --non-interactive
