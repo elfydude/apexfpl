@@ -315,7 +315,7 @@ class ChatFPLEngine:
                 if chosen and chosen["id"] not in found_ids:
                     found.append(chosen)
                     found_ids.add(chosen["id"])
-                    if len(found) >= 2:
+                    if len(found) >= 6:
                         break
         return found
 
@@ -409,6 +409,123 @@ class ChatFPLEngine:
                 "deadline_time": "",
                 "deadline_display": "Upcoming"
             }
+
+    def _get_live_platform_stats_context(self, user_msg: str, target_gw: int = 5) -> str:
+        """Extracts and formats verified macro-level statistics and rankings from the active FPL database and website engines."""
+        low = user_msg.lower()
+        sections = []
+
+        # 1. Active FPL Database Leaders by Projected Points (xP) across Positions
+        valid_active = [
+            p for p in self.re.unified_players
+            if not p.get("is_unavailable")
+            and not p.get("is_transferred_out")
+            and not p.get("is_doubtful")
+            and p.get("chance_of_playing", 100) >= 75
+        ]
+
+        def get_top_by_pos(pos: str, n: int = 4):
+            by_pos = [p for p in valid_active if p.get("position") == pos]
+            by_pos.sort(key=lambda x: -x.get("expected_points", 0))
+            return by_pos[:n]
+
+        top_fwds = get_top_by_pos("FWD", 4)
+        top_mids = get_top_by_pos("MID", 4)
+        top_defs = get_top_by_pos("DEF", 4)
+        top_gkps = get_top_by_pos("GKP", 3)
+
+        xp_lines = ["VERIFIED WEBSITE DATABASE - TOP PROJECTED POINTS (xP) FOR GW" + str(target_gw) + ":"]
+        for p in top_fwds:
+            fix = (p.get("upcoming_fixtures") or [{}])[0]
+            xp_lines.append(f"- FWD: {p.get('web_name')} ({p.get('team_short')} • £{p.get('cost', 0):.1f}m) | xP: {p.get('expected_points', 0):.2f} | vs {fix.get('opponent', 'OPP')} [FDR {fix.get('difficulty', 3)}]")
+        for p in top_mids:
+            fix = (p.get("upcoming_fixtures") or [{}])[0]
+            xp_lines.append(f"- MID: {p.get('web_name')} ({p.get('team_short')} • £{p.get('cost', 0):.1f}m) | xP: {p.get('expected_points', 0):.2f} | vs {fix.get('opponent', 'OPP')} [FDR {fix.get('difficulty', 3)}]")
+        for p in top_defs:
+            fix = (p.get("upcoming_fixtures") or [{}])[0]
+            xp_lines.append(f"- DEF: {p.get('web_name')} ({p.get('team_short')} • £{p.get('cost', 0):.1f}m) | xP: {p.get('expected_points', 0):.2f} | vs {fix.get('opponent', 'OPP')} [FDR {fix.get('difficulty', 3)}]")
+        for p in top_gkps:
+            fix = (p.get("upcoming_fixtures") or [{}])[0]
+            xp_lines.append(f"- GKP: {p.get('web_name')} ({p.get('team_short')} • £{p.get('cost', 0):.1f}m) | xP: {p.get('expected_points', 0):.2f} | vs {fix.get('opponent', 'OPP')} [FDR {fix.get('difficulty', 3)}]")
+        sections.append("\n".join(xp_lines))
+
+        # 2. Season Goal & Underlying Threat Leaders (Official Database)
+        scoring_leaders = sorted(
+            [p for p in self.re.unified_players if not p.get("is_transferred_out") and (p.get("goals_scored", 0) > 0 or p.get("assists", 0) > 0)],
+            key=lambda x: -(x.get("goals_scored", 0) * 2 + x.get("assists", 0) + x.get("expected_points", 0))
+        )[:6]
+        if scoring_leaders:
+            score_lines = ["OFFICIAL FPL DATABASE - LEADING CONTRIBUTORS (G/A & UNDERLYING):"]
+            for p in scoring_leaders:
+                score_lines.append(
+                    f"- {p.get('web_name')} ({p.get('team_short')} • {p.get('position')} • £{p.get('cost', 0):.1f}m): "
+                    f"{p.get('goals_scored', 0)} goals, {p.get('assists', 0)} assists | "
+                    f"{p.get('xg_90', 0):.2f} xG/90, {p.get('xa_90', 0):.2f} xA/90 | Total Pts: {p.get('total_points', 0)}"
+                )
+            sections.append("\n".join(score_lines))
+
+        # 3. Live Injury & Doubts Board (from /api/injuries)
+        injuries = [
+            p for p in self.re.unified_players
+            if not p.get("is_transferred_out")
+            and (p.get("is_unavailable") or p.get("is_doubtful") or p.get("is_recent_injury_returnee"))
+        ]
+        if injuries:
+            injuries.sort(key=lambda x: (
+                not x.get("is_unavailable"),
+                not x.get("is_doubtful"),
+                -x.get("cost", 0)
+            ))
+            inj_lines = ["LIVE SQUAD HEALTH & INJURY BOARD (VERIFIED DATABASE):"]
+            for p in injuries[:8]:
+                if p.get("is_unavailable"):
+                    tag = f"OUT / UNAVAILABLE ({p.get('injury_reason', 'Injured')}, 0% chance)"
+                elif p.get("is_doubtful"):
+                    tag = f"DOUBTFUL ({p.get('injury_reason', 'Doubtful')}, {p.get('chance_of_playing')}% chance)"
+                elif p.get("is_recent_injury_returnee"):
+                    tag = f"RETURNING FROM INJURY (Minutes ramp: {int((p.get('injury_return_ramp') or 0.75)*100)}%, ~{p.get('expected_minutes_projected', 60)} mins projected)"
+                else:
+                    tag = "FLAGGED"
+                inj_lines.append(f"- {p.get('web_name')} ({p.get('team_short')} • £{p.get('cost', 0):.1f}m {p.get('position')}): {tag}")
+            sections.append("\n".join(inj_lines))
+
+        # 4. Fixture Difficulty Swings (FDR Schedules)
+        team_fdr_scores = {}
+        for p in self.re.unified_players:
+            t = p.get("team_short")
+            if t and t not in team_fdr_scores:
+                fixes = (p.get("upcoming_fixtures") or [])[:3]
+                if fixes:
+                    avg_fdr = sum(f.get("difficulty", 3) for f in fixes) / len(fixes)
+                    opps = [f"{f.get('opponent')}({'H' if f.get('is_home') else 'A'})" for f in fixes]
+                    team_fdr_scores[t] = (avg_fdr, opps, p.get("team_name", t))
+
+        if team_fdr_scores:
+            sorted_teams = sorted(team_fdr_scores.items(), key=lambda x: x[1][0])
+            best_fixtures = sorted_teams[:3]
+            worst_fixtures = sorted_teams[-3:]
+
+            fdr_lines = ["NEXT 3 GAMEWEEKS - FIXTURE RUNS (AVERAGE FDR):"]
+            fdr_lines.append("  * Most Favorable Runs: " + ", ".join([f"{t[0]} ({t[1][0]:.2f} avg FDR: {'-'.join(t[1][1])})" for t in best_fixtures]))
+            fdr_lines.append("  * Toughest Fixture Runs: " + ", ".join([f"{t[0]} ({t[1][0]:.2f} avg FDR: {'-'.join(t[1][1])})" for t in worst_fixtures]))
+            sections.append("\n".join(fdr_lines))
+
+        # 5. Stats Normalization & New Entrants (if relevant keywords mentioned)
+        if any(w in low for w in ["new", "signing", "signings", "entrant", "entrants", "normalize", "normalization", "shrinkage"]):
+            entrants = [p for p in self.re.unified_players if p.get("is_new_pl_entrant") and not p.get("is_transferred_out")]
+            if entrants:
+                entrants.sort(key=lambda x: (-x.get("cost", 0), -x.get("expected_points", 0)))
+                norm_lines = ["WEBSITE STATS NORMALIZATION - TOP NEW PREMIER LEAGUE ENTRANTS:"]
+                for p in entrants[:5]:
+                    norm_lines.append(
+                        f"- {p.get('web_name')} ({p.get('team_short')} • £{p.get('cost', 0):.1f}m {p.get('position')}): "
+                        f"xP: {p.get('expected_points', 0):.2f} | Category: {p.get('new_entrant_category', 'Signing')} | "
+                        f"Sample: {p.get('current_minutes', 0)} mins ({p.get('sample_size_confidence', 50):.0f}% confidence) | "
+                        f"Normalized: {p.get('normalized_xg_90', 0):.2f} xG/90, {p.get('normalized_xa_90', 0):.2f} xA/90"
+                    )
+                sections.append("\n".join(norm_lines))
+
+        return "\n\n".join(sections)
 
     def _is_out_of_scope(self, text: str) -> bool:
         """Determines if a user message is strictly outside the scope of football and FPL."""
@@ -633,6 +750,17 @@ class ChatFPLEngine:
             team_roster_context = self._get_team_roster_context(user_msg)
             if team_roster_context:
                 system_instruction += f"\n\n{team_roster_context}\n"
+
+            # Live Platform FPL Database and Website Engine Context Injection
+            platform_stats_context = self._get_live_platform_stats_context(user_msg, target_gw=target_gw)
+            if platform_stats_context:
+                system_instruction += (
+                    f"\n\n{platform_stats_context}\n\n"
+                    "CRITICAL GROUNDING & ANTI-HALLUCINATION DIRECTIVES:\n"
+                    "1. STRICT FACTUAL ALIGNMENT: You are directly connected to the live 2026/27 Apex FPL database and FotMob engine above. Always quote exact metrics (price, xP, goals, assists, xG, xA, FDR, clean sheets) from the verified database provided in context.\n"
+                    "2. NO INVENTED CLUBS OR PLAYERS: When discussing player current teams, prices, and stats, rely strictly on the verified context above. Never contradict provided official statistics or claim a player plays for an old team.\n"
+                    "3. SQUAD AND TRANSFER ALIGNMENT: Never suggest buying players flagged as injured, doubtful, or transferred out of the Premier League."
+                )
 
             # Try google-genai
             if HAS_GOOGLE_GENAI:
