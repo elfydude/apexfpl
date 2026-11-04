@@ -44,7 +44,53 @@ class ChatFPLEngine:
         self.re = recommender_engine
         self._build_player_lookup()
         self.gemini_api_key = self._find_gemini_api_key()
+        self.groq_api_key = self._find_groq_api_key()
         self.meta_api_key = self._find_meta_api_key()
+
+    def _find_groq_api_key(self) -> Optional[str]:
+        """Finds Groq API key from environment, .env file, or config."""
+        key = os.environ.get("GROQ_API_KEY")
+        if key:
+            return key.strip()
+
+        candidates = [
+            os.path.join(os.getcwd(), "2.env"),
+            os.path.join(os.getcwd(), ".env"),
+            os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "2.env")),
+            os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".env")),
+            os.path.abspath(os.path.join(os.path.dirname(__file__), "2.env")),
+            os.path.abspath(os.path.join(os.path.dirname(__file__), ".env")),
+        ]
+        for env_file in candidates:
+            if os.path.exists(env_file):
+                try:
+                    with open(env_file, "r", encoding="utf-8") as f:
+                        for line in f:
+                            line = line.strip()
+                            if line.startswith("GROQ_API_KEY="):
+                                val = line.split("=", 1)[1].strip().strip('"').strip("'")
+                                if val:
+                                    return val
+                            elif line.startswith("gsk_") and len(line) > 20:
+                                return line
+                except Exception:
+                    pass
+        return None
+
+    def set_groq_api_key(self, api_key: str) -> bool:
+        """Dynamically set and persist Groq API key."""
+        clean_key = api_key.strip()
+        if not clean_key:
+            return False
+        self.groq_api_key = clean_key
+        os.environ["GROQ_API_KEY"] = clean_key
+        target_env = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".env"))
+        try:
+            with open(target_env, "a", encoding="utf-8") as f:
+                f.write(f"\nGROQ_API_KEY={clean_key}\n")
+        except Exception:
+            pass
+        return True
 
     def _find_gemini_api_key(self) -> Optional[str]:
         """Finds Gemini API key from environment, .env file, or config."""
@@ -659,6 +705,23 @@ class ChatFPLEngine:
                         ]
                     }
 
+        # Check if user is configuring Groq API key directly in chat
+        if any(kw in low for kw in ["set groq key", "groq key:", "groq api key:"]):
+            parts = re.split(r'[:\s]+', text)
+            for part in parts:
+                if len(part) >= 20 and ("gsk_" in part or len(part) > 30):
+                    self.set_groq_api_key(part)
+                    return {
+                        "success": True,
+                        "reply": "✅ **Groq API Key connected successfully!** ChatFPL now has active ultra-fast Groq open-weight inference with live squad context and FPL constraints.",
+                        "suggestions": [
+                            "Suggest a transfer strategy for my squad",
+                            "Who should I captain this week?",
+                            "Should I sell Van de Ven?",
+                            "Best differential forward under 7.5m"
+                        ]
+                    }
+
         # Check if user is configuring Meta API key directly in chat
         if any(kw in low for kw in ["set meta key", "set llama key", "meta key:", "llama key:"]):
             parts = re.split(r'[:\s]+', text)
@@ -682,13 +745,19 @@ class ChatFPLEngine:
             if gemini_res:
                 return gemini_res
 
-        # 2. Secondary Fallback: Meta AI Model API
+        # 2. Secondary Fallback: Groq Ultra-Fast API (120B / 20B)
+        if self.groq_api_key:
+            groq_res = self._call_groq_model(text, user_squad, history=history)
+            if groq_res:
+                return groq_res
+
+        # 3. Tertiary Fallback: Meta AI Model API
         if self.meta_api_key:
             meta_res = self._call_meta_model(text, user_squad, history=history)
             if meta_res:
                 return meta_res
 
-        # 3. Tertiary Fallback: Deterministic FPL Rules & Strategic Optimization Engine
+        # 4. Quaternary Fallback: Deterministic FPL Rules & Strategic Optimization Engine
         return self._process_native_query(text, user_squad, history=history)
 
     def _call_gemini(self, user_msg: str, user_squad: Optional[Dict[str, Any]] = None, history: Optional[List[Dict[str, Any]]] = None) -> Optional[Dict[str, Any]]:
@@ -739,7 +808,7 @@ class ChatFPLEngine:
                 "who to get", "who should i get", "who to buy", "replacement", "replace", "upgrade", "differential",
                 "budget", "under", "sub-", "cheap", "midfielder", "forward", "defender", "striker", "good", "sell"
             ])
-            candidate_pool = self._retrieve_candidate_targets(user_msg, user_squad) if is_rec_query else []
+            candidate_pool = self._retrieve_candidate_targets(user_msg, user_squad)[:8] if is_rec_query else []
             candidate_context = self._format_candidate_pool_context(candidate_pool, target_gw=target_gw)
 
             system_instruction = (
@@ -837,6 +906,8 @@ class ChatFPLEngine:
             # Live Platform FPL Database and Website Engine Context Injection
             platform_stats_context = self._get_live_platform_stats_context(user_msg, target_gw=target_gw)
             if platform_stats_context:
+                if len(platform_stats_context) > 1000:
+                    platform_stats_context = platform_stats_context[:1000] + "\n..."
                 system_instruction += (
                     f"\n\n{platform_stats_context}\n\n"
                     "CRITICAL GROUNDING & ANTI-HALLUCINATION DIRECTIVES:\n"
@@ -961,8 +1032,8 @@ class ChatFPLEngine:
 
         return None
 
-    def _call_meta_model(self, user_msg: str, user_squad: Optional[Dict[str, Any]] = None, history: Optional[List[Dict[str, Any]]] = None) -> Optional[Dict[str, Any]]:
-        """Calls Meta AI API (https://api.meta.ai/v1) as an ultra-fast secondary fallback with full grounded FPL context and constraints."""
+    def _call_groq_model(self, user_msg: str, user_squad: Optional[Dict[str, Any]] = None, history: Optional[List[Dict[str, Any]]] = None) -> Optional[Dict[str, Any]]:
+        """Calls Groq API (https://api.groq.com/openai/v1) for ultra-fast, open-weight reasoning fallback with full grounded FPL context and constraints."""
         try:
             gw_meta = self.get_gameweek_metadata()
             target_gw = gw_meta["target_gameweek"]
@@ -1004,7 +1075,7 @@ class ChatFPLEngine:
                 "who to get", "who should i get", "who to buy", "replacement", "replace", "upgrade", "differential",
                 "budget", "under", "sub-", "cheap", "midfielder", "forward", "defender", "striker", "good", "sell"
             ])
-            candidate_pool = self._retrieve_candidate_targets(user_msg, user_squad) if is_rec_query else []
+            candidate_pool = self._retrieve_candidate_targets(user_msg, user_squad)[:8] if is_rec_query else []
             candidate_context = self._format_candidate_pool_context(candidate_pool, target_gw=target_gw)
 
             system_instruction = (
@@ -1082,6 +1153,219 @@ class ChatFPLEngine:
 
             platform_stats_context = self._get_live_platform_stats_context(user_msg, target_gw=target_gw)
             if platform_stats_context:
+                if len(platform_stats_context) > 1000:
+                    platform_stats_context = platform_stats_context[:1000] + "\n..."
+                system_instruction += (
+                    f"\n\n{platform_stats_context}\n\n"
+                    "CRITICAL GROUNDING & ANTI-HALLUCINATION DIRECTIVES:\n"
+                    "1. STRICT FACTUAL ALIGNMENT: You are directly connected to the live 2026/27 Apex FPL database and FotMob engine above. Always quote exact metrics (price, xP, goals, assists, xG, xA, FDR, clean sheets) from the verified database provided in context.\n"
+                    "2. NO INVENTED CLUBS OR PLAYERS: When discussing player current teams, prices, and stats, rely strictly on the verified context above.\n"
+                    "3. SQUAD AND TRANSFER ALIGNMENT: Never suggest buying players flagged as injured, doubtful, or transferred out of the Premier League."
+                )
+
+            messages = [{"role": "system", "content": system_instruction}]
+            if history:
+                for h in history[-6:]:
+                    r = "user" if h.get("role") in ["user", "human"] else "assistant"
+                    t = (h.get("text") or "").strip()
+                    if t:
+                        messages.append({"role": r, "content": t[:800]})
+            messages.append({"role": "user", "content": user_msg})
+
+            models_to_try = [
+                "qwen/qwen3.8-27b",
+                "openai/gpt-oss-120b",
+                "openai/gpt-oss-20b"
+            ]
+
+            url = "https://api.groq.com/openai/v1/chat/completions"
+            for model_name in models_to_try:
+                try:
+                    payload = {
+                        "model": model_name,
+                        "messages": messages,
+                        "max_tokens": 1500,
+                        "temperature": 0.6
+                    }
+                    req = urllib.request.Request(
+                        url,
+                        data=json.dumps(payload).encode("utf-8"),
+                        headers={
+                            "Authorization": f"Bearer {self.groq_api_key}",
+                            "Content-Type": "application/json",
+                            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ApexFPL/1.0"
+                        }
+                    )
+                    with urllib.request.urlopen(req, timeout=7.0) as res:
+                        if res.status == 200:
+                            data = json.loads(res.read().decode("utf-8"))
+                            choices = data.get("choices", [])
+                            if choices:
+                                reply_text = (choices[0].get("message", {}).get("content") or "").strip()
+                                if not reply_text and choices[0].get("message", {}).get("reasoning"):
+                                    reply_text = choices[0]["message"]["reasoning"].strip()
+
+                                if reply_text:
+                                    # Safety Guardrail: check for departed player hallucinations
+                                    banned_hallucinations = ["gordon (newcastle", "gordon at newcastle", "gordon plays for newcastle"]
+                                    if any(b in reply_text.lower() for b in banned_hallucinations):
+                                        print("[ChatFPL Groq Guardrail] Detected hallucinated/departed player club. Falling back to native verified engine.")
+                                        return None
+
+                                    # Safety Guardrail: check for hallucinated 2025/26 league champions
+                                    low_resp = reply_text.lower()
+                                    city_terms = ["manchester city", "man city", "city"]
+                                    champion_terms = ["won the premier league", "won the pl", "premier league title", "won the title", "crowned champions", "claimed the crown", "champions in the 2025/26", "champions in 2025/26"]
+                                    season_terms = ["2025/26", "last season", "2025-26"]
+                                    if any(c in low_resp for c in city_terms) and any(s in low_resp for s in season_terms) and any(w in low_resp for w in champion_terms):
+                                        print("[ChatFPL Groq Guardrail] Intercepted 2025/26 Man City champion hallucination. Falling back to verified ground truth.")
+                                        return self._handle_league_champions_query(user_msg)
+
+                                    cleaned_reply = re.sub(r'^(?:#+\s*)?(?:\*\*)?Bottom Line(?: Up Front)?(?:\*\*)?:?\s*(?:\*\*)?\s*', '', reply_text, flags=re.IGNORECASE)
+                                    cleaned_reply = re.sub(r'^(?:#+\s*)?(?:\*\*)?BLUF(?:\*\*)?:?\s*(?:\*\*)?\s*', '', cleaned_reply, flags=re.IGNORECASE).strip()
+
+                                    return {
+                                        "success": True,
+                                        "reply": cleaned_reply,
+                                        "suggestions": self._generate_contextual_suggestions(user_msg, cleaned_reply)
+                                    }
+                except urllib.error.HTTPError as he:
+                    err_body = he.read().decode("utf-8", errors="ignore")
+                    print(f"[ChatFPL Groq AI] HTTP {he.code} from {model_name}: {err_body}")
+                    if he.code in (401, 403):
+                        break
+                except Exception as ex:
+                    print(f"[ChatFPL Groq AI] Exception with {model_name}: {ex}")
+                    continue
+        except Exception as e:
+            print(f"[ChatFPL Groq AI Error] {e}")
+            return None
+
+        return None
+
+    def _call_meta_model(self, user_msg: str, user_squad: Optional[Dict[str, Any]] = None, history: Optional[List[Dict[str, Any]]] = None) -> Optional[Dict[str, Any]]:
+        """Calls Meta AI API (https://api.meta.ai/v1) as an ultra-fast secondary fallback with full grounded FPL context and constraints."""
+        try:
+            gw_meta = self.get_gameweek_metadata()
+            target_gw = gw_meta["target_gameweek"]
+            completed_gw = gw_meta["latest_completed_gameweek"]
+            deadline_str = gw_meta["deadline_display"]
+
+            squad_info = self._format_squad_context(user_squad, target_gw=target_gw)
+
+            players_mentioned = self.find_multiple_players(user_msg)
+            if not players_mentioned:
+                p_single = self.find_player(user_msg)
+                if p_single:
+                    players_mentioned = [p_single]
+                elif history:
+                    p_hist = self.find_player_from_history(history)
+                    if p_hist:
+                        players_mentioned = [p_hist]
+
+            if not players_mentioned:
+                t_alias = self.find_team(user_msg)
+                if t_alias:
+                    t_pens = [p for p in self.re.unified_players if p.get("team_short") == t_alias and (p.get("is_penalty_taker") or p.get("is_set_piece_taker"))]
+                    if t_pens:
+                        players_mentioned = t_pens[:2]
+
+            fotmob_context = ""
+            stats_cues = [
+                "fotmob", "fot mob", "stat", "stats", "rating", "ratings", "speed", "fastest", "fast", "sprint", "sprints",
+                "distance", "chances", "key pass", "xgot", "xg", "xa", "tackle", "tackles", "recovery", "recoveries",
+                "pass", "passes", "ict", "threat", "creativity", "influence", "bps", "clean sheet", "clean sheets"
+            ]
+            if players_mentioned:
+                fotmob_context = "\n\n".join([self._format_player_fotmob_context(p, target_gw=target_gw) for p in players_mentioned])
+            elif any(k in user_msg.lower() for k in stats_cues):
+                fotmob_context = self._get_fotmob_category_summary(user_msg)
+
+            is_rec_query = any(k in user_msg.lower() for k in [
+                "recommend", "suggest", "buy", "transfer", "scout", "best", "top", "pick", "picks", "option", "options",
+                "who to get", "who should i get", "who to buy", "replacement", "replace", "upgrade", "differential",
+                "budget", "under", "sub-", "cheap", "midfielder", "forward", "defender", "striker", "good", "sell"
+            ])
+            candidate_pool = self._retrieve_candidate_targets(user_msg, user_squad)[:8] if is_rec_query else []
+            candidate_context = self._format_candidate_pool_context(candidate_pool, target_gw=target_gw)
+
+            system_instruction = (
+                "You are ChatFPL, an expert Fantasy Premier League (FPL) and world football AI analytics, tactical and conversational assistant. "
+                "You have access to live Premier League player data, direct official FotMob match statistics, and the user's current squad.\n\n"
+                f"{FPL_RULES_SUMMARY}\n\n"
+                f"📅 CURRENT SEASON & GAMEWEEK STATUS (LIVE DATABASE):\n"
+                f"- Current Premier League Season: 2026/27.\n"
+                f"- Active Target Gameweek: Gameweek {target_gw} (Upcoming Deadline: {deadline_str}).\n"
+                f"- Latest Completed Gameweek: Gameweek {completed_gw}.\n"
+                f"- Official Recent Timeline & Verified Champions (Ground Truth):\n"
+                f"  * 2026/27: CURRENT ongoing season (actively heading into Gameweek {target_gw})\n"
+                f"  * 2025/26: LAST SEASON (concluded in May 2026). PREMIER LEAGUE CHAMPIONS: **Arsenal** (Mikel Arteta's Arsenal won the title in May 2026, ending their 22-year title drought and dethroning Man City).\n"
+                f"  * 2024/25: 2 seasons ago. Champions: Liverpool.\n"
+                f"  * 2023/24: 3 seasons ago. Champions: Manchester City.\n"
+                f"  * 2022/23: 4 seasons ago. Champions: Manchester City.\n"
+                f"  * 2021/22: 5 seasons ago. Champions: Manchester City.\n"
+                f"  * 2020/21: 6 seasons ago. Champions: Manchester City.\n"
+                f"  * 2019/20: 7 seasons ago. Champions: Liverpool.\n"
+                f"- CRITICAL FACT: When asked who won the Premier League last season (2025/26), the answer is unequivocally ARSENAL. Never state Manchester City won in 2025/26.\n"
+                f"- Temporal Anchoring: You are operating in real-time during the 2026/27 season (October 2026). "
+                f"The 2025/26 season is finished. Do not assume the year is 2024 or 2025. Always rely on the active 2026/27 database provided below.\n"
+                f"- Gameweek Tone: You must accurately state that we are currently in/heading into Gameweek {target_gw}. "
+                f"NEVER lecture, scold, or display compliance warnings to the user. Never refuse queries regarding Gameweek {target_gw} or future gameweeks.\n\n"
+                "⚽ SCOPE & CAPABILITY GUIDELINES:\n"
+                "1. FPL Active Transfer & Squad Advice (2026/27 Season):\n"
+                "   - You MUST assess the user's active squad, budget in the bank, and transfer constraints (provided in the CURRENT USER SQUAD & RECS block below) before suggesting transfers.\n"
+                "   - When recommending transfers, squad upgrades, captain picks, or replacements for the user's active team, you MUST ONLY recommend active players present in the VERIFIED ACTIVE CANDIDATE POOL provided below or the user's active squad.\n"
+                "   - NEVER recommend players from older clubs (e.g. NEVER recommend Anthony Gordon at Newcastle) or players who departed the Premier League.\n"
+                "   - Every player recommendation MUST use the exact current team, official price (£m), projected xP, and opponent from the verified database list.\n"
+                "   - MANDATORY FPL CONSTRAINTS ENFORCEMENT:\n"
+                "     * BUDGET CONSTRAINT: Player In cost MUST NOT exceed (Player Out sell price + Money In The Bank). Cash remaining must be >= £0.0m.\n"
+                "     * CLUB LIMIT CONSTRAINT: Maximum 3 players from any single Premier League club across the 15-man squad. If a club is already at 3/3 capacity, you CANNOT suggest buying another player from that club without selling an existing player from that club.\n"
+                "     * POSITION & FORMATION: Direct swaps must match position (DEF for DEF, MID for MID, FWD for FWD, GKP for GKP) and maintain a valid formation (min 1 GKP, 3 DEF, 2 MID, 1 FWD).\n"
+                "     * FITNESS: NEVER recommend bringing in players marked as unavailable (0% chance) or doubtful (<75% chance) or transferred out of the Premier League.\n"
+                "     * TRANSFER DISCIPLINE & HITS (-4): Check available Free Transfers (1-5 FTs). Transfers beyond available FTs cost -4 points each. Strongly discourage -4 hits unless there is an unavoidable injury crisis with no bench cover, or an overwhelming net gain (>2.5 xP). If no move yields >= 1.0 xP gain or frees >= £1.0m, advise rolling the transfer to bank up to 5 FTs under official rules.\n\n"
+                "2. General Football Knowledge, History & Trivia (FULL ACCESS):\n"
+                "   - You are a comprehensive football authority. When the user asks about historical football questions, past seasons, international tournaments, Champions League, Ballon d'Or, FotMob/FPL records, rules, or trivia:\n"
+                "   - YOU ARE FULLY EXPECTED TO ANSWER DIRECTLY using your deep football knowledge! Do NOT refuse, do NOT issue compliance warnings, and do NOT give out-of-scope replies for any football questions.\n\n"
+                "3. Injury Status & Minutes Reliability:\n"
+                "   - Check official injury/suspension news and chance of playing (< 75%). Only recommend active, fully fit players.\n"
+                "- Conversational Guidelines: Be sharp, direct, intelligent, and insightful. Avoid reciting raw mathematical formulas unless asked.\n\n"
+                "🎯 INTELLIGENT, RELEVANT & ROBUST RESPONSE GUIDELINES:\n"
+                "1. DIRECT OPENING: Start immediately with your answer or verdict in natural, conversational prose. NEVER output meta-labels, headers, or prefixes such as 'Bottom Line Up Front:', 'BLUF:', or 'Bottom Line:'—simply deliver your answer directly.\n"
+                "2. SUBSTANTIVE & RELEVANT DEPTH: Do NOT artificially truncate, cut off, or over-summarize responses. Prioritize high-signal, relevant output. Explain the 'why' behind decisions: break down form, upcoming fixture difficulty, minutes security, tactical positioning, underlying metrics (xG, xA, FotMob ratings, chances created), and squad budget implications.\n"
+                "3. ACCURATE STATS: Quote exact metrics from the verified FPL and FotMob database provided in context.\n"
+                "4. MOBILE-FRIENDLY FORMATTING: Use structured markdown (bold key names, bullet points for comparative breakdowns, short tables if <=3 columns).\n"
+                "5. NATURAL CONVERSATIONAL TONE: Speak like an elite FPL analyst. Be engaging, nuanced, and strategic.\n"
+                "6. MULTI-TURN MEMORY: Seamlessly carry context across turns ('him', 'replace him', 'who else', 'what about Saka?').\n\n"
+                f"CURRENT USER SQUAD & RECS (GAMEWEEK {target_gw}):\n{squad_info}\n"
+            )
+
+            if fotmob_context:
+                system_instruction += (
+                    f"\nDIRECT OFFICIAL FOTMOB DATABASE QUERY RESULTS:\n{fotmob_context}\n\n"
+                    "INSTRUCTIONS FOR FOTMOB STATS QUERIES:\n"
+                    "The user is asking about player stats. Provide a rich, insightful performance breakdown covering: "
+                    "(1) Match Ratings & Form, (2) Attacking Threat (xG, goals, shot volume), (3) Creativity (xA, chances created), and (4) Work Rate & Physicals (speed, distance, sprints, defensive actions). "
+                    "Make the data meaningful and actionable."
+                )
+
+            if candidate_context:
+                system_instruction += (
+                    f"\n\n{candidate_context}\n\n"
+                    "INSTRUCTIONS FOR CANDIDATE RECOMMENDATIONS:\n"
+                    "Base your recommendations entirely on the verified candidate pool above. "
+                    "State the single best option first with clear rationale, followed by strong alternatives. "
+                    "Detail price, expected points, fixture difficulty, and tactical fit. "
+                    "Never recommend any player not listed in the verified candidate pool."
+                )
+
+            team_roster_context = self._get_team_roster_context(user_msg)
+            if team_roster_context:
+                system_instruction += f"\n\n{team_roster_context}\n"
+
+            platform_stats_context = self._get_live_platform_stats_context(user_msg, target_gw=target_gw)
+            if platform_stats_context:
+                if len(platform_stats_context) > 1000:
+                    platform_stats_context = platform_stats_context[:1000] + "\n..."
                 system_instruction += (
                     f"\n\n{platform_stats_context}\n\n"
                     "CRITICAL GROUNDING & ANTI-HALLUCINATION DIRECTIVES:\n"
