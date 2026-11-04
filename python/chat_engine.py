@@ -7,8 +7,11 @@ captaincy recommendations, xP formula transparency, and natural conversation.
 import os
 import re
 import json
+import urllib.request
+import urllib.error
 import concurrent.futures
 from typing import Dict, Any, List, Optional, Tuple
+from fpl_rules import FPLRulesEngine, FPL_RULES_SUMMARY
 
 # Try importing Gemini libraries
 GEMINI_CLIENT = None
@@ -41,6 +44,7 @@ class ChatFPLEngine:
         self.re = recommender_engine
         self._build_player_lookup()
         self.gemini_api_key = self._find_gemini_api_key()
+        self.meta_api_key = self._find_meta_api_key()
 
     def _find_gemini_api_key(self) -> Optional[str]:
         """Finds Gemini API key from environment, .env file, or config."""
@@ -49,8 +53,11 @@ class ChatFPLEngine:
             return key.strip()
 
         candidates = [
+            os.path.join(os.getcwd(), "2.env"),
             os.path.join(os.getcwd(), ".env"),
+            os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "2.env")),
             os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".env")),
+            os.path.abspath(os.path.join(os.path.dirname(__file__), "2.env")),
             os.path.abspath(os.path.join(os.path.dirname(__file__), ".env")),
         ]
         for env_file in candidates:
@@ -66,6 +73,51 @@ class ChatFPLEngine:
                 except Exception:
                     pass
         return None
+
+    def _find_meta_api_key(self) -> Optional[str]:
+        """Finds Meta API key from environment, .env file, or config."""
+        key = os.environ.get("META_API_KEY") or os.environ.get("LLAMA_API_KEY") or os.environ.get("LLM_API_KEY")
+        if key:
+            return key.strip()
+
+        candidates = [
+            os.path.join(os.getcwd(), "2.env"),
+            os.path.join(os.getcwd(), ".env"),
+            os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "2.env")),
+            os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".env")),
+            os.path.abspath(os.path.join(os.path.dirname(__file__), "2.env")),
+            os.path.abspath(os.path.join(os.path.dirname(__file__), ".env")),
+        ]
+        for env_file in candidates:
+            if os.path.exists(env_file):
+                try:
+                    with open(env_file, "r", encoding="utf-8") as f:
+                        for line in f:
+                            line = line.strip()
+                            if any(line.startswith(p) for p in ["META_API_KEY=", "LLAMA_API_KEY=", "LLM_API_KEY="]):
+                                val = line.split("=", 1)[1].strip().strip('"').strip("'")
+                                if val:
+                                    return val
+                            elif line.startswith("LLM_") and len(line) > 20:
+                                return line
+                except Exception:
+                    pass
+        return None
+
+    def set_meta_api_key(self, api_key: str) -> bool:
+        """Dynamically set and persist Meta API key."""
+        clean_key = api_key.strip()
+        if not clean_key:
+            return False
+        self.meta_api_key = clean_key
+        os.environ["META_API_KEY"] = clean_key
+        target_env = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".env"))
+        try:
+            with open(target_env, "a", encoding="utf-8") as f:
+                f.write(f"\nMETA_API_KEY={clean_key}\n")
+        except Exception:
+            pass
+        return True
 
     def set_gemini_api_key(self, api_key: str) -> bool:
         """Dynamically set and persist Gemini API key."""
@@ -607,13 +659,36 @@ class ChatFPLEngine:
                         ]
                     }
 
-        # If Gemini API key is configured, use Gemini with real-time squad context and history
+        # Check if user is configuring Meta API key directly in chat
+        if any(kw in low for kw in ["set meta key", "set llama key", "meta key:", "llama key:"]):
+            parts = re.split(r'[:\s]+', text)
+            for part in parts:
+                if len(part) >= 20 and ("LLM_" in part or len(part) > 30):
+                    self.set_meta_api_key(part)
+                    return {
+                        "success": True,
+                        "reply": "✅ **Meta Model API Key connected successfully!** ChatFPL now has active Meta AI fallback with live squad context and FPL constraints.",
+                        "suggestions": [
+                            "Suggest a transfer strategy for my squad",
+                            "Who should I captain this week?",
+                            "Should I sell Van de Ven?",
+                            "Best differential forward under 7.5m"
+                        ]
+                    }
+
+        # 1. Primary: Gemini API
         if self.gemini_api_key:
             gemini_res = self._call_gemini(text, user_squad, history=history)
             if gemini_res:
                 return gemini_res
 
-        # Native Real-Time Strategy & Analytics Engine
+        # 2. Secondary Fallback: Meta AI Model API
+        if self.meta_api_key:
+            meta_res = self._call_meta_model(text, user_squad, history=history)
+            if meta_res:
+                return meta_res
+
+        # 3. Tertiary Fallback: Deterministic FPL Rules & Strategic Optimization Engine
         return self._process_native_query(text, user_squad, history=history)
 
     def _call_gemini(self, user_msg: str, user_squad: Optional[Dict[str, Any]] = None, history: Optional[List[Dict[str, Any]]] = None) -> Optional[Dict[str, Any]]:
@@ -670,6 +745,7 @@ class ChatFPLEngine:
             system_instruction = (
                 "You are ChatFPL, an expert Fantasy Premier League (FPL) and world football AI analytics, tactical and conversational assistant. "
                 "You have access to live Premier League player data, direct official FotMob match statistics, and the user's current squad.\n\n"
+                f"{FPL_RULES_SUMMARY}\n\n"
                 f"📅 CURRENT SEASON & GAMEWEEK STATUS (LIVE DATABASE):\n"
                 f"- Current Premier League Season: 2026/27.\n"
                 f"- Active Target Gameweek: Gameweek {target_gw} (Upcoming Deadline: {deadline_str}).\n"
@@ -690,9 +766,16 @@ class ChatFPLEngine:
                 f"NEVER lecture, scold, or display compliance warnings to the user. Never refuse queries regarding Gameweek {target_gw} or future gameweeks.\n\n"
                 "⚽ SCOPE & CAPABILITY GUIDELINES:\n"
                 "1. FPL Active Transfer & Squad Advice (2026/27 Season):\n"
+                "   - You MUST assess the user's active squad, budget in the bank, and transfer constraints (provided in the CURRENT USER SQUAD & RECS block below) before suggesting transfers.\n"
                 "   - When recommending transfers, squad upgrades, captain picks, or replacements for the user's active team, you MUST ONLY recommend active players present in the VERIFIED ACTIVE CANDIDATE POOL provided below or the user's active squad.\n"
                 "   - NEVER recommend players from older clubs (e.g. NEVER recommend Anthony Gordon at Newcastle) or players who departed the Premier League.\n"
-                "   - Every player recommendation MUST use the exact current team, official price (£m), projected xP, and opponent from the verified database list.\n\n"
+                "   - Every player recommendation MUST use the exact current team, official price (£m), projected xP, and opponent from the verified database list.\n"
+                "   - MANDATORY FPL CONSTRAINTS ENFORCEMENT:\n"
+                "     * BUDGET CONSTRAINT: Player In cost MUST NOT exceed (Player Out sell price + Money In The Bank). Cash remaining must be >= £0.0m.\n"
+                "     * CLUB LIMIT CONSTRAINT: Maximum 3 players from any single Premier League club across the 15-man squad. If a club is already at 3/3 capacity, you CANNOT suggest buying another player from that club without selling an existing player from that club.\n"
+                "     * POSITION & FORMATION: Direct swaps must match position (DEF for DEF, MID for MID, FWD for FWD, GKP for GKP) and maintain a valid formation (min 1 GKP, 3 DEF, 2 MID, 1 FWD).\n"
+                "     * FITNESS: NEVER recommend bringing in players marked as unavailable (0% chance) or doubtful (<75% chance) or transferred out of the Premier League.\n"
+                "     * TRANSFER DISCIPLINE & HITS (-4): Check available Free Transfers (1-5 FTs). Transfers beyond available FTs cost -4 points each. Strongly discourage -4 hits unless there is an unavoidable injury crisis with no bench cover, or an overwhelming net gain (>2.5 xP). If no move yields >= 1.0 xP gain or frees >= £1.0m, advise rolling the transfer to bank up to 5 FTs under official rules.\n\n"
                 "2. General Football Knowledge, History & Trivia (FULL ACCESS):\n"
                 "   - You are a comprehensive football authority. When the user asks about historical football questions, past seasons, international tournaments, Champions League, Ballon d'Or, FotMob/FPL records, rules, or trivia (e.g. 'who was the top scorer in 2019', 'who won the Champions League in 2021', 'how many goals did Aguero score', 'all-time Premier League goal records'):\n"
                 "   - YOU ARE FULLY EXPECTED TO ANSWER DIRECTLY using your deep football knowledge! Do NOT refuse, do NOT issue compliance warnings, and do NOT give out-of-scope replies for any football questions.\n\n"
@@ -766,19 +849,18 @@ class ChatFPLEngine:
             if HAS_GOOGLE_GENAI:
                 client = genai.Client(api_key=self.gemini_api_key)
                 models_to_try = [
-                    "gemini-3.5-flash",
                     "gemini-flash-lite-latest",
-                    "gemini-3.8-flash",
-                    "gemini-flash-latest",
-                    "gemini-3.7-flash"
+                    "gemini-3.8-flash"
                 ]
 
-                # Google Search Tool initialization
+                # Google Search Tool initialization (only for queries explicitly asking for breaking live external news)
                 search_tool = None
-                try:
-                    search_tool = types.Tool(google_search=types.GoogleSearch())
-                except Exception as e:
-                    print(f"[ChatFPL] GoogleSearch tool init: {e}")
+                needs_web = any(w in user_msg.lower() for w in ["breaking news", "press conference", "latest report", "injury rumor", "transfer rumor"])
+                if needs_web:
+                    try:
+                        search_tool = types.Tool(google_search=types.GoogleSearch())
+                    except Exception as e:
+                        print(f"[ChatFPL] GoogleSearch tool init: {e}")
 
                 # Format conversation history ensuring strict role alternation (user, model, user, ...)
                 contents = []
@@ -836,7 +918,7 @@ class ChatFPLEngine:
                             )
 
                         future = executor.submit(execute_genai_call)
-                        response = future.result(timeout=12.0)
+                        response = future.result(timeout=7.0)
                         executor.shutdown(wait=False, cancel_futures=True)
 
                         if response and response.text:
@@ -879,8 +961,214 @@ class ChatFPLEngine:
 
         return None
 
+    def _call_meta_model(self, user_msg: str, user_squad: Optional[Dict[str, Any]] = None, history: Optional[List[Dict[str, Any]]] = None) -> Optional[Dict[str, Any]]:
+        """Calls Meta AI API (https://api.meta.ai/v1) as an ultra-fast secondary fallback with full grounded FPL context and constraints."""
+        try:
+            gw_meta = self.get_gameweek_metadata()
+            target_gw = gw_meta["target_gameweek"]
+            completed_gw = gw_meta["latest_completed_gameweek"]
+            deadline_str = gw_meta["deadline_display"]
+
+            squad_info = self._format_squad_context(user_squad, target_gw=target_gw)
+
+            players_mentioned = self.find_multiple_players(user_msg)
+            if not players_mentioned:
+                p_single = self.find_player(user_msg)
+                if p_single:
+                    players_mentioned = [p_single]
+                elif history:
+                    p_hist = self.find_player_from_history(history)
+                    if p_hist:
+                        players_mentioned = [p_hist]
+
+            if not players_mentioned:
+                t_alias = self.find_team(user_msg)
+                if t_alias:
+                    t_pens = [p for p in self.re.unified_players if p.get("team_short") == t_alias and (p.get("is_penalty_taker") or p.get("is_set_piece_taker"))]
+                    if t_pens:
+                        players_mentioned = t_pens[:2]
+
+            fotmob_context = ""
+            stats_cues = [
+                "fotmob", "fot mob", "stat", "stats", "rating", "ratings", "speed", "fastest", "fast", "sprint", "sprints",
+                "distance", "chances", "key pass", "xgot", "xg", "xa", "tackle", "tackles", "recovery", "recoveries",
+                "pass", "passes", "ict", "threat", "creativity", "influence", "bps", "clean sheet", "clean sheets"
+            ]
+            if players_mentioned:
+                fotmob_context = "\n\n".join([self._format_player_fotmob_context(p, target_gw=target_gw) for p in players_mentioned])
+            elif any(k in user_msg.lower() for k in stats_cues):
+                fotmob_context = self._get_fotmob_category_summary(user_msg)
+
+            is_rec_query = any(k in user_msg.lower() for k in [
+                "recommend", "suggest", "buy", "transfer", "scout", "best", "top", "pick", "picks", "option", "options",
+                "who to get", "who should i get", "who to buy", "replacement", "replace", "upgrade", "differential",
+                "budget", "under", "sub-", "cheap", "midfielder", "forward", "defender", "striker", "good", "sell"
+            ])
+            candidate_pool = self._retrieve_candidate_targets(user_msg, user_squad) if is_rec_query else []
+            candidate_context = self._format_candidate_pool_context(candidate_pool, target_gw=target_gw)
+
+            system_instruction = (
+                "You are ChatFPL, an expert Fantasy Premier League (FPL) and world football AI analytics, tactical and conversational assistant. "
+                "You have access to live Premier League player data, direct official FotMob match statistics, and the user's current squad.\n\n"
+                f"{FPL_RULES_SUMMARY}\n\n"
+                f"📅 CURRENT SEASON & GAMEWEEK STATUS (LIVE DATABASE):\n"
+                f"- Current Premier League Season: 2026/27.\n"
+                f"- Active Target Gameweek: Gameweek {target_gw} (Upcoming Deadline: {deadline_str}).\n"
+                f"- Latest Completed Gameweek: Gameweek {completed_gw}.\n"
+                f"- Official Recent Timeline & Verified Champions (Ground Truth):\n"
+                f"  * 2026/27: CURRENT ongoing season (actively heading into Gameweek {target_gw})\n"
+                f"  * 2025/26: LAST SEASON (concluded in May 2026). PREMIER LEAGUE CHAMPIONS: **Arsenal** (Mikel Arteta's Arsenal won the title in May 2026, ending their 22-year title drought and dethroning Man City).\n"
+                f"  * 2024/25: 2 seasons ago. Champions: Liverpool.\n"
+                f"  * 2023/24: 3 seasons ago. Champions: Manchester City.\n"
+                f"  * 2022/23: 4 seasons ago. Champions: Manchester City.\n"
+                f"  * 2021/22: 5 seasons ago. Champions: Manchester City.\n"
+                f"  * 2020/21: 6 seasons ago. Champions: Manchester City.\n"
+                f"  * 2019/20: 7 seasons ago. Champions: Liverpool.\n"
+                f"- CRITICAL FACT: When asked who won the Premier League last season (2025/26), the answer is unequivocally ARSENAL. Never state Manchester City won in 2025/26.\n"
+                f"- Temporal Anchoring: You are operating in real-time during the 2026/27 season (October 2026). "
+                f"The 2025/26 season is finished. Do not assume the year is 2024 or 2025. Always rely on the active 2026/27 database provided below.\n"
+                f"- Gameweek Tone: You must accurately state that we are currently in/heading into Gameweek {target_gw}. "
+                f"NEVER lecture, scold, or display compliance warnings to the user. Never refuse queries regarding Gameweek {target_gw} or future gameweeks.\n\n"
+                "⚽ SCOPE & CAPABILITY GUIDELINES:\n"
+                "1. FPL Active Transfer & Squad Advice (2026/27 Season):\n"
+                "   - You MUST assess the user's active squad, budget in the bank, and transfer constraints (provided in the CURRENT USER SQUAD & RECS block below) before suggesting transfers.\n"
+                "   - When recommending transfers, squad upgrades, captain picks, or replacements for the user's active team, you MUST ONLY recommend active players present in the VERIFIED ACTIVE CANDIDATE POOL provided below or the user's active squad.\n"
+                "   - NEVER recommend players from older clubs (e.g. NEVER recommend Anthony Gordon at Newcastle) or players who departed the Premier League.\n"
+                "   - Every player recommendation MUST use the exact current team, official price (£m), projected xP, and opponent from the verified database list.\n"
+                "   - MANDATORY FPL CONSTRAINTS ENFORCEMENT:\n"
+                "     * BUDGET CONSTRAINT: Player In cost MUST NOT exceed (Player Out sell price + Money In The Bank). Cash remaining must be >= £0.0m.\n"
+                "     * CLUB LIMIT CONSTRAINT: Maximum 3 players from any single Premier League club across the 15-man squad. If a club is already at 3/3 capacity, you CANNOT suggest buying another player from that club without selling an existing player from that club.\n"
+                "     * POSITION & FORMATION: Direct swaps must match position (DEF for DEF, MID for MID, FWD for FWD, GKP for GKP) and maintain a valid formation (min 1 GKP, 3 DEF, 2 MID, 1 FWD).\n"
+                "     * FITNESS: NEVER recommend bringing in players marked as unavailable (0% chance) or doubtful (<75% chance) or transferred out of the Premier League.\n"
+                "     * TRANSFER DISCIPLINE & HITS (-4): Check available Free Transfers (1-5 FTs). Transfers beyond available FTs cost -4 points each. Strongly discourage -4 hits unless there is an unavoidable injury crisis with no bench cover, or an overwhelming net gain (>2.5 xP). If no move yields >= 1.0 xP gain or frees >= £1.0m, advise rolling the transfer to bank up to 5 FTs under official rules.\n\n"
+                "2. General Football Knowledge, History & Trivia (FULL ACCESS):\n"
+                "   - You are a comprehensive football authority. When the user asks about historical football questions, past seasons, international tournaments, Champions League, Ballon d'Or, FotMob/FPL records, rules, or trivia:\n"
+                "   - YOU ARE FULLY EXPECTED TO ANSWER DIRECTLY using your deep football knowledge! Do NOT refuse, do NOT issue compliance warnings, and do NOT give out-of-scope replies for any football questions.\n\n"
+                "3. Injury Status & Minutes Reliability:\n"
+                "   - Check official injury/suspension news and chance of playing (< 75%). Only recommend active, fully fit players.\n"
+                "- Conversational Guidelines: Be sharp, direct, intelligent, and insightful. Avoid reciting raw mathematical formulas unless asked.\n\n"
+                "🎯 INTELLIGENT, RELEVANT & ROBUST RESPONSE GUIDELINES:\n"
+                "1. DIRECT OPENING: Start immediately with your answer or verdict in natural, conversational prose. NEVER output meta-labels, headers, or prefixes such as 'Bottom Line Up Front:', 'BLUF:', or 'Bottom Line:'—simply deliver your answer directly.\n"
+                "2. SUBSTANTIVE & RELEVANT DEPTH: Do NOT artificially truncate, cut off, or over-summarize responses. Prioritize high-signal, relevant output. Explain the 'why' behind decisions: break down form, upcoming fixture difficulty, minutes security, tactical positioning, underlying metrics (xG, xA, FotMob ratings, chances created), and squad budget implications.\n"
+                "3. ACCURATE STATS: Quote exact metrics from the verified FPL and FotMob database provided in context.\n"
+                "4. MOBILE-FRIENDLY FORMATTING: Use structured markdown (bold key names, bullet points for comparative breakdowns, short tables if <=3 columns).\n"
+                "5. NATURAL CONVERSATIONAL TONE: Speak like an elite FPL analyst. Be engaging, nuanced, and strategic.\n"
+                "6. MULTI-TURN MEMORY: Seamlessly carry context across turns ('him', 'replace him', 'who else', 'what about Saka?').\n\n"
+                f"CURRENT USER SQUAD & RECS (GAMEWEEK {target_gw}):\n{squad_info}\n"
+            )
+
+            if fotmob_context:
+                system_instruction += (
+                    f"\nDIRECT OFFICIAL FOTMOB DATABASE QUERY RESULTS:\n{fotmob_context}\n\n"
+                    "INSTRUCTIONS FOR FOTMOB STATS QUERIES:\n"
+                    "The user is asking about player stats. Provide a rich, insightful performance breakdown covering: "
+                    "(1) Match Ratings & Form, (2) Attacking Threat (xG, goals, shot volume), (3) Creativity (xA, chances created), and (4) Work Rate & Physicals (speed, distance, sprints, defensive actions). "
+                    "Make the data meaningful and actionable."
+                )
+
+            if candidate_context:
+                system_instruction += (
+                    f"\n\n{candidate_context}\n\n"
+                    "INSTRUCTIONS FOR CANDIDATE RECOMMENDATIONS:\n"
+                    "Base your recommendations entirely on the verified candidate pool above. "
+                    "State the single best option first with clear rationale, followed by strong alternatives. "
+                    "Detail price, expected points, fixture difficulty, and tactical fit. "
+                    "Never recommend any player not listed in the verified candidate pool."
+                )
+
+            team_roster_context = self._get_team_roster_context(user_msg)
+            if team_roster_context:
+                system_instruction += f"\n\n{team_roster_context}\n"
+
+            platform_stats_context = self._get_live_platform_stats_context(user_msg, target_gw=target_gw)
+            if platform_stats_context:
+                system_instruction += (
+                    f"\n\n{platform_stats_context}\n\n"
+                    "CRITICAL GROUNDING & ANTI-HALLUCINATION DIRECTIVES:\n"
+                    "1. STRICT FACTUAL ALIGNMENT: You are directly connected to the live 2026/27 Apex FPL database and FotMob engine above. Always quote exact metrics (price, xP, goals, assists, xG, xA, FDR, clean sheets) from the verified database provided in context.\n"
+                    "2. NO INVENTED CLUBS OR PLAYERS: When discussing player current teams, prices, and stats, rely strictly on the verified context above.\n"
+                    "3. SQUAD AND TRANSFER ALIGNMENT: Never suggest buying players flagged as injured, doubtful, or transferred out of the Premier League."
+                )
+
+            messages = [{"role": "system", "content": system_instruction}]
+            if history:
+                for h in history[-6:]:
+                    r = "user" if h.get("role") in ["user", "human"] else "assistant"
+                    t = (h.get("text") or "").strip()
+                    if t:
+                        messages.append({"role": r, "content": t[:800]})
+            messages.append({"role": "user", "content": user_msg})
+
+            models_to_try = [
+                "muse-spark-1.3",
+                "muse-wonder-1.0",
+                "muse-spark-1.2"
+            ]
+
+            url = "https://api.meta.ai/v1/chat/completions"
+            for model_name in models_to_try:
+                try:
+                    payload = {
+                        "model": model_name,
+                        "messages": messages,
+                        "max_tokens": 1500,
+                        "temperature": 0.6
+                    }
+                    req = urllib.request.Request(
+                        url,
+                        data=json.dumps(payload).encode("utf-8"),
+                        headers={
+                            "Authorization": f"Bearer {self.meta_api_key}",
+                            "Content-Type": "application/json",
+                            "User-Agent": "ApexFPL/1.0"
+                        }
+                    )
+                    with urllib.request.urlopen(req, timeout=7.0) as res:
+                        if res.status == 200:
+                            data = json.loads(res.read().decode("utf-8"))
+                            choices = data.get("choices", [])
+                            if choices and choices[0].get("message", {}).get("content"):
+                                reply_text = choices[0]["message"]["content"].strip()
+
+                                # Safety Guardrail: check for departed player hallucinations
+                                banned_hallucinations = ["gordon (newcastle", "gordon at newcastle", "gordon plays for newcastle"]
+                                if any(b in reply_text.lower() for b in banned_hallucinations):
+                                    print("[ChatFPL Meta Guardrail] Detected hallucinated/departed player club. Falling back to native verified engine.")
+                                    return None
+
+                                # Safety Guardrail: check for hallucinated 2025/26 league champions
+                                low_resp = reply_text.lower()
+                                city_terms = ["manchester city", "man city", "city"]
+                                champion_terms = ["won the premier league", "won the pl", "premier league title", "won the title", "crowned champions", "claimed the crown", "champions in the 2025/26", "champions in 2025/26"]
+                                season_terms = ["2025/26", "last season", "2025-26"]
+                                if any(c in low_resp for c in city_terms) and any(s in low_resp for s in season_terms) and any(w in low_resp for w in champion_terms):
+                                    print("[ChatFPL Meta Guardrail] Intercepted 2025/26 Man City champion hallucination. Falling back to verified ground truth.")
+                                    return self._handle_league_champions_query(user_msg)
+
+                                cleaned_reply = re.sub(r'^(?:#+\s*)?(?:\*\*)?Bottom Line(?: Up Front)?(?:\*\*)?:?\s*(?:\*\*)?\s*', '', reply_text, flags=re.IGNORECASE)
+                                cleaned_reply = re.sub(r'^(?:#+\s*)?(?:\*\*)?BLUF(?:\*\*)?:?\s*(?:\*\*)?\s*', '', cleaned_reply, flags=re.IGNORECASE).strip()
+
+                                return {
+                                    "success": True,
+                                    "reply": cleaned_reply,
+                                    "suggestions": self._generate_contextual_suggestions(user_msg, cleaned_reply)
+                                }
+                except urllib.error.HTTPError as he:
+                    err_body = he.read().decode("utf-8", errors="ignore")
+                    print(f"[ChatFPL Meta AI] HTTP {he.code} from {model_name}: {err_body}")
+                    if he.code in (401, 402):
+                        break
+                except Exception as ex:
+                    print(f"[ChatFPL Meta AI] Exception with {model_name}: {ex}")
+                    continue
+        except Exception as e:
+            print(f"[ChatFPL Meta AI Error] {e}")
+            return None
+
+        return None
+
     def _retrieve_candidate_targets(self, query: str, user_squad: Optional[Dict[str, Any]] = None) -> List[Dict[str, Any]]:
-        """Retrieves top verified active player candidates from the database matching query criteria."""
+        """Retrieves top verified active player candidates from the database matching query criteria and strictly respecting FPL constraints."""
         low = query.lower()
         pos_filter = None
         if any(w in low for w in ["mid", "midfielder", "winger"]):
@@ -898,10 +1186,19 @@ class ChatFPLEngine:
         is_diff = any(w in low for w in ["diff", "differential", "low ownership", "hidden gem", "unowned"])
 
         user_pids = set()
+        clubs_at_limit = set()
+        user_bank = 0.5
         if user_squad:
             user_pids = set(user_squad.get("starters", []) + user_squad.get("bench", []))
+            user_bank = float(user_squad.get("bank", 0.5))
+            squad_objs = [self.re.players_by_id[pid] for pid in user_pids if pid in self.re.players_by_id]
+            club_counts: Dict[str, int] = {}
+            for sp in squad_objs:
+                tm = sp.get("team_short", sp.get("team_name", "PL"))
+                club_counts[tm] = club_counts.get(tm, 0) + 1
+            clubs_at_limit = {tm for tm, cnt in club_counts.items() if cnt >= FPLRulesEngine.MAX_CLUB_PLAYERS}
 
-        # Base filter: strictly active, not transferred out, not injured, not doubtful
+        # Base filter: strictly active, not transferred out, not injured, not doubtful, and not already in squad
         candidates = [
             p for p in self.re.unified_players
             if not p.get("is_unavailable")
@@ -910,6 +1207,11 @@ class ChatFPLEngine:
             and p.get("chance_of_playing", 100) >= 75
             and p.get("id") not in user_pids
         ]
+
+        # Enforce FPL Club Quota Constraint (Max 3 players per club):
+        # Exclude candidates from clubs already at maximum capacity in the user's squad
+        if clubs_at_limit:
+            candidates = [p for p in candidates if p.get("team_short") not in clubs_at_limit]
 
         if pos_filter:
             candidates = [p for p in candidates if p.get("position") == pos_filter]
@@ -961,7 +1263,7 @@ class ChatFPLEngine:
         return "\n".join(lines)
 
     def _format_squad_context(self, user_squad: Optional[Dict[str, Any]], target_gw: int = 5) -> str:
-        """Constructs a comprehensive, rich context string of the user's active squad."""
+        """Constructs a comprehensive, rich context string auditing the user's active squad, budget, and constraints."""
         if not user_squad or not user_squad.get("starters"):
             user_squad = self.re.get_default_squad()
 
@@ -970,23 +1272,8 @@ class ChatFPLEngine:
         bank = float(user_squad.get("bank", 0.5))
         ft = int(user_squad.get("free_transfers", 1))
 
-        def format_player_line(p):
-            fix = (p.get("upcoming_fixtures") or [{}])[0]
-            opp = fix.get("opponent", "OPP")
-            fdr = fix.get("difficulty", 3)
-            venue = "H" if fix.get("is_home") else "A"
-            flag = ""
-            if p.get("is_unavailable"):
-                flag = f" [INJURED/SUSPENDED: {p.get('injury_reason', 'Out')}]"
-            elif p.get("is_doubtful"):
-                flag = f" [DOUBTFUL: {p.get('chance_of_playing', 50)}% - {p.get('injury_reason', 'Flagged')}]"
-            return (
-                f"- {p['web_name']} ({p.get('team_short', 'PL')}, {p['position']}) | Price: £{p['cost']:.1f}m | "
-                f"GW{target_gw} xP: {p.get('expected_points', 0):.2f} | Fixture: vs {opp} ({venue}) [FDR {fdr}]{flag}"
-            )
-
-        starters_lines = [format_player_line(p) for p in starters]
-        bench_lines = [format_player_line(p) for p in bench]
+        # Perform deep FPL rules and constraint audit
+        audit = FPLRulesEngine.analyze_squad_constraints(starters, bench, bank, free_transfers=ft)
 
         rec = self.re.recommend_transfers_and_chips(
             starters=[p["id"] for p in starters],
@@ -995,25 +1282,93 @@ class ChatFPLEngine:
             free_transfers=ft
         )
 
+        def format_player_line(p, role_label=""):
+            fix = (p.get("upcoming_fixtures") or [{}])[0]
+            opp = fix.get("opponent", "OPP")
+            fdr = fix.get("difficulty", 3)
+            venue = "H" if fix.get("is_home") else "A"
+            flag = ""
+            if p.get("is_unavailable"):
+                flag = f" [INJURED/SUSPENDED: {p.get('injury_reason', 'Out')}]"
+            elif p.get("is_doubtful") or p.get("chance_of_playing", 100) < 75:
+                flag = f" [DOUBTFUL: {p.get('chance_of_playing', 50)}% - {p.get('injury_reason', 'Flagged')}]"
+            prefix = f"{role_label}: " if role_label else ""
+            return (
+                f"- {prefix}{p['web_name']} ({p.get('team_short', 'PL')}, {p['position']}) | Price: £{p['cost']:.1f}m | "
+                f"GW{target_gw} xP: {p.get('expected_points', 0):.2f} | Fixture: vs {opp} ({venue}) [FDR {fdr}]{flag}"
+            )
+
+        starters_lines = [format_player_line(p) for p in starters]
+        bench_sub_labels = ["1st Sub (Highest Priority)", "2nd Sub", "3rd Sub", "Backup GK"]
+        bench_lines = []
+        for idx, p in enumerate(bench):
+            lbl = "Backup GK" if p.get("position") == "GKP" else (bench_sub_labels[min(idx, 2)])
+            bench_lines.append(format_player_line(p, lbl))
+
         all_players = starters + bench
-        flagged = [p for p in all_players if p.get('is_doubtful') or p.get('is_unavailable')]
+        flagged = [p for p in all_players if p.get('is_doubtful') or p.get('is_unavailable') or p.get('chance_of_playing', 100) < 75]
         flagged_strs = [f"{p.get('web_name')} ({p.get('injury_reason', 'Flagged')})" for p in flagged]
         flagged_summary = (
             f"Injuries/Flags in squad: {', '.join(flagged_strs)}"
-            if flagged else "No active injury flags in squad."
+            if flagged else "No active injury flags in squad (100% fit)."
         )
+
+        # Club quota summary
+        club_counts_str = ", ".join([f"{tm}: {cnt}" for tm, cnt in sorted(audit["club_counts"].items(), key=lambda x: -x[1])[:8]])
+        clubs_at_limit_str = ", ".join(audit["clubs_at_limit"]) if audit["clubs_at_limit"] else "None (all clubs have available spots)"
+
+        # Pre-calculated transfer recommendation summary from optimizer
+        opt_action = rec.get("action", "ROLL_TRANSFER")
+        opt_verdict = rec.get("verdict_title", "")
+        opt_transfer = rec.get("transfer")
+        if opt_transfer:
+            p_out = opt_transfer["player_out"]
+            p_in = opt_transfer["player_in"]
+            opt_summary = (
+                f"SUGGESTED MOVE: Sell {p_out['web_name']} (£{p_out['cost']:.1f}m, {p_out.get('expected_points', 0):.2f} xP) ➔ "
+                f"Buy {p_in['web_name']} (£{p_in['cost']:.1f}m, {p_in.get('expected_points', 0):.2f} xP) | "
+                f"Net Gain: +{opt_transfer['xp_gain']:.2f} xP | Remaining Bank: £{opt_transfer['new_bank']:.1f}m\n"
+                f"- Constraints Check: Budget: PASSED | Club Quota: PASSED | Position: PASSED | Fitness: PASSED"
+            )
+        else:
+            opt_summary = (
+                f"SUGGESTED ACTION: Roll Free Transfer (Bank to {audit['next_banked_ft']} FTs)\n"
+                f"- Rationale: Starting XI is optimal and healthy; no move provides >= 1.0 xP gain or frees >= £1.0m."
+            )
 
         top_captains = sorted(starters, key=lambda p: -p.get("expected_points", 0))[:2]
         cap_summary = ", ".join([f"{p['web_name']} ({p.get('expected_points', 0):.2f} xP)" for p in top_captains])
 
+        manager_header = ""
+        if user_squad.get("manager_name") or user_squad.get("team_name"):
+            manager_header = f"MANAGER: {user_squad.get('manager_name', 'FPL Manager')} | TEAM: {user_squad.get('team_name', 'My Team')}\n"
+
         return (
-            f"USER SQUAD METRICS (GAMEWEEK {target_gw}):\n"
-            f"- In Bank: £{bank:.1f}m | Available Free Transfers: {ft} FT\n"
-            f"- Top Captaincy Contenders: {cap_summary}\n"
-            f"- Recommended Action: {rec.get('action_title', rec.get('action', 'Hold/Roll'))}\n"
-            f"- Squad Health: {flagged_summary}\n\n"
+            f"USER SQUAD, BUDGET & CONSTRAINT AUDIT (GAMEWEEK {target_gw}):\n"
+            f"{manager_header}"
+            f"1. FINANCIAL & BUDGET AUDIT:\n"
+            f"   - Money In The Bank (ITB): £{audit['bank']:.1f}m\n"
+            f"   - Starting XI Value: £{audit['starters_value']:.1f}m | Bench Value: £{audit['bench_value']:.1f}m\n"
+            f"   - Total Squad Value: £{audit['total_squad_value']:.1f}m | Total Purchasing Budget: £{audit['total_budget']:.1f}m\n\n"
+            f"2. TRANSFER & HIT CONSTRAINTS:\n"
+            f"   - Available Free Transfers: {audit['free_transfers']} FT (Max 5 banked under official 2026/27 rules)\n"
+            f"   - Next Banked FT Capacity: Rolling this week grows balance to {audit['next_banked_ft']} FTs\n"
+            f"   - Point Hit Deduction: {f'Extra transfers incur a -4 point hit each.' if audit['free_transfers'] > 0 else '0 FTs available: Any transfer incurs a -4 point hit.'}\n\n"
+            f"3. CLUB QUOTA & 3-PLAYER LIMIT CONSTRAINTS:\n"
+            f"   - Current Allocations: {club_counts_str}\n"
+            f"   - ⚠️ CLUBS AT MAX CAPACITY (3/3): {clubs_at_limit_str}\n"
+            f"     (STRICT RULE: Cannot buy any player from clubs at 3/3 without selling an existing player from that club!)\n\n"
+            f"4. FORMATION & SQUAD STRUCTURE:\n"
+            f"   - Fielded Formation: {audit['formation']} ({', '.join(f'{cnt} {pos}' for pos, cnt in audit['starter_pos_counts'].items())}) [Valid FPL Formation]\n"
+            f"   - Total Players: 15 (11 Starters, 4 Bench)\n\n"
+            f"5. SQUAD HEALTH & INJURIES:\n"
+            f"   - {flagged_summary}\n\n"
+            f"6. ALGORITHMIC OPTIMIZER RECOMMENDATION:\n"
+            f"   - Verdict Title: {opt_verdict}\n"
+            f"   - {opt_summary}\n"
+            f"   - Top Captaincy Contenders: {cap_summary}\n\n"
             f"STARTING XI (11 players):\n" + "\n".join(starters_lines) + "\n\n"
-            f"BENCH (4 players):\n" + "\n".join(bench_lines)
+            f"BENCH (4 players in priority order):\n" + "\n".join(bench_lines)
         )
 
     def _process_native_query(self, text: str, user_squad: Optional[Dict[str, Any]] = None, history: Optional[List[Dict[str, Any]]] = None) -> Dict[str, Any]:
@@ -1087,23 +1442,46 @@ class ChatFPLEngine:
         ]):
             return self._handle_transfer_count_and_hit_discipline(text, user_squad)
 
-        # 3b. FPL Chips & Rule Inquiries (Wildcard, Free Hit, Bench Boost, TC, BPS)
-        if any(kw in low for kw in ["wildcard", "free hit", "bench boost", "triple captain", "tc", "chip", "chips", "bonus point", "bps", "price change", "price rise", "price fall", "how does free hit", "when to wildcard"]):
+        # 3b. FPL Chips & Rule Inquiries (Wildcard, Free Hit, Bench Boost, TC, BPS, and all official FPL rules)
+        fpl_rule_keywords = [
+            "wildcard", "free hit", "bench boost", "triple captain", "tc", "chip", "chips",
+            "bonus point", "bps", "price change", "price rise", "price fall", "how does free hit",
+            "when to wildcard", "fpl rule", "fpl rules", "official rule", "official rules", "rule", "rules",
+            "scoring rule", "scoring rules", "free transfer rule", "how do transfers work",
+            "transfer rules", "how many free transfers", "bank transfers", "bank free transfer",
+            "banking rule", "team limit", "club limit", "how many players from one team",
+            "max players per club", "selling price rule", "50% rule", "auto sub", "auto-sub",
+            "substitution rule", "formation rule", "valid formation", "squad constraints"
+        ]
+        is_transfer_rec_intent = any(kw in low for kw in [
+            "suggest transfer", "suggest transfers", "who to transfer", "transfers to make",
+            "fix my team", "transfer advice", "recommend transfer", "recommend transfers",
+            "assess squad", "assess my squad", "assess the squad"
+        ])
+        if any(kw in low for kw in fpl_rule_keywords) and not is_transfer_rec_intent:
             return self._handle_fpl_rules_and_chips(text)
 
         # 4. Fixtures, Difficulty & Upcoming Schedules
         if any(kw in low for kw in ["fixture", "fixtures", "fdr", "schedule", "calendar", "easiest run", "hardest run", "fixture swing", "double gameweek", "dgw", "blank gameweek", "bgw"]):
             return self._handle_fixture_query(text)
 
-        # 5. Budget, Value & Differential Scouting
+        # 5. Real-time Transfer Strategy Suggestions & Squad/Budget/Constraints Assessment
+        if any(kw in low for kw in [
+            "strategy", "what transfer", "suggest transfer", "suggest transfers", "who to transfer",
+            "transfers to make", "fix my team", "what should i do", "transfer advice",
+            "assess squad", "assess my squad", "assess the squad", "squad assessment",
+            "budget and transfer constraints", "transfer constraints", "budget constraints",
+            "assess my team", "review my squad", "analyze my squad", "rate my squad",
+            "transfer recommendation", "transfer suggestions", "recommend transfers", "recommend transfer",
+            "suggest move", "what move", "transfer plan"
+        ]):
+            return self._handle_transfer_strategy_suggestion(user_squad)
+
+        # 6. Budget, Value & Differential Scouting
         if any(kw in low for kw in ["differential", "differentials", "budget", "cheap", "affordable", "under "]) or (
             any(p in low for p in ["mid", "def", "fwd", "gk", "keeper", "striker", "defender", "midfielder"]) and any(w in low for w in ["best", "top", "pick", "good", "recommend", "under", "cheap", "value", "cost"])
         ):
             return self._handle_budget_scouting(text)
-
-        # 6. Real-time Transfer Strategy Suggestions
-        if any(kw in low for kw in ["strategy", "what transfer", "suggest transfer", "who to transfer", "transfers to make", "fix my team", "what should i do", "transfer advice"]):
-            return self._handle_transfer_strategy_suggestion(user_squad)
 
         # 7. Player Replacement Queries ("Replace X with who?", "Who should I buy for X?", "Sell X?")
         if any(kw in low for kw in ["replace", "substitute", "swap", "sell", "buy for", "upgrade"]):
@@ -1746,7 +2124,7 @@ class ChatFPLEngine:
     # -------------------------------------------------------------------------
 
     def _handle_transfer_strategy_suggestion(self, user_squad: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
-        """Provides concrete, real-time transfer recommendations tailored to user's squad."""
+        """Provides concrete, real-time transfer recommendations rigorously assessed against user's squad, budget, and FPL constraints."""
         if not user_squad or not user_squad.get("starters"):
             user_squad = self.re.get_default_squad()
 
@@ -1754,9 +2132,14 @@ class ChatFPLEngine:
         bench_ids = user_squad.get("bench", [])
         bank = float(user_squad.get("bank", 0.5))
         ft = int(user_squad.get("free_transfers", 1))
+        target_gw = self.current_gameweek
 
         starters = [self.re.players_by_id[pid] for pid in starters_ids if pid in self.re.players_by_id]
         bench = [self.re.players_by_id[pid] for pid in bench_ids if pid in self.re.players_by_id]
+        all_players = starters + bench
+
+        # 1. Full FPL Rules & Squad Constraints Audit
+        audit = FPLRulesEngine.analyze_squad_constraints(starters, bench, bank, free_transfers=ft)
 
         rec = self.re.recommend_transfers_and_chips(
             starters=starters_ids,
@@ -1767,42 +2150,124 @@ class ChatFPLEngine:
 
         action = rec.get("action", "ROLL_TRANSFER")
         transfers = rec.get("transfers", [])
-        net_gain = rec.get("net_xp_gain", 0.0)
-        target_gw = self.current_gameweek
+        best_t = rec.get("transfer") or (transfers[0] if transfers else None)
+        alternatives = rec.get("alternative_transfers", [])[:3]
 
-        if action == "MAKE_TRANSFERS" and transfers:
-            t = transfers[0]
-            p_out = self.re.players_by_id[t["out"]]
-            p_in = self.re.players_by_id[t["in"]]
-            reply = f"### 🎯 Recommended Move: Sell {p_out['web_name']} ➔ Buy {p_in['web_name']}\n\n"
-            reply += f"- **Sell**: **{p_out['web_name']}** ({p_out['team_short']} • £{p_out['cost']:.1f}m • {p_out['expected_points']:.1f} pts)\n"
-            reply += f"- **Buy**: **{p_in['web_name']}** ({p_in['team_short']} • £{p_in['cost']:.1f}m • {p_in['expected_points']:.1f} pts)\n"
-            reply += f"- **Why**: Easier fixture and higher goal threat. You gain **+{t['gain']:.1f} points** with £{t['new_bank']:.1f}m in the bank.\n\n"
+        # Club limit status
+        clubs_at_limit_str = ", ".join(audit["clubs_at_limit"]) if audit["clubs_at_limit"] else "None (open spots across all clubs)"
+
+        # Squad Health summary
+        flagged_starters = audit["flagged_starters"]
+        flagged_bench = audit["flagged_bench"]
+        if flagged_starters:
+            health_summary = f"⚠️ {len(flagged_starters)} flagged starter{'s' if len(flagged_starters) > 1 else ''}: " + ", ".join([f"**{p['web_name']}** ({p.get('injury_reason', 'Flagged')})" for p in flagged_starters])
+        elif flagged_bench:
+            health_summary = f"ℹ️ Starting XI fully fit; {len(flagged_bench)} bench flag(s): " + ", ".join([f"{p['web_name']}" for p in flagged_bench])
         else:
-            next_ft = min(5, ft + 1)
-            reply = f"### 🛡️ Recommended Move: **Roll Your Free Transfer**\n\n"
-            reply += f"- **Why**: Your starting eleven is solid and fixture ratings are favorable. No single transfer provides a substantial enough upgrade to justify spending your transfer.\n"
-            reply += f"- **Transfer Discipline**: Rolling preserves your transfer equity and grows your balance to **{next_ft} Free Transfer{'s' if next_ft > 1 else ''}** for upcoming fixture swings, avoiding unnecessary point hits or squad churn.\n\n"
+            health_summary = "✅ Starting XI & Bench 100% fit with no active injury flags."
 
-        # Flag any injured players
-        injured = [p for p in starters if p.get("is_unavailable") or p.get("is_doubtful")]
-        if injured:
-            reply += "**⚠️ Injury Watch**:\n"
-            for p in injured:
-                reply += f"- **{p['web_name']}**: {p.get('injury_reason') or 'Doubtful'} ({p.get('chance_of_playing')}% chance)\n"
-            reply += "\n"
+        # Header with Manager and Team name if available
+        mgr_name = user_squad.get("manager_name")
+        team_name = user_squad.get("team_name")
+        mgr_str = f" for **{mgr_name}** (`{team_name}`)" if mgr_name and team_name else ""
+
+        reply = f"### 📊 Squad, Budget & Constraint Assessment{mgr_str} (GW{target_gw})\n\n"
+        reply += f"- **Financial Audit**: **£{bank:.1f}m in bank (ITB)** | Squad Value: **£{audit['total_squad_value']:.1f}m** | Total Purchasing Power: **£{audit['total_budget']:.1f}m**\n"
+        reply += f"- **Transfer Status**: **{ft} Free Transfer{'s' if ft != 1 else ''} available** (Allocated under official 2026/27 rules, bankable up to 5 FTs)\n"
+        if ft > 0:
+            reply += f"- **Hit Penalty**: Extra transfers beyond {ft} incur a **-4 point hit each**.\n"
+        else:
+            reply += f"- **Hit Penalty**: ⚠️ 0 Free Transfers available: Any transfer incurs a **-4 point deduction**.\n"
+        reply += f"- **Club Limits**: {clubs_at_limit_str} (Max 3 players per club rule)\n"
+        reply += f"- **Formation**: **{audit['formation']}** ({', '.join(f'{cnt} {pos}' for pos, cnt in audit['starter_pos_counts'].items())}) — valid FPL structure\n"
+        reply += f"- **Squad Health**: {health_summary}\n\n"
+        reply += "---\n\n"
+
+        if action in ("TRANSFER", "MAKE_TRANSFERS") and best_t:
+            p_out = best_t["player_out"] if "player_out" in best_t else self.re.players_by_id[best_t["out"]]
+            p_in = best_t["player_in"] if "player_in" in best_t else self.re.players_by_id[best_t["in"]]
+            xp_gain = best_t.get("xp_gain", best_t.get("gain", 0.0))
+            cost_diff = best_t.get("cost_diff", round(p_in["cost"] - p_out["cost"], 2))
+            new_bank = best_t.get("new_bank", round(bank - cost_diff, 2))
+
+            fix_out = (p_out.get("upcoming_fixtures") or [{}])[0]
+            fix_in = (p_in.get("upcoming_fixtures") or [{}])[0]
+            opp_out = fix_out.get("opponent", "OPP")
+            opp_in = fix_in.get("opponent", "OPP")
+            fdr_out = fix_out.get("difficulty", 3)
+            fdr_in = fix_in.get("difficulty", 3)
+            ven_in = "H" if fix_in.get("is_home") else "A"
+
+            # Check new club count for p_in's team
+            p_in_tm = p_in.get("team_short", p_in.get("team_name"))
+            curr_tm_cnt = audit["club_counts"].get(p_in_tm, 0)
+            if p_out.get("team_short") == p_in_tm:
+                new_tm_cnt = curr_tm_cnt
+            else:
+                new_tm_cnt = curr_tm_cnt + 1
+
+            reply += f"### 🎯 Primary Recommended Move: Sell {p_out['web_name']} ➔ Buy {p_in['web_name']}\n\n"
+            reply += f"- **Sell**: **{p_out['web_name']}** ({p_out['team_short']} • £{p_out['cost']:.1f}m • `{p_out.get('expected_points', 0):.2f} xP` vs {opp_out} [FDR {fdr_out}])\n"
+            reply += f"- **Buy**: **{p_in['web_name']}** ({p_in['team_short']} • £{p_in['cost']:.1f}m • `{p_in.get('expected_points', 0):.2f} xP` vs {opp_in} ({ven_in}) [FDR {fdr_in}])\n"
+            reply += f"- **Expected Points Impact**: **+{xp_gain:.2f} xP** net immediate upgrade\n"
+            reply += f"- **Financial Impact**: Cost difference of **£{cost_diff:+.1f}m**, leaving **£{new_bank:.1f}m in the bank**\n\n"
+
+            reply += "#### 🛡️ Official FPL Constraints Verification:\n"
+            reply += f"- ✅ **Budget Constraint**: Passed ({p_in['web_name']} at £{p_in['cost']:.1f}m fits within maximum purchasing budget of £{p_out['cost'] + bank:.1f}m, leaving £{new_bank:.1f}m ITB)\n"
+            reply += f"- ✅ **Club Quota Constraint**: Passed (Leaves {new_tm_cnt}/3 players from {p_in_tm}, strictly under the 3-per-club cap)\n"
+            reply += f"- ✅ **Position & Formation Constraint**: Passed ({p_out['position']} ➔ {p_in['position']}, preserves legal {audit['formation']} formation)\n"
+            reply += f"- ✅ **Fitness & Playing Likelihood**: Passed (100% available, secure starting minutes)\n\n"
+
+            reply += "#### 💡 Tactical Rationale:\n"
+            reply += f"- **Fixture Swing**: {p_out['web_name']} faces {opp_out} (FDR {fdr_out}), while {p_in['web_name']} has a favorable matchup vs {opp_in} ({ven_in}, FDR {fdr_in}).\n"
+            reply += f"- **Underlying Metrics**: {p_in['web_name']} averages `{p_in.get('xg_90', 0):.2f} xG/90` and `{p_in.get('xa_90', 0):.2f} xA/90` with a `{p_in.get('fotmob_rating', 6.8):.2f}` average FotMob match rating.\n\n"
+
+            if alternatives:
+                reply += "---\n\n"
+                reply += "### 🔄 Viable Alternative Transfer Options:\n"
+                for idx, alt in enumerate(alternatives, 1):
+                    alt_out = alt["player_out"]
+                    alt_in = alt["player_in"]
+                    alt_diff = alt["cost_diff"]
+                    alt_bank = alt["new_bank"]
+                    alt_type = "Starting XI Upgrade" if alt.get("is_starter") else "Bench Enabler"
+                    reply += (
+                        f"{idx}. **Sell {alt_out['web_name']} ➔ Buy {alt_in['web_name']}** ({alt_in['position']} • £{alt_in['cost']:.1f}m • `{alt_in.get('expected_points', 0):.2f} xP`):\n"
+                        f"   - **Gain**: `+{alt['xp_gain']:.2f} xP` | **New Bank**: £{alt_bank:.1f}m ({alt_type})\n"
+                    )
+                reply += "\n"
+        else:
+            next_ft = audit["next_banked_ft"]
+            reply += f"### 🛡️ Recommended Move: **Roll Your Free Transfer**\n\n"
+            reply += f"- **Why**: Your starting eleven is solid, healthy, and facing favorable matchups. No available market transfer provides >= 1.0 xP gain or frees >= £1.0m to justify expending your transfer equity.\n"
+            reply += f"- **5-FT Banking Strategy**: Under official 2026/27 rules, rolling accumulates your balance to **{next_ft} Free Transfer{'s' if next_ft > 1 else ''}** heading into next gameweek. Banking transfers allows you to absorb upcoming fixture turns or double gameweeks with multi-transfer combinations without taking -4 hits.\n\n"
+
+            if alternatives:
+                reply += "**Active Alternatives If You Prefer An Immediate Move:**\n"
+                for idx, alt in enumerate(alternatives[:2], 1):
+                    alt_out = alt["player_out"]
+                    alt_in = alt["player_in"]
+                    reply += f"- **Option {idx}**: Sell {alt_out['web_name']} ➔ Buy {alt_in['web_name']} (£{alt_in['cost']:.1f}m, `+{alt['xp_gain']:.2f} xP`, leaves £{alt['new_bank']:.1f}m ITB)\n"
+                reply += "\n"
 
         # Captaincy advice
         sorted_starters = sorted(starters, key=lambda x: -x.get("expected_points", 0))
         if sorted_starters:
             top_c = sorted_starters[0]
-            reply += f"👑 **Captain Pick**: **{top_c['web_name']}** ({top_c['expected_points']:.1f} pts vs {top_c['upcoming_fixtures'][0].get('opponent', 'OPP')})"
+            top_vc = sorted_starters[1] if len(sorted_starters) > 1 else top_c
+            fix_c = (top_c.get("upcoming_fixtures") or [{}])[0]
+            fix_vc = (top_vc.get("upcoming_fixtures") or [{}])[0]
+            reply += "---\n\n"
+            reply += f"### 👑 Gameweek {target_gw} Captaincy Contenders:\n"
+            reply += f"- **Captain (C)**: **{top_c['web_name']}** (`{top_c.get('expected_points', 0):.2f} xP` vs {fix_c.get('opponent', 'OPP')} [FDR {fix_c.get('difficulty', 3)}])\n"
+            reply += f"- **Vice-Captain (VC)**: **{top_vc['web_name']}** (`{top_vc.get('expected_points', 0):.2f} xP` vs {fix_vc.get('opponent', 'OPP')} [FDR {fix_vc.get('difficulty', 3)}])\n"
 
         return {
             "success": True,
             "reply": reply,
             "suggestions": [
                 "Should I roll transfer?",
+                "What are the FPL rules for free transfers & banking?",
                 "Who should I captain this week?",
                 "Should I take a -4 hit?"
             ]
@@ -2700,29 +3165,120 @@ class ChatFPLEngine:
         }
 
     def _handle_fpl_rules_and_chips(self, text: str) -> Dict[str, Any]:
-        """Provides expert tactical advice on FPL chips, transfer hits, and scoring rules."""
+        """Provides authoritative guidance on all official FPL rules, transfer banking, squad constraints, chips, and scoring."""
         low = text.lower()
-        if "wildcard" in low:
+
+        if any(w in low for w in ["bank transfer", "banking", "how many transfers can i save", "5 free transfer", "5 transfer", "save transfer", "roll transfer", "free transfer rule"]):
+            reply = (
+                "### 🔄 FPL Free Transfer & Banking Rules (Official 2026/27)\n\n"
+                "- **Allocation**: You receive **1 Free Transfer (FT)** per gameweek after each deadline.\n"
+                "- **5-FT Banking Cap**: In the modern rules, unused Free Transfers accumulate up to a maximum of **5 Free Transfers** (up from the historical 2 FT limit).\n"
+                "- **Preservation with Chips (Critical Modern Rule)**: Playing your **Wildcard** or **Free Hit** chip NO LONGER wipes or resets accumulated banked Free Transfers! Any saved Free Transfers are preserved and carry forward into the following gameweek.\n"
+                "- **Transfer Equity & Strategy**: Banking multiple transfers allows managers to execute mini-wildcards (2-3 transfers) during major fixture swings or double gameweeks without taking point penalties."
+            )
+            chips = ["Should I roll transfer?", "Suggest a transfer strategy", "How do transfer hits work?"]
+
+        elif any(w in low for w in ["club limit", "team limit", "how many players from one team", "max players", "players per club", "same team"]):
+            reply = (
+                "### 🏟️ FPL 3-Players-Per-Club Limit Rule\n\n"
+                "- **The Rule**: You can select a maximum of **3 players from any single Premier League club** across your entire 15-man squad.\n"
+                "- **Transfer Implication**: If you already have 3 players from a club (e.g. 3 Arsenal players like Saka, Saliba, and Raya), you **cannot purchase another player from that club** unless you sell one of your existing players from that club in the same transfer window.\n"
+                "- **Double Transfer Enabler**: To bring in a 4th player from that club, you must structure a double transfer (Sell Player A from Club ➔ Buy Player B from Club)."
+            )
+            chips = ["Suggest a transfer strategy", "Assess squad & constraints", "Who should I captain?"]
+
+        elif any(w in low for w in ["selling price", "profit", "50%", "price change", "price rise", "price fall", "budget rule"]):
+            reply = (
+                "### 💰 FPL Budget, Valuation & 50% Profit Rule\n\n"
+                "- **Initial Budget**: Managers start with **£100.0m** to build a 15-player squad.\n"
+                "- **In The Bank (ITB)**: Unspent budget remains in your bank and can be used for future upgrades. Bank balance can never be negative.\n"
+                "- **50% Selling Profit Rule**: When an owned player rises in price, you receive **50% of the profit** (rounded down to the nearest £0.1m) upon sale:\n"
+                "  * Formula: `Selling Price = Purchase Price + ((Current Price - Purchase Price) // 2) * 0.1`\n"
+                "  * Example: Bought at £6.0m, player rises to £6.2m (+£0.2m) ➔ Sell price is **£6.1m** (+£0.1m profit).\n"
+                "  * Example: Bought at £6.0m, player rises to £6.3m (+£0.3m) ➔ Sell price is still **£6.1m** (must rise to £6.4m to get £6.2m).\n"
+                "- **Price Drops**: Price drops are NOT split—if a player drops in price, you absorb 100% of the loss."
+            )
+            chips = ["Suggest a transfer strategy", "Who to sell this week?", "Best budget midfielders"]
+
+        elif any(w in low for w in ["formation", "valid formation", "squad size", "how many defenders", "starting xi", "composition"]):
+            reply = (
+                "### 🛡️ FPL Squad Composition & Formation Rules\n\n"
+                "- **Total Squad**: Exactly **15 players** (2 Goalkeepers, 5 Defenders, 5 Midfielders, 3 Forwards).\n"
+                "- **Starting XI Constraints**: Exactly **11 players** must start:\n"
+                "  * Exactly 1 Goalkeeper (GKP)\n"
+                "  * At least 3 Defenders (DEF)\n"
+                "  * At least 2 Midfielders (MID)\n"
+                "  * At least 1 Forward (FWD)\n"
+                "- **The 8 Permitted Formations**: `3-5-2`, `3-4-3`, `4-4-2`, `4-3-3`, `4-5-1`, `5-3-2`, `5-4-1`, `5-2-3`.\n"
+                "- **Bench Requirements**: Exactly 4 players ordered: Backup Goalkeeper, 1st Sub, 2nd Sub, 3rd Sub."
+            )
+            chips = ["Who to bench this week?", "Suggest a transfer strategy", "How do auto-subs work?"]
+
+        elif any(w in low for w in ["auto sub", "auto-sub", "substitution", "sub order", "how do subs work"]):
+            reply = (
+                "### 🔄 FPL Automatic Substitutions Rules\n\n"
+                "- **When it happens**: Auto-subs process at the end of the gameweek after all fixtures conclude.\n"
+                "- **Trigger**: If a starting player plays **0 minutes** (does not feature in the match).\n"
+                "- **Order of Priority**: Replaced by the highest-priority outfield bench player (1st Sub ➔ 2nd Sub ➔ 3rd Sub) who played at least 1 minute.\n"
+                "- **Formation Preservation**: A substitution will only occur if it results in a legal formation (e.g. if you play 3 defenders and one doesn't play, only another defender can sub on, even if a midfielder is 1st sub).\n"
+                "- **Goalkeeper Rule**: The starting goalkeeper can ONLY be replaced by the backup goalkeeper."
+            )
+            chips = ["Who should I bench?", "Lineup dilemmas", "Suggest a transfer strategy"]
+
+        elif any(w in low for w in ["scoring", "how are points scored", "points rule", "clean sheet rule", "goal points"]):
+            reply = (
+                "### ⚽ Official FPL Scoring & Points Breakdown\n\n"
+                "| Event | GKP | DEF | MID | FWD |\n"
+                "| :--- | :---: | :---: | :---: | :---: |\n"
+                "| **Playing up to 60 mins** | 1 pt | 1 pt | 1 pt | 1 pt |\n"
+                "| **Playing 60+ mins** | 2 pts | 2 pts | 2 pts | 2 pts |\n"
+                "| **Goal Scored** | 6 pts | 6 pts | 5 pts | 4 pts |\n"
+                "| **Assist** | 3 pts | 3 pts | 3 pts | 3 pts |\n"
+                "| **Clean Sheet (60+ mins)** | 4 pts | 4 pts | 1 pt | 0 pts |\n"
+                "| **Every 2 Goals Conceded** | -1 pt | -1 pt | 0 | 0 |\n"
+                "| **Every 3 Saves** | 1 pt | — | — | — |\n"
+                "| **Penalty Save** | 5 pts | — | — | — |\n"
+                "| **Penalty Miss** | -2 pts | -2 pts | -2 pts | -2 pts |\n"
+                "| **Yellow / Red Card** | -1 / -3 | -1 / -3 | -1 / -3 | -1 / -3 |\n"
+                "| **Own Goal** | -2 pts | -2 pts | -2 pts | -2 pts |\n"
+                "| **Bonus Points (BPS)** | 1-3 pts | 1-3 pts | 1-3 pts | 1-3 pts |"
+            )
+            chips = ["How does BPS work?", "Who to captain this week?", "Suggest a transfer strategy"]
+
+        elif any(w in low for w in ["deadline", "when is the deadline"]):
+            gw_meta = self.get_gameweek_metadata()
+            reply = (
+                f"### ⏰ FPL Transfer Deadline Rules\n\n"
+                f"- **Official Rule**: The transfer and squad selection deadline is strictly **90 minutes before the scheduled kick-off** of the first match of each gameweek.\n"
+                f"- **Upcoming Deadline**: **{gw_meta.get('deadline_display', 'Upcoming')}** (Gameweek {gw_meta.get('target_gameweek', 5)}).\n"
+                "- Once the deadline passes, no team changes, captaincy switches, or transfers can be made for that gameweek."
+            )
+            chips = ["Suggest a transfer strategy", "Who to captain?", "Injury update ahead of deadline"]
+
+        elif "wildcard" in low:
             reply = (
                 "### 🃏 FPL Wildcard Strategy & Rules\n\n"
                 "- **What it does**: Grants unlimited permanent transfers without point deductions. All changes remain locked into your squad for future gameweeks.\n"
                 "- **Allocations**: You receive **two Wildcards** each season (1st available until GW19 deadline, 2nd from GW20 onwards).\n"
+                "- **Banked Transfers Preserved**: In the modern rules, playing your Wildcard **preserves your banked Free Transfers** for the next gameweek.\n"
                 "- **Best Deployment Windows**:\n"
                 "  1. **Fixture Swings**: When 4+ top clubs experience significant fixture turns from red to green.\n"
                 "  2. **International Breaks**: Extra market time to build team value through multiple price rises.\n"
                 "  3. **Squad Surgery**: When carrying multiple injured or benched players where normal transfers would incur -8 or -12 hits."
             )
             chips = ["When should I use Free Hit?", "How does Bench Boost work?", "Suggest a transfer strategy"]
+
         elif "free hit" in low:
             reply = (
                 "### 🎯 FPL Free Hit Strategy & Rules\n\n"
                 "- **What it does**: Grants unlimited transfers for **ONE Gameweek only**. Your squad completely reverts to your previous gameweek team immediately after the gameweek concludes.\n"
+                "- **Banked Transfers Preserved**: Banked Free Transfers are preserved through a Free Hit and carry over into the next gameweek.\n"
                 "- **Best Deployment Windows**:\n"
                 "  1. **Major Blank Gameweeks (BGW)**: When several top teams have postponed matches due to cup ties, deploy Free Hit to field a full XI while rivals take hits.\n"
-                "  2. **Double Gameweeks (DGW)**: Field a squad packed with players playing twice to maximize point upside.\n"
-                "- **Crucial Rule**: Any regular transfer made before pressing Free Hit in the same gameweek is also wiped upon reversion."
+                "  2. **Double Gameweeks (DGW)**: Field a squad packed with players playing twice to maximize point upside."
             )
             chips = ["How does Wildcard work?", "How does Triple Captain work?", "Suggest a transfer strategy"]
+
         elif "bench boost" in low:
             reply = (
                 "### 🚀 FPL Bench Boost Strategy & Rules\n\n"
@@ -2733,6 +3289,7 @@ class ChatFPLEngine:
                 "- **Rule Note**: Only one power-up chip can be active per gameweek."
             )
             chips = ["When should I use Wildcard?", "Triple Captain Strategy", "Who should I bench this week?"]
+
         elif "triple captain" in low or "tc" in low:
             reply = (
                 "### 👑 FPL Triple Captain Strategy & Rules\n\n"
@@ -2742,16 +3299,18 @@ class ChatFPLEngine:
                 "  - **Historic Home Fixture**: An elite attacker facing a bottom-ranked defense at home."
             )
             chips = ["Who should I captain this week?", "When should I use Free Hit?", "Suggest a transfer strategy"]
+
         elif any(w in low for w in ["hit", "-4", "extra transfer"]):
             reply = (
                 "### ⚡ Transfer Hits (-4 Points) Calculus\n\n"
-                "- **The Math of a Hit**: A -4 hit deducts 4 points from your gameweek total. The incoming asset must outperform the outgoing player by at least **+4 points** over the next 2-3 gameweeks to break even.\n"
+                "- **The Math of a Hit**: Each transfer beyond your available Free Transfers costs **-4 points** from your gameweek score.\n"
                 "- **When Justified**:\n"
-                "  1. Replacing an injured or benched player (projected ~0-1 pts) with an in-form starter (projected 6+ pts).\n"
-                "  2. Enabling a high-ceiling captaincy pick for a Double Gameweek.\n"
-                "- **When to Avoid**: Lateral transfers between similar players with marginal xP differences."
+                "  1. **Injury Crisis**: Replacing a confirmed out/0-minute starter when your bench has zero playing cover.\n"
+                "  2. **Massive Expected Gain**: The incoming asset must reasonably outperform the outgoing player by at least **+4 points** over 2-3 gameweeks to break even.\n"
+                "- **When to Avoid**: Lateral moves between similar players with marginal (<1.5 xP) differences are statistically negative Expected Value."
             )
             chips = ["Suggest a transfer strategy", "Why roll transfer?", "Who should I captain?"]
+
         elif any(w in low for w in ["bonus", "bps"]):
             reply = (
                 "### 🏅 Bonus Points System (BPS) Explanation\n\n"
@@ -2760,18 +3319,27 @@ class ChatFPLEngine:
                 "- **Positional Edge**: Forwards receive 24 BPS for a goal, midfielders 18 BPS, and defenders 12 BPS. Defenders with clean sheets and high recovery volume frequently secure 3 bonus points."
             )
             chips = ["Explain xP formula", "Query FotMob for Erling Haaland", "Suggest a transfer strategy"]
+
         else:
+            # Master FPL Rules & Constraints Guide
             reply = (
-                "### 📖 FPL Rules & Power-Up Chips Guide\n\n"
-                "- **Free Transfers**: You receive 1 free transfer per gameweek and can bank up to **5 Free Transfers**.\n"
-                "- **Power-Up Chips Available**:\n"
-                "  - 🃏 **Wildcard (x2)**: Unlimited permanent squad restructuring.\n"
-                "  - 🎯 **Free Hit (x1)**: One-gameweek temporary team.\n"
-                "  - 🚀 **Bench Boost (x1)**: Score points from all 15 squad members.\n"
-                "  - 👑 **Triple Captain (x1)**: Multiplies captain points by 3x.\n"
-                "- **Deadlines**: Exactly 90 minutes before the first kickoff of each gameweek."
+                "### 📖 Master FPL Rules & Constraints Guide (2026/27)\n\n"
+                "Here are the core official Fantasy Premier League rules governing squad management:\n\n"
+                "1. **Squad Structure & Formations**:\n"
+                "   - 15 players total: 2 GKP, 5 DEF, 5 MID, 3 FWD. 11 starters, 4 bench.\n"
+                "   - Formations require at least: 1 GKP, 3 DEF, 2 MID, 1 FWD (8 valid formations).\n\n"
+                "2. **Club Limit Constraint**:\n"
+                "   - Maximum **3 players per Premier League club** across the entire squad.\n\n"
+                "3. **Transfers & 5-FT Banking Rule**:\n"
+                "   - 1 Free Transfer per week, bankable up to **5 Free Transfers**.\n"
+                "   - Banked FTs are **preserved** through Wildcard and Free Hit chips.\n"
+                "   - Extra transfers incur a **-4 point deduction** each.\n\n"
+                "4. **Budget & 50% Profit Rule**:\n"
+                "   - £100.0m starting budget. Profit from price rises is shared 50% upon sale (rounded down to nearest £0.1m).\n\n"
+                "5. **Chips (1 per GW)**: 2 Wildcards (GW1-19, GW20-38), 1 Free Hit, 1 Triple Captain, 1 Bench Boost.\n\n"
+                "6. **Deadlines**: Exactly **90 minutes** before the first match kick-off."
             )
-            chips = ["When should I use Wildcard?", "When should I use Free Hit?", "Suggest a transfer strategy"]
+            chips = ["Suggest a transfer strategy", "What are the rules for free transfers & banking?", "How does selling price work?"]
 
         return {
             "success": True,

@@ -3390,14 +3390,14 @@ function initChatFPL() {
   function renderWelcomeGreeting() {
     appendBotMessage(
       "👋 **Hi! I'm ChatFPL**, your AI tactical and analytics assistant.\n\n" +
-      "I am connected directly with live FotMob and FPL performance metrics and analyze your live squad in real-time. " +
-      "Ask me to **query any player's advanced stats**, suggest a **transfer strategy**, or recommend your **captain**!",
+      "I am connected directly with live FotMob and FPL performance metrics, official rules, and analyze your live squad, budget, and constraints in real-time. " +
+      "Ask me to **suggest transfers for your squad**, assess **budget & transfer constraints**, explain **official FPL rules**, or recommend your **captain**!",
       [
-        "Query stats for Erling Haaland",
-        "What are Cole Palmer's stats?",
-        "Suggest a transfer strategy",
+        "Suggest transfers for my squad",
+        "Assess squad & budget constraints",
+        "What are the FPL rules for free transfers & banking?",
         "Who should I captain this week?",
-        "Top speeds in Premier League"
+        "Query stats for Erling Haaland"
       ],
       false
     );
@@ -3637,7 +3637,11 @@ function initChatFPL() {
             starters: currentSquad.starters,
             bench: currentSquad.bench,
             bank: currentSquad.bank,
-            free_transfers: currentSquad.free_transfers !== undefined ? currentSquad.free_transfers : 1
+            free_transfers: currentSquad.free_transfers !== undefined ? currentSquad.free_transfers : 1,
+            chips_used: currentSquad.chips_used || {},
+            manager_id: currentSquad.manager_id,
+            manager_name: currentSquad.manager_name,
+            team_name: currentSquad.team_name
           }
         })
       });

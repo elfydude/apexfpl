@@ -39,7 +39,7 @@ jobs:
             --region ${{ env.REGION }} \
             --platform managed \
             --allow-unauthenticated \
-            --set-env-vars PYTHONUNBUFFERED=1 \
+            --update-env-vars PYTHONUNBUFFERED=1 \
             --quiet
           rm -f ./Dockerfile ./.dockerignore
 
