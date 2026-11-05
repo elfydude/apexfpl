@@ -164,8 +164,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 // 0. Load Gameweek Status & Next GW Real-Time Deadline Countdown
 let currentGwInfo = null;
 let gwCountdownInterval = null;
-let liveMatchdayInterval = null;
-let liveMatchdayData = null;
 
 function startGameweekCountdown(deadlineStr) {
   if (gwCountdownInterval) {
@@ -184,8 +182,7 @@ function startGameweekCountdown(deadlineStr) {
     if (!timerEl) return;
 
     if (diff <= 0) {
-      const isLive = (currentGwInfo && currentGwInfo.is_matchday_live) || (liveMatchdayData && liveMatchdayData.is_matchday_live);
-      timerEl.textContent = isLive ? "next gw: live in-play" : "next gw: deadline passed";
+      timerEl.textContent = "next gw: deadline passed";
       return;
     }
 
@@ -206,79 +203,6 @@ function startGameweekCountdown(deadlineStr) {
   gwCountdownInterval = setInterval(updateTimer, 1000);
 }
 
-function renderLiveMatchdayBar(matches) {
-  let bar = document.getElementById("pitchLiveMatchesBar");
-  if (!bar) return;
-
-  if (!matches || matches.length === 0) {
-    bar.style.display = "none";
-    return;
-  }
-
-  bar.style.display = "flex";
-  bar.innerHTML = `
-    <div class="live-pulse-indicator"><span class="dot-live"></span> <span>MATCHDAY LIVE</span></div>
-    ${matches.map(m => `
-      <span class="live-match-badge ${m.status === 'LIVE' ? 'live' : ''}" title="${m.home_team} vs ${m.away_team} (${m.status})">
-        <span class="match-score">${m.home_team} <strong>${m.home_score} - ${m.away_score}</strong> ${m.away_team}</span>
-        <span class="match-time">${m.status === 'LIVE' ? (m.minutes ? m.minutes + "'" : 'LIVE') : m.status}</span>
-      </span>
-    `).join("")}
-  `;
-}
-
-async function pollLiveMatchdayStatus() {
-  try {
-    const res = await fetch("/api/live?t=" + Date.now(), { cache: "no-store" });
-    if (!res.ok) return;
-    const data = await res.json();
-    liveMatchdayData = data;
-
-    // Update matchday button status text & class
-    const btnToggle = document.getElementById("btnMatchdayToggle");
-    const statusText = document.getElementById("matchdayStatusText");
-    if (btnToggle && statusText) {
-      if (data.is_matchday_live) {
-        btnToggle.classList.add("active");
-        btnToggle.classList.remove("inactive");
-        statusText.textContent = "ACTIVE";
-      } else {
-        btnToggle.classList.remove("active");
-        btnToggle.classList.add("inactive");
-        statusText.textContent = "OFF";
-      }
-    }
-
-    if (data.is_matchday_live && data.live_matches && data.live_matches.length > 0) {
-      renderLiveMatchdayBar(data.live_matches);
-      const timerEl = document.getElementById("verdictGwTimer");
-      if (timerEl) timerEl.textContent = "next gw: live in-play 🔥";
-    } else {
-      let bar = document.getElementById("pitchLiveMatchesBar");
-      if (bar) bar.style.display = "none";
-    }
-
-    // Refresh player cards on the pitch to show live points!
-    if (typeof renderPitch === "function" && currentSquad && currentSquad.starters && currentSquad.starters.length > 0) {
-      renderPitch();
-    }
-  } catch (e) {
-    console.debug("Live matchday poll error:", e);
-  }
-}
-
-// Handler for Matchday Mode test toggle button
-async function toggleMatchdayMode() {
-  try {
-    const res = await fetch("/api/matchday/toggle?t=" + Date.now(), { method: "POST", cache: "no-store" });
-    const data = await res.json();
-    await pollLiveMatchdayStatus();
-    showBanner(data.message || (data.test_matchday_mode ? "Matchday Mode Activated!" : "Matchday Mode Deactivated!"));
-  } catch (err) {
-    console.error("Matchday toggle error:", err);
-  }
-}
-
 async function loadGameweekInfo() {
   try {
     const res = await fetch("/api/gameweek?t=" + Date.now(), { cache: "no-store" });
@@ -292,17 +216,6 @@ async function loadGameweekInfo() {
 
     if (data.deadline_time) {
       startGameweekCountdown(data.deadline_time);
-    }
-
-    if (data.is_matchday_live && data.live_matches) {
-      renderLiveMatchdayBar(data.live_matches);
-    }
-
-    if (!liveMatchdayInterval) {
-      liveMatchdayInterval = setInterval(() => {
-        pollLiveMatchdayStatus();
-      }, data.is_matchday_live ? 30000 : 60000);
-      pollLiveMatchdayStatus();
     }
   } catch (e) {
     console.error("Gameweek fetch error:", e);
@@ -1402,14 +1315,6 @@ function createPlayerCard(p, isBench) {
     </div>
     ${fixHtml}
     <div class="p-xp-pill">${p.expected_points.toFixed(1)} xP</div>
-    ${(() => {
-      if (!liveMatchdayData || !liveMatchdayData.live_player_stats) return "";
-      const lp = liveMatchdayData.live_player_stats[p.id] || liveMatchdayData.live_player_stats[String(p.id)] || liveMatchdayData.live_player_stats[Number(p.id)];
-      if (lp && (lp.minutes > 0 || lp.total_points !== 0)) {
-        return `<div class="p-live-pill" title="Live Matchday Points: ${lp.total_points} pts (${lp.minutes}')">🔥 ${lp.total_points} pts <span style="font-size:0.65rem;opacity:0.85;">(${lp.minutes}')</span></div>`;
-      }
-      return "";
-    })()}
   `;
 
   el.addEventListener("click", () => {
