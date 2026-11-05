@@ -231,6 +231,12 @@
         <span class="dot-live"></span>
         <span id="navGwText">Gameweek 10</span>
       </div>
+      <!-- Interactive Matchday Mode Test Toggle Pill -->
+      <button id="btnMatchdayToggle" class="btn-matchday-toggle active" title="Click to Toggle Matchday Mode (Simulate Live Matches & Points)">
+        <span class="matchday-dot"></span>
+        <span class="matchday-label">Matchday Mode:</span>
+        <span id="matchdayStatusText" class="matchday-status">ACTIVE</span>
+      </button>
     </div>
 
     <!-- Center Navigation Tabs -->
@@ -331,6 +337,8 @@
           <label class="chip-chk chip-disabled" title="Synced from official FPL data"><input type="checkbox"
               id="chkFreeHit" disabled> Free Hit</label>
         </div>
+        <!-- Live Matchday Fixtures Ticker Bar -->
+        <div id="pitchLiveMatchesBar" class="live-matchday-bar" style="display: none;"></div>
       </div>
 
       <!-- Soccer Pitch Visualization -->

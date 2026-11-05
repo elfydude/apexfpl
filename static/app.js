@@ -208,19 +208,7 @@ function startGameweekCountdown(deadlineStr) {
 
 function renderLiveMatchdayBar(matches) {
   let bar = document.getElementById("pitchLiveMatchesBar");
-  if (!bar) {
-    const pitchContainer = document.getElementById("pitchView");
-    if (!pitchContainer) return;
-    bar = document.createElement("div");
-    bar.id = "pitchLiveMatchesBar";
-    bar.className = "live-matchday-bar";
-    const header = pitchContainer.querySelector(".flex-between");
-    if (header && header.nextSibling) {
-      pitchContainer.insertBefore(bar, header.nextSibling);
-    } else {
-      pitchContainer.prepend(bar);
-    }
-  }
+  if (!bar) return;
 
   if (!matches || matches.length === 0) {
     bar.style.display = "none";
@@ -228,12 +216,15 @@ function renderLiveMatchdayBar(matches) {
   }
 
   bar.style.display = "flex";
-  bar.innerHTML = matches.map(m => `
-    <span class="live-match-badge ${m.status === 'LIVE' ? 'live' : ''}">
-      <span>${m.home_team} ${m.home_score} - ${m.away_score} ${m.away_team}</span>
-      <span class="subtext">(${m.status === 'LIVE' ? (m.minutes ? m.minutes + "'" : 'LIVE') : m.status})</span>
-    </span>
-  `).join("");
+  bar.innerHTML = `
+    <div class="live-pulse-indicator"><span class="dot-live"></span> <span>MATCHDAY LIVE</span></div>
+    ${matches.map(m => `
+      <span class="live-match-badge ${m.status === 'LIVE' ? 'live' : ''}" title="${m.home_team} vs ${m.away_team} (${m.status})">
+        <span class="match-score">${m.home_team} <strong>${m.home_score} - ${m.away_score}</strong> ${m.away_team}</span>
+        <span class="match-time">${m.status === 'LIVE' ? (m.minutes ? m.minutes + "'" : 'LIVE') : m.status}</span>
+      </span>
+    `).join("")}
+  `;
 }
 
 async function pollLiveMatchdayStatus() {
@@ -243,11 +234,48 @@ async function pollLiveMatchdayStatus() {
     const data = await res.json();
     liveMatchdayData = data;
 
+    // Update matchday button status text & class
+    const btnToggle = document.getElementById("btnMatchdayToggle");
+    const statusText = document.getElementById("matchdayStatusText");
+    if (btnToggle && statusText) {
+      if (data.is_matchday_live) {
+        btnToggle.classList.add("active");
+        btnToggle.classList.remove("inactive");
+        statusText.textContent = "ACTIVE";
+      } else {
+        btnToggle.classList.remove("active");
+        btnToggle.classList.add("inactive");
+        statusText.textContent = "OFF";
+      }
+    }
+
     if (data.is_matchday_live && data.live_matches && data.live_matches.length > 0) {
       renderLiveMatchdayBar(data.live_matches);
+      const timerEl = document.getElementById("verdictGwTimer");
+      if (timerEl) timerEl.textContent = "next gw: live in-play 🔥";
+    } else {
+      let bar = document.getElementById("pitchLiveMatchesBar");
+      if (bar) bar.style.display = "none";
+    }
+
+    // Refresh player cards on the pitch to show live points!
+    if (typeof renderPitch === "function" && currentSquad && currentSquad.starters && currentSquad.starters.length > 0) {
+      renderPitch();
     }
   } catch (e) {
     console.debug("Live matchday poll error:", e);
+  }
+}
+
+// Handler for Matchday Mode test toggle button
+async function toggleMatchdayMode() {
+  try {
+    const res = await fetch("/api/matchday/toggle?t=" + Date.now(), { method: "POST", cache: "no-store" });
+    const data = await res.json();
+    await pollLiveMatchdayStatus();
+    showBanner(data.message || (data.test_matchday_mode ? "Matchday Mode Activated!" : "Matchday Mode Deactivated!"));
+  } catch (err) {
+    console.error("Matchday toggle error:", err);
   }
 }
 
@@ -1374,7 +1402,14 @@ function createPlayerCard(p, isBench) {
     </div>
     ${fixHtml}
     <div class="p-xp-pill">${p.expected_points.toFixed(1)} xP</div>
-    ${(liveMatchdayData && liveMatchdayData.live_player_stats && liveMatchdayData.live_player_stats[p.id] && (liveMatchdayData.live_player_stats[p.id].minutes > 0 || liveMatchdayData.live_player_stats[p.id].total_points !== 0)) ? `<div class="p-live-pill" style="background:#ef4444;color:#fff;font-size:0.7rem;font-weight:700;padding:1px 5px;border-radius:4px;margin-top:2px;" title="Live Matchday Points: ${liveMatchdayData.live_player_stats[p.id].total_points} pts (${liveMatchdayData.live_player_stats[p.id].minutes}')">🔥 ${liveMatchdayData.live_player_stats[p.id].total_points} pts</div>` : ''}
+    ${(() => {
+      if (!liveMatchdayData || !liveMatchdayData.live_player_stats) return "";
+      const lp = liveMatchdayData.live_player_stats[p.id] || liveMatchdayData.live_player_stats[String(p.id)] || liveMatchdayData.live_player_stats[Number(p.id)];
+      if (lp && (lp.minutes > 0 || lp.total_points !== 0)) {
+        return `<div class="p-live-pill" title="Live Matchday Points: ${lp.total_points} pts (${lp.minutes}')">🔥 ${lp.total_points} pts <span style="font-size:0.65rem;opacity:0.85;">(${lp.minutes}')</span></div>`;
+      }
+      return "";
+    })()}
   `;
 
   el.addEventListener("click", () => {

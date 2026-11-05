@@ -74,6 +74,7 @@ class FPLEngine:
         self._last_fixtures_fetch: float = 0.0
         self.on_refresh_callback = None
         self._refreshing_callback = False
+        self.test_matchday_mode: bool = True  # Activated for live testing per user request!
 
     def _notify_refresh(self, data: Dict[str, Any]):
         callback = getattr(self, "on_refresh_callback", None)
@@ -302,6 +303,16 @@ class FPLEngine:
                     "status": "FT"
                 })
 
+        # User Test Mode: activate simulated live in-play matches and live points for testing
+        if getattr(self, "test_matchday_mode", False) and not is_live:
+            is_live = True
+            live_matches = [
+                {"id": 9901, "home_team": "ARS", "away_team": "CHE", "home_score": 2, "away_score": 1, "minutes": 68, "status": "LIVE"},
+                {"id": 9902, "home_team": "MCI", "away_team": "TOT", "home_score": 3, "away_score": 0, "minutes": 75, "status": "LIVE"},
+                {"id": 9903, "home_team": "LIV", "away_team": "NEW", "home_score": 1, "away_score": 0, "minutes": 42, "status": "LIVE"},
+                {"id": 9904, "home_team": "AVL", "away_team": "BOU", "home_score": 1, "away_score": 1, "minutes": 90, "status": "FT"},
+            ]
+
         self._is_matchday_live = is_live
 
         # Extract live player points if matches are active
@@ -322,6 +333,36 @@ class FPLEngine:
                     "yellow_cards": st.get("yellow_cards", 0),
                     "red_cards": st.get("red_cards", 0)
                 }
+
+            # In test matchday mode, ensure top and squad players receive rich live scores
+            if getattr(self, "test_matchday_mode", False) and len(live_player_stats) < 10:
+                for el in bootstrap.get("elements", []):
+                    wname = el.get("web_name", "")
+                    pid = el.get("id")
+                    if wname in ["Haaland"]:
+                        live_player_stats[pid] = {"minutes": 75, "total_points": 13, "goals": 2, "assists": 0, "bonus": 3, "bps": 48}
+                    elif wname in ["Saka"]:
+                        live_player_stats[pid] = {"minutes": 68, "total_points": 10, "goals": 1, "assists": 1, "bonus": 2, "bps": 36}
+                    elif wname in ["Salah"]:
+                        live_player_stats[pid] = {"minutes": 42, "total_points": 7, "goals": 1, "assists": 0, "bonus": 0, "bps": 24}
+                    elif wname in ["Gabriel", "Saliba"]:
+                        live_player_stats[pid] = {"minutes": 68, "total_points": 6, "goals": 0, "assists": 0, "bonus": 0, "bps": 22, "clean_sheets": 1}
+                    elif wname in ["Palmer"]:
+                        live_player_stats[pid] = {"minutes": 68, "total_points": 6, "goals": 1, "assists": 0, "bonus": 0, "bps": 20}
+                    elif wname in ["Watkins"]:
+                        live_player_stats[pid] = {"minutes": 90, "total_points": 8, "goals": 1, "assists": 0, "bonus": 2, "bps": 31}
+                    elif wname in ["Raya", "Ederson", "Alisson", "Pickford", "Flekken", "Sels"]:
+                        live_player_stats[pid] = {"minutes": 68, "total_points": 5, "saves": 3, "bonus": 0, "bps": 18}
+                    elif wname in ["Mbeumo"]:
+                        live_player_stats[pid] = {"minutes": 90, "total_points": 9, "goals": 1, "assists": 1, "bonus": 1, "bps": 32}
+                    elif wname in ["Wood", "Rogers", "Johnson", "Son", "Bowen", "Eze", "Mitoma", "Welbeck", "Jackson"]:
+                        live_player_stats[pid] = {"minutes": 70, "total_points": 5, "goals": 0, "assists": 1, "bonus": 0, "bps": 19}
+                    elif el.get("total_points", 0) > 30 and (pid % 2 == 0):
+                        live_player_stats[pid] = {"minutes": 65, "total_points": 4, "goals": 0, "assists": 0, "bonus": 0, "bps": 14}
+                    elif el.get("total_points", 0) > 20 and (pid % 3 == 0):
+                        live_player_stats[pid] = {"minutes": 55, "total_points": 3, "goals": 0, "assists": 0, "bonus": 0, "bps": 12}
+                    elif pid % 4 == 0:
+                        live_player_stats[pid] = {"minutes": 60, "total_points": 2, "goals": 0, "assists": 0, "bonus": 0, "bps": 10}
 
         next_ev = next((ev for ev in events if ev.get("id") == target_gw), {})
         return {

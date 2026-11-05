@@ -88,6 +88,17 @@ class FPLRequestHandler(SimpleHTTPRequestHandler):
                 self.send_json_response(live_status)
                 return
 
+            # API: Toggle Matchday Mode for Live Testing
+            elif path in ["/api/matchday/toggle", "/api/live/toggle"]:
+                current_state = getattr(engine.fpl, "test_matchday_mode", False)
+                engine.fpl.test_matchday_mode = not current_state
+                self.send_json_response({
+                    "test_matchday_mode": engine.fpl.test_matchday_mode,
+                    "is_matchday_live": engine.fpl.test_matchday_mode,
+                    "message": f"Matchday Mode is now {'ACTIVATED' if engine.fpl.test_matchday_mode else 'DEACTIVATED'}"
+                })
+                return
+
             # API: Complete Data Update Pipeline After Every Gameweek
             elif path in ["/api/gameweek/update", "/api/gameweek/refresh"]:
                 res = pipeline.run_pipeline(force=True, trigger_source="api_get_request")
