@@ -229,7 +229,8 @@
       </div>
       <div class="gw-badge-pill" id="navGwPill" title="Current / Upcoming Target Gameweek">
         <span class="dot-live"></span>
-        <span id="navGwText">Gameweek 4</span>
+        <span id="navGwText">Gameweek 10</span>
+        <span id="gwDeadlineCountdown" class="gw-timer-yellow" title="Real-Time Next Gameweek Deadline Countdown">⏳ --:--:--</span>
       </div>
     </div>
 
@@ -297,6 +298,11 @@
             <span class="subtext">Click any player to inspect deep analytics and projected xP</span>
           </div>
           <div class="squad-controls-bar">
+            <!-- Next Gameweek Deadline Timer (Yellow) -->
+            <div class="deadline-pill" id="pitchDeadlinePill" title="Real-Time Next Gameweek Deadline Countdown">
+              <span class="label">Next GW:</span>
+              <span id="pitchDeadlineTimer" class="value timer-yellow">--:--:--</span>
+            </div>
             <!-- Official Captain Display -->
             <div class="cap-pill" id="currentCapPill" title="Official FPL Captain">
               <span class="label">Captain:</span>

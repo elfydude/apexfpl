@@ -82,6 +82,12 @@ class FPLRequestHandler(SimpleHTTPRequestHandler):
                 self.send_json_response(gw_info)
                 return
 
+            # API: Real-Time Live Matchday Status & Points
+            elif path in ["/api/live", "/api/gameweek/live"]:
+                live_status = engine.fpl.get_live_matchday_status()
+                self.send_json_response(live_status)
+                return
+
             # API: Complete Data Update Pipeline After Every Gameweek
             elif path in ["/api/gameweek/update", "/api/gameweek/refresh"]:
                 res = pipeline.run_pipeline(force=True, trigger_source="api_get_request")

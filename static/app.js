@@ -161,16 +161,124 @@ document.addEventListener("DOMContentLoaded", async () => {
   autoSyncPipeline();
 });
 
-// 0. Load Gameweek Status
+// 0. Load Gameweek Status & Next GW Real-Time Deadline Countdown
+let currentGwInfo = null;
+let gwCountdownInterval = null;
+let liveMatchdayInterval = null;
+let liveMatchdayData = null;
+
+function startGameweekCountdown(deadlineStr) {
+  if (gwCountdownInterval) {
+    clearInterval(gwCountdownInterval);
+    gwCountdownInterval = null;
+  }
+  if (!deadlineStr) return;
+
+  const targetDate = new Date(deadlineStr).getTime();
+
+  function updateTimer() {
+    const now = Date.now();
+    const diff = targetDate - now;
+
+    const navCountdownEl = document.getElementById("gwDeadlineCountdown");
+    const pitchCountdownEl = document.getElementById("pitchDeadlineTimer");
+
+    if (diff <= 0) {
+      const isLive = (currentGwInfo && currentGwInfo.is_matchday_live) || (liveMatchdayData && liveMatchdayData.is_matchday_live);
+      const text = isLive ? "🔥 Live In-Play" : "🔴 Deadline Passed";
+      if (navCountdownEl) navCountdownEl.textContent = text;
+      if (pitchCountdownEl) pitchCountdownEl.textContent = text;
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+    const pad = (n) => String(n).padStart(2, "0");
+    const formatted = days > 0
+      ? `⏳ ${days}d ${pad(hours)}h ${pad(mins)}m ${pad(secs)}s`
+      : `⏳ ${pad(hours)}h ${pad(mins)}m ${pad(secs)}s`;
+
+    if (navCountdownEl) navCountdownEl.textContent = formatted;
+    if (pitchCountdownEl) pitchCountdownEl.textContent = formatted;
+  }
+
+  updateTimer();
+  gwCountdownInterval = setInterval(updateTimer, 1000);
+}
+
+function renderLiveMatchdayBar(matches) {
+  let bar = document.getElementById("pitchLiveMatchesBar");
+  if (!bar) {
+    const pitchContainer = document.getElementById("pitchView");
+    if (!pitchContainer) return;
+    bar = document.createElement("div");
+    bar.id = "pitchLiveMatchesBar";
+    bar.className = "live-matchday-bar";
+    const header = pitchContainer.querySelector(".flex-between");
+    if (header && header.nextSibling) {
+      pitchContainer.insertBefore(bar, header.nextSibling);
+    } else {
+      pitchContainer.prepend(bar);
+    }
+  }
+
+  if (!matches || matches.length === 0) {
+    bar.style.display = "none";
+    return;
+  }
+
+  bar.style.display = "flex";
+  bar.innerHTML = matches.map(m => `
+    <span class="live-match-badge ${m.status === 'LIVE' ? 'live' : ''}">
+      <span>${m.home_team} ${m.home_score} - ${m.away_score} ${m.away_team}</span>
+      <span class="subtext">(${m.status === 'LIVE' ? (m.minutes ? m.minutes + "'" : 'LIVE') : m.status})</span>
+    </span>
+  `).join("");
+}
+
+async function pollLiveMatchdayStatus() {
+  try {
+    const res = await fetch("/api/live?t=" + Date.now(), { cache: "no-store" });
+    if (!res.ok) return;
+    const data = await res.json();
+    liveMatchdayData = data;
+
+    if (data.is_matchday_live && data.live_matches && data.live_matches.length > 0) {
+      renderLiveMatchdayBar(data.live_matches);
+    }
+  } catch (e) {
+    console.debug("Live matchday poll error:", e);
+  }
+}
+
 async function loadGameweekInfo() {
   try {
-    const res = await fetch("/api/gameweek");
+    const res = await fetch("/api/gameweek?t=" + Date.now(), { cache: "no-store" });
     const data = await res.json();
     currentGwInfo = data;
-    const gwNum = data.target_gameweek || 6;
-    document.getElementById("navGwText").textContent = `Gameweek ${gwNum}`;
+    const gwNum = data.target_gameweek || 10;
+    const navGwText = document.getElementById("navGwText");
+    if (navGwText) navGwText.textContent = `Gameweek ${gwNum}`;
     const badge = document.getElementById("verdictBadge");
     if (badge) badge.textContent = `GAMEWEEK ${gwNum}`;
+
+    if (data.deadline_time) {
+      startGameweekCountdown(data.deadline_time);
+    }
+
+    if (data.is_matchday_live && data.live_matches) {
+      renderLiveMatchdayBar(data.live_matches);
+    }
+
+    if (!liveMatchdayInterval) {
+      liveMatchdayInterval = setInterval(() => {
+        pollLiveMatchdayStatus();
+      }, data.is_matchday_live ? 30000 : 60000);
+      pollLiveMatchdayStatus();
+    }
   } catch (e) {
     console.error("Gameweek fetch error:", e);
   }
@@ -1269,6 +1377,7 @@ function createPlayerCard(p, isBench) {
     </div>
     ${fixHtml}
     <div class="p-xp-pill">${p.expected_points.toFixed(1)} xP</div>
+    ${(liveMatchdayData && liveMatchdayData.live_player_stats && liveMatchdayData.live_player_stats[p.id] && (liveMatchdayData.live_player_stats[p.id].minutes > 0 || liveMatchdayData.live_player_stats[p.id].total_points !== 0)) ? `<div class="p-live-pill" style="background:#ef4444;color:#fff;font-size:0.7rem;font-weight:700;padding:1px 5px;border-radius:4px;margin-top:2px;" title="Live Matchday Points: ${liveMatchdayData.live_player_stats[p.id].total_points} pts (${liveMatchdayData.live_player_stats[p.id].minutes}')">🔥 ${liveMatchdayData.live_player_stats[p.id].total_points} pts</div>` : ''}
   `;
 
   el.addEventListener("click", () => {

@@ -101,6 +101,8 @@ class FPLEngine:
     def is_cache_stale(self, file_path: str, max_age: float = CACHE_TTL_SECONDS) -> bool:
         if not os.path.exists(file_path):
             return True
+        if getattr(self, "_is_matchday_live", False):
+            max_age = min(max_age, 60.0)  # 60s TTL during live matchdays
         try:
             mtime = os.path.getmtime(file_path)
             return (time.time() - mtime) > max_age
@@ -110,7 +112,8 @@ class FPLEngine:
     def fetch_bootstrap_static(self, force_refresh: bool = False) -> Dict[str, Any]:
         """Fetches bootstrap-static containing players, teams, and live Gameweek states."""
         now = time.time()
-        if not force_refresh and self.bootstrap_data and (now - self._last_bootstrap_fetch < CACHE_TTL_SECONDS):
+        effective_ttl = 60.0 if getattr(self, "_is_matchday_live", False) else CACHE_TTL_SECONDS
+        if not force_refresh and self.bootstrap_data and (now - self._last_bootstrap_fetch < effective_ttl):
             return self.bootstrap_data
 
         if not force_refresh and os.path.exists(FPL_CACHE_FILE) and not self.is_cache_stale(FPL_CACHE_FILE):
@@ -224,6 +227,113 @@ class FPLEngine:
                 return ev.get("id", 1)
         return 1
 
+    def fetch_live_event_data(self, event_id: Optional[int] = None) -> Dict[str, Any]:
+        """Fetches live matchday player stats for an event directly from official FPL."""
+        if not event_id:
+            event_id = self.get_current_gameweek()
+            
+        now = time.time()
+        cache_key = f"live_event_{event_id}"
+        cached = getattr(self, "_live_event_cache", {}).get(cache_key)
+        cached_time = getattr(self, "_live_event_cache_time", {}).get(cache_key, 0)
+        
+        # During matchdays cache TTL is 30s; otherwise 180s
+        ttl = 30 if getattr(self, "_is_matchday_live", False) else 180
+        if cached and (now - cached_time < ttl):
+            return cached
+            
+        url = f"https://fantasy.premierleague.com/api/event/{event_id}/live/"
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ApexFPL/1.0"})
+        try:
+            with urllib.request.urlopen(req, timeout=12) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+                if not hasattr(self, "_live_event_cache"):
+                    self._live_event_cache = {}
+                    self._live_event_cache_time = {}
+                self._live_event_cache[cache_key] = data
+                self._live_event_cache_time[cache_key] = now
+                return data
+        except Exception as e:
+            logger.warning(f"[FPLEngine] Live event fetch error: {e}")
+            if cached:
+                return cached
+            return {"elements": []}
+
+    def get_live_matchday_status(self) -> Dict[str, Any]:
+        """Assesses whether Premier League fixtures are actively in progress right now and extracts live scores."""
+        bootstrap = self.fetch_bootstrap_static()
+        events = bootstrap.get("events", [])
+        fixtures = self.fetch_upcoming_fixtures()
+        teams_map = self.get_teams_map()
+
+        curr_ev = next((ev for ev in events if ev.get("is_current")), None)
+        target_gw = self.get_current_gameweek()
+        gw_for_matches = curr_ev.get("id") if curr_ev and not curr_ev.get("finished") else target_gw
+
+        gw_fixtures = [f for f in fixtures if f.get("event") == gw_for_matches]
+        live_matches = []
+        is_live = False
+
+        for f in gw_fixtures:
+            started = f.get("started", False)
+            finished = f.get("finished", False) or f.get("finished_provisional", False)
+            h_team = teams_map.get(f.get("team_h"), {}).get("short_name", "HOME")
+            a_team = teams_map.get(f.get("team_a"), {}).get("short_name", "AWAY")
+            
+            if started and not finished:
+                is_live = True
+                live_matches.append({
+                    "id": f.get("id"),
+                    "home_team": h_team,
+                    "away_team": a_team,
+                    "home_score": f.get("team_h_score", 0),
+                    "away_score": f.get("team_a_score", 0),
+                    "minutes": f.get("minutes", 0),
+                    "status": "LIVE"
+                })
+            elif started and finished:
+                live_matches.append({
+                    "id": f.get("id"),
+                    "home_team": h_team,
+                    "away_team": a_team,
+                    "home_score": f.get("team_h_score", 0),
+                    "away_score": f.get("team_a_score", 0),
+                    "minutes": 90,
+                    "status": "FT"
+                })
+
+        self._is_matchday_live = is_live
+
+        # Extract live player points if matches are active
+        live_player_stats = {}
+        if is_live or live_matches:
+            live_data = self.fetch_live_event_data(gw_for_matches)
+            for el in live_data.get("elements", []):
+                st = el.get("stats", {})
+                live_player_stats[el.get("id")] = {
+                    "minutes": st.get("minutes", 0),
+                    "total_points": st.get("total_points", 0),
+                    "goals": st.get("goals_scored", 0),
+                    "assists": st.get("assists", 0),
+                    "bonus": st.get("bonus", 0),
+                    "bps": st.get("bps", 0),
+                    "clean_sheets": st.get("clean_sheets", 0),
+                    "saves": st.get("saves", 0),
+                    "yellow_cards": st.get("yellow_cards", 0),
+                    "red_cards": st.get("red_cards", 0)
+                }
+
+        next_ev = next((ev for ev in events if ev.get("id") == target_gw), {})
+        return {
+            "is_matchday_live": is_live,
+            "gameweek": gw_for_matches,
+            "target_gameweek": target_gw,
+            "deadline_time": next_ev.get("deadline_time", ""),
+            "live_matches": live_matches,
+            "live_player_stats": live_player_stats,
+            "server_time_utc": datetime.now(timezone.utc).isoformat()
+        }
+
     def get_gameweek_info(self) -> Dict[str, Any]:
         """Provides rich metadata about the current and next upcoming gameweek."""
         bootstrap = self.fetch_bootstrap_static()
@@ -232,11 +342,18 @@ class FPLEngine:
         latest_done = self.get_latest_completed_gameweek()
         
         next_ev = next((ev for ev in events if ev.get("id") == next_gw), {})
+        curr_ev = next((ev for ev in events if ev.get("is_current")), next_ev)
+        matchday_info = self.get_live_matchday_status()
+
         return {
             "target_gameweek": next_gw,
             "latest_completed_gameweek": latest_done,
+            "current_gameweek": curr_ev.get("id", latest_done),
             "gameweek_name": next_ev.get("name", f"Gameweek {next_gw}"),
-            "deadline_time": next_ev.get("deadline_time", "")
+            "deadline_time": next_ev.get("deadline_time", ""),
+            "is_matchday_live": matchday_info.get("is_matchday_live", False),
+            "live_matches": matchday_info.get("live_matches", []),
+            "server_time_utc": datetime.now(timezone.utc).isoformat()
         }
 
     def get_teams_map(self) -> Dict[int, Dict[str, Any]]:
