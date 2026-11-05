@@ -756,6 +756,22 @@ input[type=number] {
   border: 1px solid #fbbf24;
 }
 
+.verdict-deadline-timer {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #facc15;
+  background: rgba(250, 204, 21, 0.12);
+  border: 1px solid rgba(250, 204, 21, 0.35);
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(250, 204, 21, 0.15);
+  font-family: var(--font-mono, monospace);
+  line-height: 1;
+}
+
 .gw-tag {
   font-size: 0.74rem;
   color: var(--text-muted);

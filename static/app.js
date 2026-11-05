@@ -180,14 +180,12 @@ function startGameweekCountdown(deadlineStr) {
     const now = Date.now();
     const diff = targetDate - now;
 
-    const navCountdownEl = document.getElementById("gwDeadlineCountdown");
-    const pitchCountdownEl = document.getElementById("pitchDeadlineTimer");
+    const timerEl = document.getElementById("verdictGwTimer");
+    if (!timerEl) return;
 
     if (diff <= 0) {
       const isLive = (currentGwInfo && currentGwInfo.is_matchday_live) || (liveMatchdayData && liveMatchdayData.is_matchday_live);
-      const text = isLive ? "🔥 Live In-Play" : "🔴 Deadline Passed";
-      if (navCountdownEl) navCountdownEl.textContent = text;
-      if (pitchCountdownEl) pitchCountdownEl.textContent = text;
+      timerEl.textContent = isLive ? "next gw: live in-play" : "next gw: deadline passed";
       return;
     }
 
@@ -198,11 +196,10 @@ function startGameweekCountdown(deadlineStr) {
 
     const pad = (n) => String(n).padStart(2, "0");
     const formatted = days > 0
-      ? `⏳ ${days}d ${pad(hours)}h ${pad(mins)}m ${pad(secs)}s`
-      : `⏳ ${pad(hours)}h ${pad(mins)}m ${pad(secs)}s`;
+      ? `next gw: ${days}d ${pad(hours)}h ${pad(mins)}m ${pad(secs)}s`
+      : `next gw: ${pad(hours)}h ${pad(mins)}m ${pad(secs)}s`;
 
-    if (navCountdownEl) navCountdownEl.textContent = formatted;
-    if (pitchCountdownEl) pitchCountdownEl.textContent = formatted;
+    timerEl.textContent = formatted;
   }
 
   updateTimer();
