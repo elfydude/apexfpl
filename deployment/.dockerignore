@@ -2,8 +2,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 .git/
+.github/
 .gitignore
 .env
 scratch/
 .tempmediaStorage/
 *.log
+scratch_*
