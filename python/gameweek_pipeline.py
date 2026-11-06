@@ -24,6 +24,9 @@ BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..")) if os.
 DATA_DIR = os.path.join(BASE_DIR, "data")
 STATUS_FILE = os.path.join(DATA_DIR, "gameweek_pipeline_status.json")
 
+if os.path.dirname(__file__) not in sys.path:
+    sys.path.insert(0, os.path.dirname(__file__))
+
 from fpl_engine import FPLEngine
 from fotmob_engine import FotMobEngine
 

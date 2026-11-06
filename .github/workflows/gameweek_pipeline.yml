@@ -1,0 +1,75 @@
+name: Gameweek Auto-Update & Data Pipeline Sync
+
+on:
+  # 1. Scheduled Execution: Runs automatically after Premier League matchdays
+  schedule:
+    # Daily at 02:00 UTC (catches overnight FPL price changes & bonus point finalizations)
+    - cron: '0 2 * * *'
+    # Sunday, Monday, and Tuesday nights at 23:00 UTC (immediately after weekend & midweek fixtures finish)
+    - cron: '0 23 * * 0,1,2'
+
+  # 2. Manual Trigger: Allows 1-click execution anytime from GitHub Actions tab
+  workflow_dispatch:
+    inputs:
+      force_refresh:
+        description: 'Force complete re-scrape of FotMob & FPL'
+        required: true
+        type: boolean
+        default: true
+
+  # 3. Webhook / API Trigger: Can be triggered remotely by backend or Cloud Scheduler
+  repository_dispatch:
+    types: [gameweek_completed, refresh_stats]
+
+permissions:
+  contents: write
+
+jobs:
+  gameweek_pipeline:
+    name: Ingest FPL & Scrape FotMob Stats
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Execute End-of-Gameweek Data Ingestion Pipeline
+        run: |
+          echo "🚀 Executing automated Gameweek Data Renewal Pipeline..."
+          python python/gameweek_pipeline.py --run
+
+      - name: Verify Updated Cache Data
+        run: |
+          echo "📊 Pipeline Status Summary:"
+          python python/gameweek_pipeline.py --status
+          echo "📁 Data directory changes:"
+          git status --short data/
+
+      - name: Commit and Push Fresh Stats to Repository
+        run: |
+          # Check if data files were modified by the pipeline
+          if [ -n "$(git status --porcelain data/)" ]; then
+            echo "✅ Fresh stats detected in data/ cache. Committing changes..."
+            git config --global user.name "Apex FPL Auto-Sync Bot"
+            git config --global user.email "bot@apexfpl.internal"
+            git add data/
+            git commit -m "chore(data): auto-update FPL & FotMob stats at end of gameweek"
+            git push origin main
+            echo "🎉 Successfully pushed fresh gameweek stats to main. Cloud Run deploy triggered!"
+          else
+            echo "ℹ️ No changes detected in data/ cache. Stats are already fully up to date."
+          fi

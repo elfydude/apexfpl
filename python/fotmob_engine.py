@@ -155,56 +155,62 @@ class FotMobEngine:
 
         # Next: Scrape squads for injury info & active positions
         injury_reports: List[Dict[str, Any]] = []
-        for team_name, t_id in PL_TEAM_IDS.items():
-            try:
-                team_data = await self.client.get_team(t_id)
-                squad_groups = team_data.get("squad", {}).get("squad", [])
-                for group in squad_groups:
-                    role_type = group.get("title")  # keepers, defenders, midfielders, attackers
-                    for member in group.get("members", []):
-                        m_id = str(member.get("id"))
-                        m_name = member.get("name", "").strip()
-                        injury = member.get("injury")
-                        is_injured = member.get("injured", False) or (injury is not None)
+        squad_sem = asyncio.Semaphore(6)
+        squad_lock = asyncio.Lock()
 
-                        if is_injured:
-                            inj_entry = {
-                                "player_id": m_id,
-                                "name": m_name,
-                                "team": team_name,
-                                "injury": injury,
-                                "status": "Injured" if not injury else injury.get("expectedReturn", "Injured")
-                            }
-                            injury_reports.append(inj_entry)
+        async def fetch_team_squad(team_name, t_id):
+            async with squad_sem:
+                try:
+                    team_data = await self.client.get_team(t_id)
+                    squad_groups = team_data.get("squad", {}).get("squad", [])
+                    async with squad_lock:
+                        for group in squad_groups:
+                            role_type = group.get("title")  # keepers, defenders, midfielders, attackers
+                            for member in group.get("members", []):
+                                m_id = str(member.get("id"))
+                                m_name = member.get("name", "").strip()
+                                injury = member.get("injury")
+                                is_injured = member.get("injured", False) or (injury is not None)
 
-                        if m_id in players_by_id:
-                            players_by_id[m_id]["injury"] = injury
-                            players_by_id[m_id]["is_injured"] = is_injured
-                            players_by_id[m_id]["role"] = role_type
-                            players_by_id[m_id]["shirt_number"] = member.get("shirtNumber")
-                        else:
-                            # Add players who may not have topped any single stat yet
-                            players_by_id[m_id] = {
-                                "fotmob_id": m_id,
-                                "name": m_name,
-                                "team_id": t_id,
-                                "team_name": team_name,
-                                "country": member.get("ccode"),
-                                "minutes_played": 0,
-                                "matches_played": 0,
-                                "role": role_type,
-                                "shirt_number": member.get("shirtNumber"),
-                                "stats": {
-                                    "FotMob rating": {"value": member.get("rating", 6.0)},
-                                    "Top scorer": {"value": member.get("goals", 0)},
-                                    "Assists": {"value": member.get("assists", 0)}
-                                },
-                                "injury": injury,
-                                "is_injured": is_injured,
-                                "shotmap": [],
-                            }
-            except Exception as e:
-                print(f"[FotMobEngine] Error loading team squad {team_name} ({t_id}): {e}")
+                                if is_injured:
+                                    inj_entry = {
+                                        "player_id": m_id,
+                                        "name": m_name,
+                                        "team": team_name,
+                                        "injury": injury,
+                                        "status": "Injured" if not injury else injury.get("expectedReturn", "Injured")
+                                    }
+                                    injury_reports.append(inj_entry)
+
+                                if m_id in players_by_id:
+                                    players_by_id[m_id]["injury"] = injury
+                                    players_by_id[m_id]["is_injured"] = is_injured
+                                    players_by_id[m_id]["role"] = role_type
+                                    players_by_id[m_id]["shirt_number"] = member.get("shirtNumber")
+                                else:
+                                    players_by_id[m_id] = {
+                                        "fotmob_id": m_id,
+                                        "name": m_name,
+                                        "team_id": t_id,
+                                        "team_name": team_name,
+                                        "country": member.get("ccode"),
+                                        "minutes_played": 0,
+                                        "matches_played": 0,
+                                        "role": role_type,
+                                        "shirt_number": member.get("shirtNumber"),
+                                        "stats": {
+                                            "FotMob rating": {"value": member.get("rating", 6.0)},
+                                            "Top scorer": {"value": member.get("goals", 0)},
+                                            "Assists": {"value": member.get("assists", 0)}
+                                        },
+                                        "injury": injury,
+                                        "is_injured": is_injured,
+                                        "shotmap": [],
+                                    }
+                except Exception as e:
+                    print(f"[FotMobEngine] Error loading team squad {team_name} ({t_id}): {e}")
+
+        await asyncio.gather(*(fetch_team_squad(t_name, t_id) for t_name, t_id in PL_TEAM_IDS.items()))
 
         # Fetch match shotmaps for all players and team opponent shots (for Goalkeepers)
         team_opponent_shots: Dict[str, List[Dict[str, Any]]] = {}
@@ -217,38 +223,47 @@ class FotMobEngine:
             if fixtures:
                 completed = [fx for fx in fixtures if fx.get("status", {}).get("finished")]
                 print(f"[FotMobEngine] Scanning {len(completed)} completed fixtures for shotmaps...")
-                for idx, fix in enumerate(completed):
+                sem = asyncio.Semaphore(10)
+                shots_lock = asyncio.Lock()
+
+                async def process_match(fix):
+                    nonlocal total_shots_recorded
                     m_id = fix.get("id")
                     if not m_id:
-                        continue
+                        return
                     home_id = fix.get("home", {}).get("id")
                     away_id = fix.get("away", {}).get("id")
-                    try:
-                        m_det = await self.client.get_match_details(m_id)
-                        content = m_det.get("content", {})
-                        shots = content.get("shotmap", {}).get("shots", [])
-                        total_shots_recorded += len(shots)
+                    async with sem:
+                        try:
+                            m_det = await self.client.get_match_details(m_id)
+                            content = m_det.get("content", {})
+                            shots = content.get("shotmap", {}).get("shots", [])
+                            
+                            async with shots_lock:
+                                total_shots_recorded += len(shots)
+                                match_details_cache[str(m_id)] = {
+                                    "match_id": m_id,
+                                    "home_id": home_id,
+                                    "away_id": away_id,
+                                    "home_name": fix.get("home", {}).get("name"),
+                                    "away_name": fix.get("away", {}).get("name"),
+                                    "shots_count": len(shots)
+                                }
+                                for s in shots:
+                                    pid = s.get("playerId")
+                                    tid = s.get("teamId")
+                                    if pid and str(pid) in players_by_id:
+                                        players_by_id[str(pid)]["shotmap"].append(s)
 
-                        match_details_cache[str(m_id)] = {
-                            "match_id": m_id,
-                            "home_id": home_id,
-                            "away_id": away_id,
-                            "home_name": fix.get("home", {}).get("name"),
-                            "away_name": fix.get("away", {}).get("name"),
-                            "shots_count": len(shots)
-                        }
+                                    opp_team_id = away_id if tid == home_id else home_id
+                                    if opp_team_id:
+                                        team_opponent_shots.setdefault(str(opp_team_id), []).append(s)
+                        except Exception as me:
+                            print(f"[FotMobEngine] Error parsing match {m_id}: {me}")
 
-                        for s in shots:
-                            pid = s.get("playerId")
-                            tid = s.get("teamId")
-                            if pid and str(pid) in players_by_id:
-                                players_by_id[str(pid)]["shotmap"].append(s)
-
-                            opp_team_id = away_id if tid == home_id else home_id
-                            if opp_team_id:
-                                team_opponent_shots.setdefault(str(opp_team_id), []).append(s)
-                    except Exception as me:
-                        print(f"[FotMobEngine] Error parsing match {m_id}: {me}")
+                # Process all completed fixtures concurrently with rate limiting
+                tasks = [process_match(fx) for fx in completed]
+                await asyncio.gather(*tasks)
                 print(f"[FotMobEngine] Total shots recorded: {total_shots_recorded} across {len(completed)} matches.")
         except Exception as e:
             print(f"[FotMobEngine] Warning: match shotmap sampling partial: {e}")
