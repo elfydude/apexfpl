@@ -67,7 +67,12 @@ jobs:
             git config --global user.name "Apex FPL Auto-Sync Bot"
             git config --global user.email "bot@apexfpl.internal"
             git add data/
-            git commit -m "chore(data): auto-update FPL & FotMob stats at end of gameweek"
+            git commit -m "chore(data): auto-update FPL & FotMob stats at end of gameweek" || echo "No changes to commit"
+            
+            # Fetch latest remote changes and rebase to avoid non-fast-forward push rejection
+            echo "🔄 Synchronizing with latest main branch before push..."
+            git pull --rebase origin main || (git rebase --abort && git pull origin main --strategy-option=theirs)
+            
             git push origin main
             echo "🎉 Successfully pushed fresh gameweek stats to main. Cloud Run deploy triggered!"
           else

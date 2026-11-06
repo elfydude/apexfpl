@@ -34,10 +34,8 @@ jobs:
           cp deployment/Dockerfile ./Dockerfile
           cp deployment/.dockerignore ./.dockerignore
           IMAGE_URI="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/cloud-run-source-deploy/${{ env.SERVICE_NAME }}:${{ github.sha }}"
-          LATEST_URI="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/cloud-run-source-deploy/${{ env.SERVICE_NAME }}:latest"
           gcloud builds submit \
             --tag "${IMAGE_URI}" \
-            --tag "${LATEST_URI}" \
             --project ${{ env.PROJECT_ID }} \
             --region ${{ env.REGION }} \
             .
