@@ -442,7 +442,7 @@ class RecommenderEngine:
             tot_xg = 0.0
             tot_xa = 0.0
             all_past_mins = career_total_mins
-            hist_total_cs = sum(s.get("clean_sheets", 0) for s in active_seasons)
+            hist_total_cs = sum(s.get("clean_sheets", 0) for s in active_seasons) if position in ["GKP", "DEF", "MID"] else 0
 
             for k, s in enumerate(rev_seasons):
                 mins = s.get("minutes", 0)
@@ -646,7 +646,7 @@ class RecommenderEngine:
                 "blocks_90": round(blocks_90, 2),
                 "clearances_90": round(clearances_90, 2),
                 "clean_sheets": int(clean_sheets),
-                "career_total_clean_sheets": int(clean_sheets + hist_total_cs),
+                "career_total_clean_sheets": int(clean_sheets + hist_total_cs) if position in ["GKP", "DEF", "MID"] else 0,
                 "line_breaking_passes_90": round(line_breaking_passes_90, 2),
                 "total_line_breaking_passes": round(total_line_breaking_passes, 0),
                 "lbp_rank": lbp_rank,

@@ -2104,8 +2104,10 @@ function createFotMobComparison(pA, pB) {
   // 4. Defensive Contributions
   const csProbA = pA.cs_probability !== undefined ? pA.cs_probability : (pA.xp_breakdown?.cs_probability || 0);
   const csProbB = pB.cs_probability !== undefined ? pB.cs_probability : (pB.xp_breakdown?.cs_probability || 0);
-  const careerCsA = pA.career_total_clean_sheets !== undefined ? pA.career_total_clean_sheets : ((pA.historical_past || []).reduce((sum, s) => sum + (s.clean_sheets || 0), 0) + (pA.clean_sheets || 0));
-  const careerCsB = pB.career_total_clean_sheets !== undefined ? pB.career_total_clean_sheets : ((pB.historical_past || []).reduce((sum, s) => sum + (s.clean_sheets || 0), 0) + (pB.clean_sheets || 0));
+  const isFwdA = (pA.position || "").toUpperCase() === "FWD";
+  const isFwdB = (pB.position || "").toUpperCase() === "FWD";
+  const careerCsA = isFwdA ? "-" : (pA.career_total_clean_sheets !== undefined ? pA.career_total_clean_sheets : ((pA.historical_past || []).reduce((sum, s) => sum + (s.clean_sheets || 0), 0) + (pA.clean_sheets || 0)));
+  const careerCsB = isFwdB ? "-" : (pB.career_total_clean_sheets !== undefined ? pB.career_total_clean_sheets : ((pB.historical_past || []).reduce((sum, s) => sum + (s.clean_sheets || 0), 0) + (pB.clean_sheets || 0)));
 
   const defRows = [
     renderCompareRow("Clean Sheets (Actual)", pA.clean_sheets !== undefined ? pA.clean_sheets : 0, pB.clean_sheets !== undefined ? pB.clean_sheets : 0, `${pA.clean_sheets !== undefined ? pA.clean_sheets : 0} CS`, `${pB.clean_sheets !== undefined ? pB.clean_sheets : 0} CS`),
@@ -2329,21 +2331,35 @@ function renderPlayerModalContent(p) {
   const pastEmpty = document.getElementById("mPastEmptyNote");
   pastBody.innerHTML = "";
   const pastList = p.historical_past || [];
-  if (pastList.length === 0) {
+  
+  // Filter out any unplayed ghost seasons (0 minutes) and sort descending (most recent first)
+  const activePast = pastList
+    .filter(s => (s.minutes || 0) > 0 || (s.total_points || 0) > 0)
+    .sort((a, b) => (b.season_name || "").localeCompare(a.season_name || ""));
+
+  if (activePast.length === 0) {
+    pastEmpty.textContent = `No prior completed Premier League seasons on record for ${p.web_name || 'player'} (New Premier League signing or newly promoted squad).`;
     pastEmpty.classList.remove("hidden");
   } else {
     pastEmpty.classList.add("hidden");
-    pastList.forEach(s => {
+    const isFwd = (p.position || "").toUpperCase() === "FWD";
+    activePast.forEach(s => {
       const tr = document.createElement("tr");
+      const csVal = isFwd ? '<span style="color:var(--text-muted);" title="Forwards do not keep clean sheets or earn clean sheet points in FPL">-</span>' : (s.clean_sheets !== undefined ? s.clean_sheets : 0);
+      const startsLabel = s.starts ? ` <span style="font-size:0.75rem;color:var(--text-muted);font-weight:normal;" title="${s.starts} starts">(${s.starts} GS)</span>` : "";
+      const minsFmt = s.minutes ? s.minutes.toLocaleString() : "0";
+      const xgFmt = s.xg !== undefined ? Number(s.xg).toFixed(2) : "0.00";
+      const xaFmt = s.xa !== undefined ? Number(s.xa).toFixed(2) : "0.00";
+      
       tr.innerHTML = `
         <td><strong>${s.season_name}</strong></td>
         <td style="color:var(--fpl-green);font-weight:700;">${s.total_points}</td>
-        <td>${s.minutes}</td>
-        <td>${s.goals_scored}</td>
-        <td>${s.assists}</td>
-        <td>${s.clean_sheets}</td>
-        <td>${s.xg.toFixed(2)}</td>
-        <td>${s.xa.toFixed(2)}</td>
+        <td>${minsFmt}'${startsLabel}</td>
+        <td><strong style="color:#ffffff;">${s.goals_scored || 0}</strong></td>
+        <td><strong style="color:#ffffff;">${s.assists || 0}</strong></td>
+        <td>${csVal}</td>
+        <td>${xgFmt}</td>
+        <td>${xaFmt}</td>
       `;
       pastBody.appendChild(tr);
     });

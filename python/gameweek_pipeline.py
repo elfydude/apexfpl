@@ -29,6 +29,7 @@ if os.path.dirname(__file__) not in sys.path:
 
 from fpl_engine import FPLEngine
 from fotmob_engine import FotMobEngine
+from history_engine import load_or_fetch_player_histories
 
 DEFAULT_CHECK_INTERVAL_SECONDS = 300  # Check every 5 minutes
 
@@ -221,6 +222,16 @@ class GameweekPipeline:
                 self.log(f"Step 2 Complete: FotMob harvested {len(fm_data.get('players', {}))} players, {matches_scanned} matches, {total_shots} shots, {total_injuries} injuries.")
             except Exception as fme:
                 self.log(f"Step 2 Notice: FotMob harvest notice ({fme}). Continuing with cached FotMob stats.")
+
+            # -------------------------------------------------------------
+            # STEP 2.5: Synchronize Multi-Season Player Histories
+            # -------------------------------------------------------------
+            self.log("Step 2.5/4: Synchronizing sound multi-season historical track records...")
+            try:
+                hist_data = load_or_fetch_player_histories(force_refresh=True)
+                self.log(f"Step 2.5 Complete: Synchronized {len(hist_data)} player histories.")
+            except Exception as he:
+                self.log(f"Step 2.5 Notice: History sync warning ({he}). Proceeding with existing cache.")
 
             # -------------------------------------------------------------
             # STEP 3: Unify Data & Recalculate Bayesian Holistic xP Models

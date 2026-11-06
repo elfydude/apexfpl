@@ -5,6 +5,12 @@ on:
     branches:
       - main
       - master
+  workflow_run:
+    workflows: ["Gameweek Auto-Update & Data Pipeline Sync"]
+    types: [completed]
+    branches:
+      - main
+  workflow_dispatch:
 
 env:
   PROJECT_ID: vijay-tmt
