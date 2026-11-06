@@ -2104,10 +2104,8 @@ function createFotMobComparison(pA, pB) {
   // 4. Defensive Contributions
   const csProbA = pA.cs_probability !== undefined ? pA.cs_probability : (pA.xp_breakdown?.cs_probability || 0);
   const csProbB = pB.cs_probability !== undefined ? pB.cs_probability : (pB.xp_breakdown?.cs_probability || 0);
-  const isFwdA = (pA.position || "").toUpperCase() === "FWD";
-  const isFwdB = (pB.position || "").toUpperCase() === "FWD";
-  const careerCsA = isFwdA ? "-" : (pA.career_total_clean_sheets !== undefined ? pA.career_total_clean_sheets : ((pA.historical_past || []).reduce((sum, s) => sum + (s.clean_sheets || 0), 0) + (pA.clean_sheets || 0)));
-  const careerCsB = isFwdB ? "-" : (pB.career_total_clean_sheets !== undefined ? pB.career_total_clean_sheets : ((pB.historical_past || []).reduce((sum, s) => sum + (s.clean_sheets || 0), 0) + (pB.clean_sheets || 0)));
+  const careerCsA = pA.career_total_clean_sheets !== undefined ? pA.career_total_clean_sheets : ((pA.historical_past || []).reduce((sum, s) => sum + (s.clean_sheets || 0), 0) + (pA.clean_sheets || 0));
+  const careerCsB = pB.career_total_clean_sheets !== undefined ? pB.career_total_clean_sheets : ((pB.historical_past || []).reduce((sum, s) => sum + (s.clean_sheets || 0), 0) + (pB.clean_sheets || 0));
 
   const defRows = [
     renderCompareRow("Clean Sheets (Actual)", pA.clean_sheets !== undefined ? pA.clean_sheets : 0, pB.clean_sheets !== undefined ? pB.clean_sheets : 0, `${pA.clean_sheets !== undefined ? pA.clean_sheets : 0} CS`, `${pB.clean_sheets !== undefined ? pB.clean_sheets : 0} CS`),
@@ -2342,11 +2340,9 @@ function renderPlayerModalContent(p) {
     pastEmpty.classList.remove("hidden");
   } else {
     pastEmpty.classList.add("hidden");
-    const isFwd = (p.position || "").toUpperCase() === "FWD";
     activePast.forEach(s => {
       const tr = document.createElement("tr");
-      const csVal = isFwd ? '<span style="color:var(--text-muted);" title="Forwards do not keep clean sheets or earn clean sheet points in FPL">-</span>' : (s.clean_sheets !== undefined ? s.clean_sheets : 0);
-      const startsLabel = s.starts ? ` <span style="font-size:0.75rem;color:var(--text-muted);font-weight:normal;" title="${s.starts} starts">(${s.starts} GS)</span>` : "";
+      const csVal = s.clean_sheets !== undefined ? s.clean_sheets : 0;
       const minsFmt = s.minutes ? s.minutes.toLocaleString() : "0";
       const xgFmt = s.xg !== undefined ? Number(s.xg).toFixed(2) : "0.00";
       const xaFmt = s.xa !== undefined ? Number(s.xa).toFixed(2) : "0.00";
@@ -2354,7 +2350,7 @@ function renderPlayerModalContent(p) {
       tr.innerHTML = `
         <td><strong>${s.season_name}</strong></td>
         <td style="color:var(--fpl-green);font-weight:700;">${s.total_points}</td>
-        <td>${minsFmt}'${startsLabel}</td>
+        <td>${minsFmt}'</td>
         <td><strong style="color:#ffffff;">${s.goals_scored || 0}</strong></td>
         <td><strong style="color:#ffffff;">${s.assists || 0}</strong></td>
         <td>${csVal}</td>
