@@ -125,6 +125,18 @@ class FPLRequestHandler(SimpleHTTPRequestHandler):
                     })
                 return
 
+            # API: Premier League Standings, Match Results & Evolved FDR Ratings
+            elif path == "/api/standings":
+                standings_data = engine.standings_data if hasattr(engine, "standings_data") and engine.standings_data else engine.fpl.get_league_standings_and_results()
+                self.send_json_response({
+                    "success": True,
+                    "standings": standings_data.get("standings", []),
+                    "latest_gw": standings_data.get("latest_completed_gameweek", 9),
+                    "latest_results": standings_data.get("latest_gw_results", []),
+                    "evolved_team_ratings": getattr(engine, "evolved_team_ratings", {})
+                })
+                return
+
             # API: Force Refresh Live Fixtures & Gameweek
             elif path == "/api/fixtures/refresh":
                 res = engine.update_gameweek_data(force_refresh=True)

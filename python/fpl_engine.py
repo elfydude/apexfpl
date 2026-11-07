@@ -360,6 +360,159 @@ class FPLEngine:
             "server_time_utc": datetime.now(timezone.utc).isoformat()
         }
 
+    def get_league_standings_and_results(self, force_refresh: bool = False) -> Dict[str, Any]:
+        """
+        Calculates and returns current official Premier League table standings,
+        home/away splits, recent form, and completed match results by gameweek.
+        """
+        fixtures = self.fetch_upcoming_fixtures(force_refresh=force_refresh)
+        bootstrap = self.fetch_bootstrap_static(force_refresh=force_refresh)
+        teams_map = {t["id"]: t for t in bootstrap.get("teams", [])}
+
+        table: Dict[int, Dict[str, Any]] = {}
+        for tid, t in teams_map.items():
+            table[tid] = {
+                "id": tid,
+                "name": t.get("name"),
+                "short_name": t.get("short_name"),
+                "played": 0,
+                "won": 0,
+                "drawn": 0,
+                "lost": 0,
+                "gf": 0,
+                "ga": 0,
+                "gd": 0,
+                "points": 0,
+                "home_played": 0,
+                "home_won": 0,
+                "home_drawn": 0,
+                "home_lost": 0,
+                "home_gf": 0,
+                "home_ga": 0,
+                "home_pts": 0,
+                "away_played": 0,
+                "away_won": 0,
+                "away_drawn": 0,
+                "away_lost": 0,
+                "away_gf": 0,
+                "away_ga": 0,
+                "away_pts": 0,
+                "recent_results": []  # List of ('W'/'D'/'L', f"{h}-{a}", opp_short, is_home)
+            }
+
+        results_by_gw: Dict[int, List[Dict[str, Any]]] = {}
+        upcoming_by_gw: Dict[int, List[Dict[str, Any]]] = {}
+
+        for f in sorted(fixtures, key=lambda x: (x.get("event", 0), x.get("kickoff_time") or "")):
+            ev = f.get("event")
+            if not ev:
+                continue
+            th = f.get("team_h")
+            ta = f.get("team_a")
+            th_name = teams_map.get(th, {}).get("name", "Unknown")
+            ta_name = teams_map.get(ta, {}).get("name", "Unknown")
+            th_short = teams_map.get(th, {}).get("short_name", "UNK")
+            ta_short = teams_map.get(ta, {}).get("short_name", "UNK")
+
+            if f.get("finished") and f.get("team_h_score") is not None and f.get("team_a_score") is not None:
+                sh = int(f["team_h_score"])
+                sa = int(f["team_a_score"])
+                result_entry = {
+                    "id": f.get("id"),
+                    "gameweek": ev,
+                    "home_team": th_name,
+                    "away_team": ta_name,
+                    "home_short": th_short,
+                    "away_short": ta_short,
+                    "home_score": sh,
+                    "away_score": sa,
+                    "scoreline": f"{sh} - {sa}",
+                    "kickoff_time": f.get("kickoff_time")
+                }
+                results_by_gw.setdefault(ev, []).append(result_entry)
+
+                if th in table and ta in table:
+                    table[th]["played"] += 1
+                    table[th]["home_played"] += 1
+                    table[th]["gf"] += sh
+                    table[th]["home_gf"] += sh
+                    table[th]["ga"] += sa
+                    table[th]["home_ga"] += sa
+
+                    table[ta]["played"] += 1
+                    table[ta]["away_played"] += 1
+                    table[ta]["gf"] += sa
+                    table[ta]["away_gf"] += sa
+                    table[ta]["ga"] += sh
+                    table[ta]["away_ga"] += sh
+
+                    if sh > sa:
+                        table[th]["won"] += 1
+                        table[th]["home_won"] += 1
+                        table[th]["points"] += 3
+                        table[th]["home_pts"] += 3
+                        table[ta]["lost"] += 1
+                        table[ta]["away_lost"] += 1
+                        table[th]["recent_results"].append(("W", f"{sh}-{sa}", ta_short, True))
+                        table[ta]["recent_results"].append(("L", f"{sa}-{sh}", th_short, False))
+                    elif sh < sa:
+                        table[ta]["won"] += 1
+                        table[ta]["away_won"] += 1
+                        table[ta]["points"] += 3
+                        table[ta]["away_pts"] += 3
+                        table[th]["lost"] += 1
+                        table[th]["home_lost"] += 1
+                        table[th]["recent_results"].append(("L", f"{sh}-{sa}", ta_short, True))
+                        table[ta]["recent_results"].append(("W", f"{sa}-{sh}", th_short, False))
+                    else:
+                        table[th]["drawn"] += 1
+                        table[th]["home_drawn"] += 1
+                        table[th]["points"] += 1
+                        table[th]["home_pts"] += 1
+                        table[ta]["drawn"] += 1
+                        table[ta]["away_drawn"] += 1
+                        table[ta]["points"] += 1
+                        table[ta]["away_pts"] += 1
+                        table[th]["recent_results"].append(("D", f"{sh}-{sa}", ta_short, True))
+                        table[ta]["recent_results"].append(("D", f"{sa}-{sh}", th_short, False))
+            elif not f.get("finished"):
+                upcoming_by_gw.setdefault(ev, []).append({
+                    "id": f.get("id"),
+                    "gameweek": ev,
+                    "home_team": th_name,
+                    "away_team": ta_name,
+                    "home_short": th_short,
+                    "away_short": ta_short,
+                    "difficulty_home": f.get("team_h_difficulty", 3),
+                    "difficulty_away": f.get("team_a_difficulty", 3),
+                    "kickoff_time": f.get("kickoff_time")
+                })
+
+        for tid, t in table.items():
+            t["gd"] = t["gf"] - t["ga"]
+            t["ppg"] = round(t["points"] / max(1, t["played"]), 2)
+            t["home_ppg"] = round(t["home_pts"] / max(1, t["home_played"]), 2)
+            t["away_ppg"] = round(t["away_pts"] / max(1, t["away_played"]), 2)
+            t["form"] = "".join(r[0] for r in t["recent_results"][-5:])
+
+        sorted_table = sorted(table.values(), key=lambda x: (-x["points"], -x["gd"], -x["gf"], x["name"]))
+        for idx, t in enumerate(sorted_table, start=1):
+            t["rank"] = idx
+
+        standings_by_code = {t["short_name"]: t for t in sorted_table}
+        completed_gws = sorted(list(results_by_gw.keys()))
+        latest_gw = max(completed_gws) if completed_gws else 0
+        latest_results = results_by_gw.get(latest_gw, [])
+
+        return {
+            "standings": sorted_table,
+            "standings_by_code": standings_by_code,
+            "results_by_gw": results_by_gw,
+            "latest_completed_gameweek": latest_gw,
+            "latest_gw_results": latest_results,
+            "upcoming_by_gw": upcoming_by_gw
+        }
+
     def get_teams_map(self) -> Dict[int, Dict[str, Any]]:
         bootstrap = self.fetch_bootstrap_static()
         return {t["id"]: t for t in bootstrap.get("teams", [])}

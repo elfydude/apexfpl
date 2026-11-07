@@ -115,6 +115,8 @@ class RecommenderEngine:
         self.players_by_id: Dict[int, Dict[str, Any]] = {}
         self.players_by_fpl_id: Dict[int, Dict[str, Any]] = {}
         self.player_histories: Dict[str, List[Dict[str, Any]]] = {}
+        self.standings_data: Dict[str, Any] = {}
+        self.evolved_team_ratings: Dict[str, Dict[str, Any]] = {}
         self.load_and_unify_data()
 
     def _on_fpl_bootstrap_refreshed(self, data: Optional[Dict[str, Any]] = None):
@@ -147,6 +149,8 @@ class RecommenderEngine:
         fpl_bootstrap = self.fpl.fetch_bootstrap_static(force_refresh=force_refresh)
         teams_map = self.fpl.get_teams_map()
         fdr_map = self.fpl.get_upcoming_team_fdr(lookahead_gameweeks=None)
+        self.standings_data = self.fpl.get_league_standings_and_results(force_refresh=force_refresh)
+        self._compute_evolved_team_ratings()
 
         fotmob_players = {}
         team_opponent_shots = {}
@@ -976,29 +980,150 @@ class RecommenderEngine:
         "NOR": {"name": "Norwich", "full_name": "Norwich City", "away": 2.55, "home": 2.00},
     }
 
-    def get_custom_5yr_fdr(self, opponent: Optional[str], is_home: bool, default_diff: float = 3.0) -> float:
+    def _compute_evolved_team_ratings(self):
         """
-        Computes custom 5-season historical performance FDR for accurate Bayesian xP modeling.
-        - When player's team is at HOME (is_home=True), the match is hosted at player's ground.
-          The opponent is the away side, so we look up opponent's 'home' FDR rating.
-        - When player's team is AWAY (is_home=False), the match is at opponent's ground.
-          The opponent has home fortress advantage, so we look up opponent's 'away' FDR rating.
+        Dynamically evolves the 5-season historical team FDR ratings based on current season Premier League standings,
+        points per game (PPG), goal dominance (GD/game), and recent 5-game form.
+        Blends 5-year macro anchor with current momentum to reflect real-world strength swings.
         """
+        self.evolved_team_ratings = {}
+        standings_by_code = self.standings_data.get("standings_by_code", {}) if hasattr(self, "standings_data") else {}
+
+        for code, entry in self.CUSTOM_5YR_TEAM_RATINGS.items():
+            prior_away = float(entry["away"])
+            prior_home = float(entry["home"])
+
+            team_stat = standings_by_code.get(code)
+            if not team_stat:
+                for st in standings_by_code.values():
+                    if normalize_team(st.get("name", "")) == normalize_team(entry.get("name", "")) or                        normalize_team(st.get("short_name", "")) == normalize_team(code):
+                        team_stat = st
+                        break
+
+            if team_stat and team_stat.get("played", 0) > 0:
+                played = team_stat["played"]
+                points = team_stat["points"]
+                gd = team_stat["gd"]
+                ppg = team_stat["ppg"]
+                rank = team_stat.get("rank", 10)
+                form_str = team_stat.get("form", "")
+
+                form_pts = sum(3 if r == 'W' else 1 if r == 'D' else 0 for r in form_str)
+                form_ppg = (form_pts / len(form_str)) if form_str else ppg
+
+                gd_per_game = gd / max(1, played)
+                # Composite performance score: 55% PPG, 25% GD dominance, 20% Form
+                curr_perf = (ppg * 0.55) + (max(-1.5, min(1.5, gd_per_game)) * 0.25) + (form_ppg * 0.20)
+
+                # Base difficulty rating scaled from 1.6 to 5.0
+                curr_base = max(1.60, min(5.00, 1.90 + (curr_perf / 2.30) * 2.80))
+                curr_away_fdr = min(5.00, curr_base + 0.30)
+                curr_home_fdr = max(1.50, curr_base - 0.25)
+
+                # Current season sample weight (GW 9 -> ~45% current, 55% 5-season prior)
+                w_curr = min(0.55, played / 20.0)
+
+                evolved_away = round((prior_away * (1.0 - w_curr)) + (curr_away_fdr * w_curr), 2)
+                evolved_home = round((prior_home * (1.0 - w_curr)) + (curr_home_fdr * w_curr), 2)
+
+                self.evolved_team_ratings[code] = {
+                    "code": code,
+                    "name": entry.get("name", code),
+                    "full_name": entry.get("full_name", code),
+                    "prior_away": prior_away,
+                    "prior_home": prior_home,
+                    "away": evolved_away,
+                    "home": evolved_home,
+                    "rank": rank,
+                    "played": played,
+                    "points": points,
+                    "gd": gd,
+                    "ppg": ppg,
+                    "form": form_str,
+                    "delta_away": round(evolved_away - prior_away, 2),
+                    "delta_home": round(evolved_home - prior_home, 2),
+                    "weight_current_season": round(w_curr, 2)
+                }
+            else:
+                self.evolved_team_ratings[code] = {
+                    "code": code,
+                    "name": entry.get("name", code),
+                    "full_name": entry.get("full_name", code),
+                    "prior_away": prior_away,
+                    "prior_home": prior_home,
+                    "away": prior_away,
+                    "home": prior_home,
+                    "rank": 10,
+                    "played": 0,
+                    "points": 0,
+                    "gd": 0,
+                    "ppg": 1.0,
+                    "form": "",
+                    "delta_away": 0.0,
+                    "delta_home": 0.0,
+                    "weight_current_season": 0.0
+                }
+
+    def get_evolved_fdr_info(self, opponent: Optional[str], is_home: bool, default_diff: float = 3.0) -> Dict[str, Any]:
+        """
+        Returns complete evolved fixture difficulty rating info, prior rating, delta,
+        dynamic fixture multiplier, and opponent league context.
+        """
+        ratings_pool = getattr(self, "evolved_team_ratings", None) or self.CUSTOM_5YR_TEAM_RATINGS
+
         if not opponent:
-            return max(1.5, min(5.0, (default_diff - 0.25) if is_home else (default_diff + 0.25)))
+            prior = default_diff - 0.25 if is_home else default_diff + 0.25
+            fdr = max(1.5, min(5.0, prior))
+            return {
+                "evolved_fdr": round(fdr, 2),
+                "prior_fdr": round(fdr, 2),
+                "delta": 0.0,
+                "fdr_multiplier": round(1.0 + (3.0 - fdr) * 0.08, 2),
+                "rank": None,
+                "form": "",
+                "ppg": 0.0,
+                "team_name": "Opponent"
+            }
 
         opp_clean = str(opponent).strip().upper()
-        if opp_clean in self.CUSTOM_5YR_TEAM_RATINGS:
-            entry = self.CUSTOM_5YR_TEAM_RATINGS[opp_clean]
-            return entry["home"] if is_home else entry["away"]
+        entry = ratings_pool.get(opp_clean)
+        if not entry:
+            for code, ent in ratings_pool.items():
+                if code == opp_clean or ent.get("name", "").upper() == opp_clean or ent.get("full_name", "").upper() == opp_clean:
+                    entry = ent
+                    break
 
-        # Match by name or partial string
-        for code, entry in self.CUSTOM_5YR_TEAM_RATINGS.items():
-            if code == opp_clean or entry["name"].upper() == opp_clean or entry["full_name"].upper() == opp_clean:
-                return entry["home"] if is_home else entry["away"]
+        if entry:
+            evolved_fdr = entry["home"] if is_home else entry["away"]
+            prior_fdr = entry.get("prior_home" if is_home else "prior_away", evolved_fdr)
+            delta = round(evolved_fdr - prior_fdr, 2)
+            multiplier = round(1.0 + (3.0 - evolved_fdr) * 0.08, 2)
+            return {
+                "evolved_fdr": round(evolved_fdr, 2),
+                "prior_fdr": round(prior_fdr, 2),
+                "delta": delta,
+                "fdr_multiplier": multiplier,
+                "rank": entry.get("rank"),
+                "form": entry.get("form", ""),
+                "ppg": entry.get("ppg", 0.0),
+                "team_name": entry.get("name", opp_clean)
+            }
 
-        # Fallback based on official diff
-        return max(1.5, min(5.0, (default_diff - 0.25) if is_home else (default_diff + 0.25)))
+        base_fdr = max(1.5, min(5.0, (default_diff - 0.25) if is_home else (default_diff + 0.25)))
+        return {
+            "evolved_fdr": round(base_fdr, 2),
+            "prior_fdr": round(base_fdr, 2),
+            "delta": 0.0,
+            "fdr_multiplier": round(1.0 + (3.0 - base_fdr) * 0.08, 2),
+            "rank": None,
+            "form": "",
+            "ppg": 0.0,
+            "team_name": opp_clean
+        }
+
+    def get_custom_5yr_fdr(self, opponent: Optional[str], is_home: bool, default_diff: float = 3.0) -> float:
+        info = self.get_evolved_fdr_info(opponent, is_home=is_home, default_diff=default_diff)
+        return info["evolved_fdr"]
 
     def calculate_player_fixture_xp(
         self,
@@ -1029,7 +1154,8 @@ class RecommenderEngine:
         diff = fixture.get("difficulty", 3)
         is_home = fixture.get("is_home", True)
         opp_name = fixture.get("opponent")
-        calc_diff = self.get_custom_5yr_fdr(opp_name, is_home=is_home, default_diff=float(diff))
+        fdr_info = self.get_evolved_fdr_info(opp_name, is_home=is_home, default_diff=float(diff))
+        calc_diff = fdr_info["evolved_fdr"]
         pos = player.get("position", "MID")
         current_minutes = player.get("current_minutes", 0)
 
@@ -1055,7 +1181,13 @@ class RecommenderEngine:
                 "lbp_pts": 0.0,
                 "is_90th_percentile_lbp": player.get("is_90th_percentile_lbp", False),
                 "lbp_percentile": player.get("lbp_percentile", 0.0),
-                "fixture_multiplier": 1.0,
+                "fixture_multiplier": round(fdr_info.get("fdr_multiplier", 1.0), 2),
+                "evolved_fdr": round(calc_diff, 2),
+                "prior_fdr": round(fdr_info.get("prior_fdr", calc_diff), 2),
+                "fdr_evolution_delta": round(fdr_info.get("delta", 0.0), 2),
+                "opponent_rank": fdr_info.get("rank"),
+                "opponent_form": fdr_info.get("form", ""),
+                "opponent_ppg": fdr_info.get("ppg", 0.0),
                 "availability_penalty": 0.0,
                 "big_chances_90": 0.0,
                 "defensive_actions_90": 0.0,
@@ -1127,7 +1259,13 @@ class RecommenderEngine:
                 "lbp_pts": 0.0,
                 "is_90th_percentile_lbp": player.get("is_90th_percentile_lbp", False),
                 "lbp_percentile": player.get("lbp_percentile", 0.0),
-                "fixture_multiplier": 1.0,
+                "fixture_multiplier": round(fdr_info.get("fdr_multiplier", 1.0), 2),
+                "evolved_fdr": round(calc_diff, 2),
+                "prior_fdr": round(fdr_info.get("prior_fdr", calc_diff), 2),
+                "fdr_evolution_delta": round(fdr_info.get("delta", 0.0), 2),
+                "opponent_rank": fdr_info.get("rank"),
+                "opponent_form": fdr_info.get("form", ""),
+                "opponent_ppg": fdr_info.get("ppg", 0.0),
                 "availability_penalty": 0.0,
                 "big_chances_90": 0.0,
                 "defensive_actions_90": 0.0,
@@ -1362,6 +1500,12 @@ class RecommenderEngine:
             "line_breaking_passes_boost": 0.0,
             "lbp_pts": 0.0,
             "fixture_multiplier": round(fdr_multiplier, 2),
+            "evolved_fdr": round(calc_diff, 2),
+            "prior_fdr": round(fdr_info.get("prior_fdr", calc_diff), 2),
+            "fdr_evolution_delta": round(fdr_info.get("delta", 0.0), 2),
+            "opponent_rank": fdr_info.get("rank"),
+            "opponent_form": fdr_info.get("form", ""),
+            "opponent_ppg": fdr_info.get("ppg", 0.0),
             "availability_penalty": round(availability, 2),
             "is_home": is_home,
             "fixture_fdr": diff,
