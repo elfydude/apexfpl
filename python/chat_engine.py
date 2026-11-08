@@ -12,6 +12,7 @@ import urllib.error
 import concurrent.futures
 from typing import Dict, Any, List, Optional, Tuple
 from fpl_rules import FPLRulesEngine, FPL_RULES_SUMMARY
+from match_events_engine import match_events_engine
 
 # Try importing Gemini libraries
 GEMINI_CLIENT = None
@@ -42,6 +43,7 @@ OUT_OF_SCOPE_RESPONSE = (
 class ChatFPLEngine:
     def __init__(self, recommender_engine):
         self.re = recommender_engine
+        self.events = match_events_engine
         self._build_player_lookup()
         self.gemini_api_key = self._find_gemini_api_key()
         self.groq_api_key = self._find_groq_api_key()
@@ -482,6 +484,23 @@ class ChatFPLEngine:
             ]
             sections.append("\n".join(standings_summary))
 
+        # 0b. Verified Premier League Match Events & Goal Timestamps (Ground Truth Timeline)
+        if hasattr(self, "events") and getattr(self.events, "matches", None):
+            top_scorers_sample = ["Erling Haaland", "Cole Palmer", "Bukayo Saka", "Bryan Mbeumo"]
+            ts_lines = ["PREMIER LEAGUE GOAL TIMESTAMPS & RECENT MATCH EVENTS (OFFICIAL TIMELINE):"]
+            for sname in top_scorers_sample:
+                pdata = self.events.player_events.get(sname)
+                if pdata and pdata.get("goals"):
+                    g_strs = [f"GW{g.get('gameweek')} vs {g.get('match')}: {g.get('time_str')}" for g in pdata["goals"][:4]]
+                    ts_lines.append(f"  * {sname} ({len(pdata['goals'])} goals): " + ", ".join(g_strs))
+
+            gw9_matches = self.events.get_gameweek_matches(9)
+            if gw9_matches:
+                m_sample = gw9_matches[0]
+                m_goals = [f"{g['player_name']} {g['time_str']}" for g in m_sample.get("goals", [])]
+                ts_lines.append(f"  * Sample GW9 Match: {m_sample.get('home_team')} {m_sample.get('score')} {m_sample.get('away_team')} — Goals: {', '.join(m_goals) if m_goals else 'None'}")
+            sections.append("\n".join(ts_lines))
+
         # 1. Active FPL Database Leaders by Projected Points (xP) across Positions
         valid_active = [
             p for p in self.re.unified_players
@@ -691,6 +710,16 @@ class ChatFPLEngine:
                         ]
                     }
 
+        # 0. Deterministic Ground Truth Handlers (Standings, Match Timelines, Goal Timestamps & Cards)
+        if any(kw in low for kw in [
+            "timestamp", "timestamps", "minute", "minutes scored", "when did he score", "when did she score",
+            "goal time", "goal times", "when were goals scored", "match events", "match timeline", "timeline of",
+            "who scored in", "yellow card in", "red card in", "cards in", "substitutions in", "who was subbed",
+            "feed all time premier league fixture results", "stoppage time goals", "late goals",
+            "league table", "pl table", "standings table", "premier league standings", "who is top of the table"
+        ]):
+            return self._process_native_query(text, user_squad, history=history)
+
         # 1. Primary: Gemini API
         if self.gemini_api_key:
             gemini_res = self._call_gemini(text, user_squad, history=history)
@@ -851,6 +880,13 @@ class ChatFPLEngine:
 
             # Live Platform FPL Database and Website Engine Context Injection
             platform_stats_context = self._get_live_platform_stats_context(user_msg, target_gw=target_gw)
+            if hasattr(self, "events") and getattr(self.events, "matches", None):
+                m_found = self.events.find_match(user_msg)
+                if m_found:
+                    platform_stats_context += "\n\nVERIFIED FIXTURE TIMELINE FOR " + str(m_found.get('home_team')) + " vs " + str(m_found.get('away_team')) + ":\n" + self.events.format_match_timeline(m_found)
+                pname, pdata = self.events.find_player_events(user_msg)
+                if pname and pdata:
+                    platform_stats_context += f"\n\nVERIFIED GOALS & EVENT TIMELINE FOR {pname}:\n" + self.events.format_player_events(pname, pdata)
             if platform_stats_context:
                 if len(platform_stats_context) > 1000:
                     platform_stats_context = platform_stats_context[:1000] + "\n..."
@@ -1422,8 +1458,22 @@ class ChatFPLEngine:
             "last gameweek results", "gameweek results", "gw results", "match results",
             "fixture results", "recent results", "who won in gw", "who won last week",
             "scores", "scoreline", "scorelines", "match scores", "gameweek scores"
-        ]) or (any(kw in low for kw in ["result", "results", "score"]) and any(k in low for k in ["gw", "gameweek", "match", "fixtures"])):
+        ]) and not any(k in low for k in ["timestamp", "minute", "card", "sub", "substitution", "yellow", "red", "when did", "who scored"]):
             return self._handle_match_results_query(text)
+
+        # -1e. Match Events, Goal Timestamps, Cards & Substitutions Query
+        event_keywords = [
+            "timestamp", "timestamps", "minute", "minutes scored", "when did he score", "when did she score",
+            "goal time", "goal times", "when were goals scored", "scorer", "scorers", "goalscorer", "goalscorers",
+            "yellow card", "red card", "cards", "carded", "booking", "bookings",
+            "substitution", "substitutions", "subbed on", "subbed off", "subbed in", "who was subbed",
+            "match events", "match timeline", "timeline of", "who scored in", "goals in", "late goals", "stoppage time",
+            "feed all time premier league fixture results"
+        ]
+        if any(kw in low for kw in event_keywords) or (
+            any(kw in low for kw in ["when did", "what minute", "at what minute", "who scored", "who got carded", "who was substituted"])
+        ):
+            return self._handle_match_timeline_or_player_event_query(text)
 
         # -2. Historical Football & Tournament Queries (e.g. 2019 top scorer, golden boot, champions league)
         if any(kw in low for kw in ["top scorer", "top scorers", "golden boot", "highest scorer", "most goals", "champions league", "ballon d'or", "ballon dor", "world cup"]) and any(y in low for y in ["2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "all time", "all-time", "history", "records"]):
@@ -1726,6 +1776,128 @@ class ChatFPLEngine:
                 "Premier League standings",
                 f"Top projected players for Gameweek {target_gw + 1}",
                 "Best fixture runs in Premier League"
+            ]
+        }
+
+    def _handle_match_timeline_or_player_event_query(self, text: str) -> Dict[str, Any]:
+        """Handles detailed match event timelines, goal timestamps, disciplinary cards, and substitutions."""
+        low = text.lower().strip()
+
+        # 1. Check for specific match timeline (e.g. "Arsenal vs Coventry", "Chelsea vs Man Utd")
+        m = self.events.find_match(text)
+        if m and (any(k in low for k in ["vs", "v", "against", "match", "timeline", "game"]) or "score" in low or "goal" in low or "card" in low or "sub" in low):
+            reply = self.events.format_match_timeline(m)
+            ht = m.get("home_team")
+            at = m.get("away_team")
+            return {
+                "success": True,
+                "reply": reply,
+                "suggestions": [
+                    f"Top projected players for {ht}",
+                    f"Top projected players for {at}",
+                    f"Gameweek {m.get('gameweek')} match results"
+                ]
+            }
+
+        # 2. Check for player-specific goal log & timestamps
+        pname, pdata = self.events.find_player_events(text)
+        if not pdata:
+            target_p = self.find_player(text)
+            if target_p:
+                pname, pdata = self.events.find_player_events(target_p.get("web_name", ""))
+                if not pdata:
+                    pname, pdata = self.events.find_player_events(target_p.get("full_name", ""))
+
+        if pname and pdata:
+            reply = self.events.format_player_events(pname, pdata)
+            return {
+                "success": True,
+                "reply": reply,
+                "suggestions": [
+                    f"Why does {pname} have high xP?",
+                    f"Upcoming fixtures for {pname}",
+                    "Stoppage time & late drama goals"
+                ]
+            }
+
+        # 3. Check for gameweek roundup of events
+        gw_match = re.search(r'\b(?:gw|gameweek)\s*(\d+)\b', low)
+        if gw_match:
+            gw = int(gw_match.group(1))
+            reply = self.events.format_gameweek_roundup(gw)
+            return {
+                "success": True,
+                "reply": reply,
+                "suggestions": [
+                    f"Premier League standings after Gameweek {gw}",
+                    f"Top projected players for Gameweek {gw + 1}",
+                    "Late stoppage time goals"
+                ]
+            }
+
+        # 4. Check for late goals / stoppage time drama
+        if any(k in low for k in ["late", "stoppage", "clutch", "last minute", "added time"]):
+            late_goals = []
+            for m_item in self.events.matches.values():
+                for g in m_item.get("goals", []):
+                    if g.get("minute", 0) >= 85 or g.get("overload"):
+                        late_goals.append((m_item, g))
+
+            late_goals.sort(key=lambda x: (x[0].get("gameweek", 0), x[1].get("minute", 0)), reverse=True)
+
+            reply = "### ⏱️ Premier League 2026/27 — Stoppage Time & Late Drama Goals (85'+)\n\n"
+            reply += "| GW | Fixture | Minute | Scorer | Assist | Scoreline |\n"
+            reply += "| :---: | :--- | :---: | :--- | :--- | :---: |\n"
+
+            for m_item, g in late_goals[:12]:
+                gw = m_item.get("gameweek")
+                fix_str = f"{m_item.get('home_team')} vs {m_item.get('away_team')}"
+                t_str = g.get("time_str")
+                scorer = g.get("player_name")
+                ast = g.get("assist") or "Unassisted"
+                score = g.get("scoreline") or m_item.get("score")
+                reply += f"| **GW{gw}** | {fix_str} | **{t_str}** | ⚽ **{scorer}** | {ast} | **{score}** |\n"
+
+            reply += f"\n💡 *A total of **{len(late_goals)} late goals (85'+)** have been scored in the Premier League this season.*"
+
+            return {
+                "success": True,
+                "reply": reply,
+                "suggestions": [
+                    "Gameweek 9 goals and timestamps",
+                    "Erling Haaland goal timestamps",
+                    "Cole Palmer goal timestamps"
+                ]
+            }
+
+        # 5. General match timeline & goal log overview
+        total_m = len(self.events.matches)
+        total_g = sum(len(m_item.get("goals", [])) for m_item in self.events.matches.values())
+        total_c = sum(len(m_item.get("cards", [])) for m_item in self.events.matches.values())
+        total_s = sum(len(m_item.get("substitutions", [])) for m_item in self.events.matches.values())
+
+        reply = (
+            f"### ⏱️ Premier League Match Events, Goal Timestamps & Timeline Database\n\n"
+            f"ChatFPL has direct chronological access to all official match events across the Premier League:\n"
+            f"- **{total_m} Finished Matches** indexed with minute-by-minute timeline logs.\n"
+            f"- **{total_g} Goals Scored** tracked with exact minute timestamps (e.g. 15', 45+2', 90+7'), assists, and score progression.\n"
+            f"- **{total_c} Disciplinary Bookings** (Yellow & Red cards) logged with timestamps.\n"
+            f"- **{total_s} Tactical Substitutions** tracked with minute timestamps, players in, and players out.\n\n"
+            "#### 🔍 What you can ask ChatFPL:\n"
+            "1. **Match Timelines**: *\"Who scored in Chelsea vs Man Utd?\"*, *\"Arsenal vs Coventry match events\"*, *\"Substitutions in Liverpool vs Man City\"*\n"
+            "2. **Player Goal Timestamps**: *\"When did Erling Haaland score his goals?\"*, *\"Cole Palmer goal minutes\"*, *\"Bukayo Saka goal timestamps\"*\n"
+            "3. **Gameweek Timelines**: *\"Gameweek 9 goals and timestamps\"*, *\"Gameweek 1 match events\"*\n"
+            "4. **Late Drama**: *\"Stoppage time goals this season\"*, *\"Late goals after 85 minutes\"*\n"
+        )
+
+        return {
+            "success": True,
+            "reply": reply,
+            "suggestions": [
+                "Erling Haaland goal timestamps",
+                "Chelsea 2 - 0 Man Utd match timeline",
+                "Gameweek 9 goals and timestamps",
+                "Stoppage time & late drama goals"
             ]
         }
 

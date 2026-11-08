@@ -234,6 +234,17 @@ class GameweekPipeline:
                 self.log(f"Step 2.5 Notice: History sync warning ({he}). Proceeding with existing cache.")
 
             # -------------------------------------------------------------
+            # STEP 2.6: Synchronize Match Events, Goal Timestamps, Cards & Subs
+            # -------------------------------------------------------------
+            self.log("Step 2.6/4: Synchronizing match event timelines, goal timestamps, cards, and substitutions...")
+            try:
+                from match_events_engine import match_events_engine
+                match_events_engine.refresh_cache()
+                self.log(f"Step 2.6 Complete: Cached {len(match_events_engine.matches)} finished matches and {len(match_events_engine.player_events)} player timeline logs.")
+            except Exception as mee:
+                self.log(f"Step 2.6 Notice: Match events sync ({mee}). Proceeding with existing cache.")
+
+            # -------------------------------------------------------------
             # STEP 3: Unify Data & Recalculate Bayesian Holistic xP Models
             # -------------------------------------------------------------
             self.log("Step 3/4: Unifying catalog & recalculating Bayesian credibility xP models...")

@@ -20,6 +20,7 @@ from auth_engine import AuthEngine
 from fpl_engine import extract_manager_id
 from gameweek_pipeline import GameweekPipeline
 from fotmob_details import fotmob_details
+from match_events_engine import match_events_engine
 
 logging.basicConfig(
     level=logging.INFO,
@@ -135,6 +136,42 @@ class FPLRequestHandler(SimpleHTTPRequestHandler):
                     "latest_results": standings_data.get("latest_gw_results", []),
                     "evolved_team_ratings": getattr(engine, "evolved_team_ratings", {})
                 })
+                return
+
+            # API: Match Events, Goals, Timestamps, Cards & Substitutions
+            elif path == "/api/matches/events":
+                query_params = parse_qs(parsed.query)
+                match_id = query_params.get("match_id", [None])[0]
+                gw_str = query_params.get("gameweek", [None])[0]
+                player_query = query_params.get("player", [None])[0]
+
+                if player_query:
+                    pname, pdata = match_events_engine.find_player_events(player_query)
+                    self.send_json_response({
+                        "success": True,
+                        "player_name": pname,
+                        "events": pdata
+                    })
+                elif match_id and match_id in match_events_engine.matches:
+                    self.send_json_response({
+                        "success": True,
+                        "match": match_events_engine.matches[match_id]
+                    })
+                elif gw_str and gw_str.isdigit():
+                    gw = int(gw_str)
+                    matches = match_events_engine.get_gameweek_matches(gw)
+                    self.send_json_response({
+                        "success": True,
+                        "gameweek": gw,
+                        "matches": matches
+                    })
+                else:
+                    self.send_json_response({
+                        "success": True,
+                        "total_matches": len(match_events_engine.matches),
+                        "total_players": len(match_events_engine.player_events),
+                        "matches": list(match_events_engine.matches.values())[:10]
+                    })
                 return
 
             # API: Force Refresh Live Fixtures & Gameweek
