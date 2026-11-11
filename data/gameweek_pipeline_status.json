@@ -1,13 +1,13 @@
 {
   "enabled": true,
   "is_running": false,
-  "last_run_timestamp": "2026-11-11T02:24:34.498776+00:00",
+  "last_run_timestamp": "2026-11-11T08:45:25.050656+00:00",
   "last_run_status": "SUCCESS",
   "last_completed_gw": 10,
   "target_next_gw": 11,
   "check_interval_seconds": 300,
   "last_check_timestamp": "2026-11-06T10:22:27.717114+00:00",
-  "total_runs_count": 10,
+  "total_runs_count": 11,
   "recent_runs": [
     {
       "timestamp": "2026-10-14T09:46:01.533621+00:00",
@@ -128,21 +128,21 @@
       "shots_recorded": 2746,
       "injuries_tracked": 57,
       "status": "SUCCESS"
+    },
+    {
+      "timestamp": "2026-11-11T08:45:25.050656+00:00",
+      "duration_seconds": 564.9,
+      "trigger_source": "cli_manual",
+      "completed_gameweek": 10,
+      "target_gameweek": 11,
+      "players_count": 672,
+      "matches_scanned": 100,
+      "shots_recorded": 2746,
+      "injuries_tracked": 59,
+      "status": "SUCCESS"
     }
   ],
   "logs": [
-    "[2026-10-22 12:49:04 UTC] Auto-Sync: Detected completed Gameweek 7. Triggering automated pipeline...",
-    "[2026-10-22 12:49:06 UTC] NEW GAMEWEEK COMPLETION DETECTED: Gameweek 7 has ended (Previously recorded: GW 6).",
-    "[2026-10-22 12:49:06 UTC] Auto-Sync: Detected completed Gameweek 7. Triggering automated pipeline...",
-    "[2026-10-22 12:58:42 UTC] NEW GAMEWEEK COMPLETION DETECTED: Gameweek 7 has ended (Previously recorded: GW 6).",
-    "[2026-10-22 12:58:42 UTC] Auto-Sync: Detected completed Gameweek 7. Triggering automated pipeline...",
-    "[2026-10-22 13:21:34 UTC] Step 2 Complete: FotMob harvested 648 players, 70 matches, 1932 shots, 74 injuries.",
-    "[2026-10-22 13:21:34 UTC] Step 3/4: Unifying catalog & recalculating Bayesian credibility xP models...",
-    "[2026-10-22 13:21:36 UTC] Step 3 Complete: Unified 668 players with renewed stats and xP rankings.",
-    "[2026-10-22 13:21:36 UTC] === PIPELINE COMPLETED SUCCESSFULLY in 2019.2s ===",
-    "[2026-11-05 18:08:31 UTC] Auto-Update Scheduler Worker started.",
-    "[2026-11-05 18:08:31 UTC] Auto-Update Scheduler activated (Checking every 300s).",
-    "[2026-11-06 10:22:28 UTC] NEW GAMEWEEK COMPLETION DETECTED: Gameweek 9 has ended (Previously recorded: GW 7).",
     "[2026-11-06 11:07:26 UTC] === PIPELINE STARTED (Trigger: cli_manual) ===",
     "[2026-11-06 11:07:27 UTC] Step 1/4: Ingesting official Premier League bootstrap-static & fixtures...",
     "[2026-11-06 11:07:28 UTC] Step 1 Complete: FPL data synchronized. Upcoming Target: GW 10, Completed Base: GW 9.",
@@ -230,6 +230,18 @@
     "[2026-11-11 02:33:35 UTC] Step 2.6 Complete: Cached 100 finished matches and 453 player timeline logs.",
     "[2026-11-11 02:33:35 UTC] Step 3/4: Unifying catalog & recalculating Bayesian credibility xP models...",
     "[2026-11-11 02:33:35 UTC] Step 3 Complete: Unified 672 players with renewed stats and xP rankings.",
-    "[2026-11-11 02:33:35 UTC] === PIPELINE COMPLETED SUCCESSFULLY in 540.8s ==="
+    "[2026-11-11 02:33:35 UTC] === PIPELINE COMPLETED SUCCESSFULLY in 540.8s ===",
+    "[2026-11-11 08:45:25 UTC] === PIPELINE STARTED (Trigger: cli_manual) ===",
+    "[2026-11-11 08:45:25 UTC] Step 1/4: Ingesting official Premier League bootstrap-static & fixtures...",
+    "[2026-11-11 08:45:26 UTC] Step 1 Complete: FPL data synchronized. Upcoming Target: GW 11, Completed Base: GW 10.",
+    "[2026-11-11 08:45:26 UTC] Step 2/4: Harvesting FotMob match details, shotmaps, and 43 stat categories...",
+    "[2026-11-11 08:53:59 UTC] Step 2 Complete: FotMob harvested 651 players, 100 matches, 2746 shots, 59 injuries.",
+    "[2026-11-11 08:53:59 UTC] Step 2.5/4: Synchronizing sound multi-season historical track records...",
+    "[2026-11-11 08:54:49 UTC] Step 2.5 Complete: Synchronized 672 player histories.",
+    "[2026-11-11 08:54:49 UTC] Step 2.6/4: Synchronizing match event timelines, goal timestamps, cards, and substitutions...",
+    "[2026-11-11 08:54:49 UTC] Step 2.6 Complete: Cached 100 finished matches and 453 player timeline logs.",
+    "[2026-11-11 08:54:49 UTC] Step 3/4: Unifying catalog & recalculating Bayesian credibility xP models...",
+    "[2026-11-11 08:54:49 UTC] Step 3 Complete: Unified 672 players with renewed stats and xP rankings.",
+    "[2026-11-11 08:54:49 UTC] === PIPELINE COMPLETED SUCCESSFULLY in 564.9s ==="
   ]
 }
