@@ -1,26 +1,14 @@
 {
   "enabled": true,
   "is_running": false,
-  "last_run_timestamp": "2026-11-18T03:57:32.076260+00:00",
+  "last_run_timestamp": "2026-11-18T09:39:29.070312+00:00",
   "last_run_status": "SUCCESS",
   "last_completed_gw": 10,
   "target_next_gw": 11,
   "check_interval_seconds": 300,
   "last_check_timestamp": "2026-11-06T10:22:27.717114+00:00",
-  "total_runs_count": 20,
+  "total_runs_count": 21,
   "recent_runs": [
-    {
-      "timestamp": "2026-10-14T09:46:01.533621+00:00",
-      "duration_seconds": 416.6,
-      "trigger_source": "auto_end_of_gw_6",
-      "completed_gameweek": 6,
-      "target_gameweek": 7,
-      "players_count": 667,
-      "matches_scanned": 0,
-      "shots_recorded": 0,
-      "injuries_tracked": 60,
-      "status": "SUCCESS"
-    },
     {
       "timestamp": "2026-10-22T12:47:57.122350+00:00",
       "duration_seconds": 2019.2,
@@ -248,21 +236,21 @@
       "shots_recorded": 2746,
       "injuries_tracked": 62,
       "status": "SUCCESS"
+    },
+    {
+      "timestamp": "2026-11-18T09:39:29.070312+00:00",
+      "duration_seconds": 537.1,
+      "trigger_source": "cli_manual",
+      "completed_gameweek": 10,
+      "target_gameweek": 11,
+      "players_count": 672,
+      "matches_scanned": 100,
+      "shots_recorded": 2746,
+      "injuries_tracked": 61,
+      "status": "SUCCESS"
     }
   ],
   "logs": [
-    "[2026-11-12 09:16:53 UTC] Step 2.6 Complete: Cached 100 finished matches and 453 player timeline logs.",
-    "[2026-11-12 09:16:53 UTC] Step 3/4: Unifying catalog & recalculating Bayesian credibility xP models...",
-    "[2026-11-12 09:16:53 UTC] Step 3 Complete: Unified 672 players with renewed stats and xP rankings.",
-    "[2026-11-12 09:16:53 UTC] === PIPELINE COMPLETED SUCCESSFULLY in 547.8s ===",
-    "[2026-11-13 08:59:45 UTC] === PIPELINE STARTED (Trigger: cli_manual) ===",
-    "[2026-11-13 08:59:46 UTC] Step 1/4: Ingesting official Premier League bootstrap-static & fixtures...",
-    "[2026-11-13 08:59:46 UTC] Step 1 Complete: FPL data synchronized. Upcoming Target: GW 11, Completed Base: GW 10.",
-    "[2026-11-13 08:59:46 UTC] Step 2/4: Harvesting FotMob match details, shotmaps, and 43 stat categories...",
-    "[2026-11-13 09:08:14 UTC] Step 2 Complete: FotMob harvested 649 players, 100 matches, 2746 shots, 60 injuries.",
-    "[2026-11-13 09:08:14 UTC] Step 2.5/4: Synchronizing sound multi-season historical track records...",
-    "[2026-11-13 09:08:54 UTC] Step 2.5 Complete: Synchronized 672 player histories.",
-    "[2026-11-13 09:08:54 UTC] Step 2.6/4: Synchronizing match event timelines, goal timestamps, cards, and substitutions...",
     "[2026-11-13 09:08:55 UTC] Step 2.6 Complete: Cached 100 finished matches and 453 player timeline logs.",
     "[2026-11-13 09:08:55 UTC] Step 3/4: Unifying catalog & recalculating Bayesian credibility xP models...",
     "[2026-11-13 09:08:55 UTC] Step 3 Complete: Unified 672 players with renewed stats and xP rankings.",
@@ -350,6 +338,18 @@
     "[2026-11-18 04:06:37 UTC] Step 2.6 Complete: Cached 100 finished matches and 453 player timeline logs.",
     "[2026-11-18 04:06:37 UTC] Step 3/4: Unifying catalog & recalculating Bayesian credibility xP models...",
     "[2026-11-18 04:06:37 UTC] Step 3 Complete: Unified 672 players with renewed stats and xP rankings.",
-    "[2026-11-18 04:06:37 UTC] === PIPELINE COMPLETED SUCCESSFULLY in 545.5s ==="
+    "[2026-11-18 04:06:37 UTC] === PIPELINE COMPLETED SUCCESSFULLY in 545.5s ===",
+    "[2026-11-18 09:39:29 UTC] === PIPELINE STARTED (Trigger: cli_manual) ===",
+    "[2026-11-18 09:39:29 UTC] Step 1/4: Ingesting official Premier League bootstrap-static & fixtures...",
+    "[2026-11-18 09:39:30 UTC] Step 1 Complete: FPL data synchronized. Upcoming Target: GW 11, Completed Base: GW 10.",
+    "[2026-11-18 09:39:30 UTC] Step 2/4: Harvesting FotMob match details, shotmaps, and 43 stat categories...",
+    "[2026-11-18 09:47:53 UTC] Step 2 Complete: FotMob harvested 651 players, 100 matches, 2746 shots, 61 injuries.",
+    "[2026-11-18 09:47:53 UTC] Step 2.5/4: Synchronizing sound multi-season historical track records...",
+    "[2026-11-18 09:48:25 UTC] Step 2.5 Complete: Synchronized 672 player histories.",
+    "[2026-11-18 09:48:25 UTC] Step 2.6/4: Synchronizing match event timelines, goal timestamps, cards, and substitutions...",
+    "[2026-11-18 09:48:26 UTC] Step 2.6 Complete: Cached 100 finished matches and 453 player timeline logs.",
+    "[2026-11-18 09:48:26 UTC] Step 3/4: Unifying catalog & recalculating Bayesian credibility xP models...",
+    "[2026-11-18 09:48:26 UTC] Step 3 Complete: Unified 672 players with renewed stats and xP rankings.",
+    "[2026-11-18 09:48:26 UTC] === PIPELINE COMPLETED SUCCESSFULLY in 537.1s ==="
   ]
 }
