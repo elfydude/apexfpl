@@ -1,6 +1,6 @@
 {
-  "_cached_at": "2026-11-21T09:15:29Z",
-  "total_finished_matches": 100,
+  "_cached_at": "2026-11-22T09:24:32Z",
+  "total_finished_matches": 107,
   "matches": {
     "5795363": {
       "match_id": "5795363",
@@ -50630,6 +50630,3625 @@
           "player_out_id": "1197347"
         }
       ]
+    },
+    "5795522": {
+      "match_id": "5795522",
+      "round": 11,
+      "gameweek": 11,
+      "home_team": "Manchester City",
+      "away_team": "Fulham",
+      "score": "1 - 1",
+      "kickoff_time": "2026-11-21T12:30:00Z",
+      "events_count": 19,
+      "events": [
+        {
+          "type": "Card",
+          "minute": 7,
+          "overload": null,
+          "time_str": "7'",
+          "is_home": false,
+          "team": "Fulham",
+          "player_name": "Alex Iwobi",
+          "player_id": 604785,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Goal",
+          "minute": 16,
+          "overload": null,
+          "time_str": "16'",
+          "is_home": false,
+          "team": "Fulham",
+          "player_name": "Rodrigo Muniz",
+          "player_id": 1128945,
+          "assist": "Oscar Bobb",
+          "home_score": 0,
+          "away_score": 0,
+          "scoreline": "0 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Card",
+          "minute": 22,
+          "overload": null,
+          "time_str": "22'",
+          "is_home": false,
+          "team": "Fulham",
+          "player_name": "Calvin Bassey",
+          "player_id": 877401,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 44,
+          "overload": null,
+          "time_str": "44'",
+          "is_home": false,
+          "team": "Fulham",
+          "player_name": "Shea Charles",
+          "player_id": 1281452,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "AddedTime",
+          "minute": 45,
+          "overload": null,
+          "time_str": "45'",
+          "is_home": true,
+          "team": "Manchester City",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Half",
+          "minute": 45,
+          "overload": null,
+          "time_str": "45'",
+          "is_home": true,
+          "team": "Manchester City",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Goal",
+          "minute": 57,
+          "overload": null,
+          "time_str": "57'",
+          "is_home": true,
+          "team": "Manchester City",
+          "player_name": "Elliot Anderson",
+          "player_id": 1089691,
+          "assist": null,
+          "home_score": 0,
+          "away_score": 1,
+          "scoreline": "0 - 1",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Substitution",
+          "minute": 70,
+          "overload": 0,
+          "time_str": "70'",
+          "is_home": false,
+          "team": "Fulham",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Antonee Robinson",
+          "player_out": "Alex Iwobi",
+          "player_in_id": "662428",
+          "player_out_id": "604785"
+        },
+        {
+          "type": "Substitution",
+          "minute": 70,
+          "overload": 0,
+          "time_str": "70'",
+          "is_home": false,
+          "team": "Fulham",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Hugo Larsson",
+          "player_out": "Joshua King",
+          "player_in_id": "1339269",
+          "player_out_id": "1422593"
+        },
+        {
+          "type": "Substitution",
+          "minute": 70,
+          "overload": 0,
+          "time_str": "70'",
+          "is_home": true,
+          "team": "Manchester City",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Rayan Cherki",
+          "player_out": "Phil Foden",
+          "player_in_id": "1104053",
+          "player_out_id": "815006"
+        },
+        {
+          "type": "Card",
+          "minute": 76,
+          "overload": null,
+          "time_str": "76'",
+          "is_home": true,
+          "team": "Manchester City",
+          "player_name": "Gianluigi Donnarumma",
+          "player_id": 618878,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Substitution",
+          "minute": 78,
+          "overload": 0,
+          "time_str": "78'",
+          "is_home": false,
+          "team": "Fulham",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Gonzalo García",
+          "player_out": "Oscar Bobb",
+          "player_in_id": "1413847",
+          "player_out_id": "1113790"
+        },
+        {
+          "type": "Substitution",
+          "minute": 78,
+          "overload": 0,
+          "time_str": "78'",
+          "is_home": true,
+          "team": "Manchester City",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Allan",
+          "player_out": "Iliman Ndiaye",
+          "player_in_id": "1721789",
+          "player_out_id": "965764"
+        },
+        {
+          "type": "Substitution",
+          "minute": 78,
+          "overload": 0,
+          "time_str": "78'",
+          "is_home": true,
+          "team": "Manchester City",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Joško Gvardiol",
+          "player_out": "Nico O'Reilly",
+          "player_in_id": "1070712",
+          "player_out_id": "1300526"
+        },
+        {
+          "type": "Substitution",
+          "minute": 83,
+          "overload": 0,
+          "time_str": "83'",
+          "is_home": false,
+          "team": "Fulham",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Tom Cairney",
+          "player_out": "Rodrigo Muniz",
+          "player_in_id": "182962",
+          "player_out_id": "1128945"
+        },
+        {
+          "type": "Substitution",
+          "minute": 83,
+          "overload": 0,
+          "time_str": "83'",
+          "is_home": false,
+          "team": "Fulham",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "César Palacios",
+          "player_out": "Ryan Sessegnon",
+          "player_in_id": "1403691",
+          "player_out_id": "773991"
+        },
+        {
+          "type": "Substitution",
+          "minute": 85,
+          "overload": 0,
+          "time_str": "85'",
+          "is_home": true,
+          "team": "Manchester City",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Enzo Fernández",
+          "player_out": "Ayyoub Bouaddi",
+          "player_in_id": "1137705",
+          "player_out_id": "1561552"
+        },
+        {
+          "type": "AddedTime",
+          "minute": 90,
+          "overload": null,
+          "time_str": "90'",
+          "is_home": true,
+          "team": "Manchester City",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Half",
+          "minute": 90,
+          "overload": null,
+          "time_str": "90'",
+          "is_home": true,
+          "team": "Manchester City",
+          "player_name": "Unknown",
+          "player_id": null
+        }
+      ],
+      "goals": [
+        {
+          "type": "Goal",
+          "minute": 16,
+          "overload": null,
+          "time_str": "16'",
+          "is_home": false,
+          "team": "Fulham",
+          "player_name": "Rodrigo Muniz",
+          "player_id": 1128945,
+          "assist": "Oscar Bobb",
+          "home_score": 0,
+          "away_score": 0,
+          "scoreline": "0 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Goal",
+          "minute": 57,
+          "overload": null,
+          "time_str": "57'",
+          "is_home": true,
+          "team": "Manchester City",
+          "player_name": "Elliot Anderson",
+          "player_id": 1089691,
+          "assist": null,
+          "home_score": 0,
+          "away_score": 1,
+          "scoreline": "0 - 1",
+          "is_own_goal": false,
+          "is_penalty": false
+        }
+      ],
+      "cards": [
+        {
+          "type": "Card",
+          "minute": 7,
+          "overload": null,
+          "time_str": "7'",
+          "is_home": false,
+          "team": "Fulham",
+          "player_name": "Alex Iwobi",
+          "player_id": 604785,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 22,
+          "overload": null,
+          "time_str": "22'",
+          "is_home": false,
+          "team": "Fulham",
+          "player_name": "Calvin Bassey",
+          "player_id": 877401,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 44,
+          "overload": null,
+          "time_str": "44'",
+          "is_home": false,
+          "team": "Fulham",
+          "player_name": "Shea Charles",
+          "player_id": 1281452,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 76,
+          "overload": null,
+          "time_str": "76'",
+          "is_home": true,
+          "team": "Manchester City",
+          "player_name": "Gianluigi Donnarumma",
+          "player_id": 618878,
+          "card": "Yellow",
+          "card_description": null
+        }
+      ],
+      "substitutions": [
+        {
+          "type": "Substitution",
+          "minute": 70,
+          "overload": 0,
+          "time_str": "70'",
+          "is_home": false,
+          "team": "Fulham",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Antonee Robinson",
+          "player_out": "Alex Iwobi",
+          "player_in_id": "662428",
+          "player_out_id": "604785"
+        },
+        {
+          "type": "Substitution",
+          "minute": 70,
+          "overload": 0,
+          "time_str": "70'",
+          "is_home": false,
+          "team": "Fulham",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Hugo Larsson",
+          "player_out": "Joshua King",
+          "player_in_id": "1339269",
+          "player_out_id": "1422593"
+        },
+        {
+          "type": "Substitution",
+          "minute": 70,
+          "overload": 0,
+          "time_str": "70'",
+          "is_home": true,
+          "team": "Manchester City",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Rayan Cherki",
+          "player_out": "Phil Foden",
+          "player_in_id": "1104053",
+          "player_out_id": "815006"
+        },
+        {
+          "type": "Substitution",
+          "minute": 78,
+          "overload": 0,
+          "time_str": "78'",
+          "is_home": false,
+          "team": "Fulham",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Gonzalo García",
+          "player_out": "Oscar Bobb",
+          "player_in_id": "1413847",
+          "player_out_id": "1113790"
+        },
+        {
+          "type": "Substitution",
+          "minute": 78,
+          "overload": 0,
+          "time_str": "78'",
+          "is_home": true,
+          "team": "Manchester City",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Allan",
+          "player_out": "Iliman Ndiaye",
+          "player_in_id": "1721789",
+          "player_out_id": "965764"
+        },
+        {
+          "type": "Substitution",
+          "minute": 78,
+          "overload": 0,
+          "time_str": "78'",
+          "is_home": true,
+          "team": "Manchester City",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Joško Gvardiol",
+          "player_out": "Nico O'Reilly",
+          "player_in_id": "1070712",
+          "player_out_id": "1300526"
+        },
+        {
+          "type": "Substitution",
+          "minute": 83,
+          "overload": 0,
+          "time_str": "83'",
+          "is_home": false,
+          "team": "Fulham",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Tom Cairney",
+          "player_out": "Rodrigo Muniz",
+          "player_in_id": "182962",
+          "player_out_id": "1128945"
+        },
+        {
+          "type": "Substitution",
+          "minute": 83,
+          "overload": 0,
+          "time_str": "83'",
+          "is_home": false,
+          "team": "Fulham",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "César Palacios",
+          "player_out": "Ryan Sessegnon",
+          "player_in_id": "1403691",
+          "player_out_id": "773991"
+        },
+        {
+          "type": "Substitution",
+          "minute": 85,
+          "overload": 0,
+          "time_str": "85'",
+          "is_home": true,
+          "team": "Manchester City",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Enzo Fernández",
+          "player_out": "Ayyoub Bouaddi",
+          "player_in_id": "1137705",
+          "player_out_id": "1561552"
+        }
+      ]
+    },
+    "5795515": {
+      "match_id": "5795515",
+      "round": 11,
+      "gameweek": 11,
+      "home_team": "AFC Bournemouth",
+      "away_team": "Nottingham Forest",
+      "score": "2 - 0",
+      "kickoff_time": "2026-11-21T15:00:00Z",
+      "events_count": 20,
+      "events": [
+        {
+          "type": "Goal",
+          "minute": 19,
+          "overload": null,
+          "time_str": "19'",
+          "is_home": true,
+          "team": "AFC Bournemouth",
+          "player_name": "Evanilson",
+          "player_id": 1098096,
+          "assist": "James Hill",
+          "home_score": 0,
+          "away_score": 0,
+          "scoreline": "0 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Card",
+          "minute": 45,
+          "overload": null,
+          "time_str": "45'",
+          "is_home": false,
+          "team": "Nottingham Forest",
+          "player_name": "Liam Delap",
+          "player_id": 1113903,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "AddedTime",
+          "minute": 45,
+          "overload": null,
+          "time_str": "45'",
+          "is_home": true,
+          "team": "AFC Bournemouth",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Goal",
+          "minute": 45,
+          "overload": 3,
+          "time_str": "45+3'",
+          "is_home": true,
+          "team": "AFC Bournemouth",
+          "player_name": "Justin Kluivert",
+          "player_id": 794253,
+          "assist": "Marcus Tavernier",
+          "home_score": 1,
+          "away_score": 0,
+          "scoreline": "1 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Half",
+          "minute": 45,
+          "overload": null,
+          "time_str": "45'",
+          "is_home": true,
+          "team": "AFC Bournemouth",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Substitution",
+          "minute": 46,
+          "overload": 0,
+          "time_str": "46'",
+          "is_home": false,
+          "team": "Nottingham Forest",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Igor Jesus",
+          "player_out": "Dan Ndoye",
+          "player_in_id": "1082102",
+          "player_out_id": "1022649"
+        },
+        {
+          "type": "Substitution",
+          "minute": 46,
+          "overload": 0,
+          "time_str": "46'",
+          "is_home": false,
+          "team": "Nottingham Forest",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Xaver Schlager",
+          "player_out": "Ryan Yates",
+          "player_in_id": "620027",
+          "player_out_id": "775614"
+        },
+        {
+          "type": "Card",
+          "minute": 57,
+          "overload": null,
+          "time_str": "57'",
+          "is_home": false,
+          "team": "Nottingham Forest",
+          "player_name": "Daniel Muñoz",
+          "player_id": 859282,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Substitution",
+          "minute": 69,
+          "overload": 0,
+          "time_str": "69'",
+          "is_home": true,
+          "team": "AFC Bournemouth",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Junior Kroupi",
+          "player_out": "Justin Kluivert",
+          "player_in_id": "1460534",
+          "player_out_id": "794253"
+        },
+        {
+          "type": "Substitution",
+          "minute": 69,
+          "overload": 0,
+          "time_str": "69'",
+          "is_home": true,
+          "team": "AFC Bournemouth",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Lewis Cook",
+          "player_out": "Tyler Adams",
+          "player_in_id": "562724",
+          "player_out_id": "729769"
+        },
+        {
+          "type": "Substitution",
+          "minute": 69,
+          "overload": 0,
+          "time_str": "69'",
+          "is_home": true,
+          "team": "AFC Bournemouth",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Alex Scott",
+          "player_out": "Ryan Christie",
+          "player_in_id": "1233655",
+          "player_out_id": "439369"
+        },
+        {
+          "type": "Substitution",
+          "minute": 72,
+          "overload": 0,
+          "time_str": "72'",
+          "is_home": false,
+          "team": "Nottingham Forest",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Luca Netz",
+          "player_out": "James McAtee",
+          "player_in_id": "1155130",
+          "player_out_id": "1107648"
+        },
+        {
+          "type": "Substitution",
+          "minute": 72,
+          "overload": 0,
+          "time_str": "72'",
+          "is_home": false,
+          "team": "Nottingham Forest",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Chris Wood",
+          "player_out": "Neco Williams",
+          "player_in_id": "169719",
+          "player_out_id": "1078788"
+        },
+        {
+          "type": "Substitution",
+          "minute": 82,
+          "overload": 0,
+          "time_str": "82'",
+          "is_home": false,
+          "team": "Nottingham Forest",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Ola Aina",
+          "player_out": "Daniel Muñoz",
+          "player_in_id": "682548",
+          "player_out_id": "859282"
+        },
+        {
+          "type": "Substitution",
+          "minute": 87,
+          "overload": 0,
+          "time_str": "87'",
+          "is_home": true,
+          "team": "AFC Bournemouth",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Bafodé Diakité",
+          "player_out": "Adam Smith",
+          "player_in_id": "979752",
+          "player_out_id": "160447"
+        },
+        {
+          "type": "Card",
+          "minute": 87,
+          "overload": null,
+          "time_str": "87'",
+          "is_home": true,
+          "team": "AFC Bournemouth",
+          "player_name": "Alex Scott",
+          "player_id": 1233655,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Substitution",
+          "minute": 90,
+          "overload": 0,
+          "time_str": "90'",
+          "is_home": true,
+          "team": "AFC Bournemouth",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Ben Gannon-Doak",
+          "player_out": "Rayan",
+          "player_in_id": "1324871",
+          "player_out_id": "1478295"
+        },
+        {
+          "type": "AddedTime",
+          "minute": 90,
+          "overload": null,
+          "time_str": "90'",
+          "is_home": true,
+          "team": "AFC Bournemouth",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Card",
+          "minute": 90,
+          "overload": 1,
+          "time_str": "90+1'",
+          "is_home": false,
+          "team": "Nottingham Forest",
+          "player_name": "Murillo",
+          "player_id": 1458711,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Half",
+          "minute": 90,
+          "overload": null,
+          "time_str": "90'",
+          "is_home": true,
+          "team": "AFC Bournemouth",
+          "player_name": "Unknown",
+          "player_id": null
+        }
+      ],
+      "goals": [
+        {
+          "type": "Goal",
+          "minute": 19,
+          "overload": null,
+          "time_str": "19'",
+          "is_home": true,
+          "team": "AFC Bournemouth",
+          "player_name": "Evanilson",
+          "player_id": 1098096,
+          "assist": "James Hill",
+          "home_score": 0,
+          "away_score": 0,
+          "scoreline": "0 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Goal",
+          "minute": 45,
+          "overload": 3,
+          "time_str": "45+3'",
+          "is_home": true,
+          "team": "AFC Bournemouth",
+          "player_name": "Justin Kluivert",
+          "player_id": 794253,
+          "assist": "Marcus Tavernier",
+          "home_score": 1,
+          "away_score": 0,
+          "scoreline": "1 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        }
+      ],
+      "cards": [
+        {
+          "type": "Card",
+          "minute": 45,
+          "overload": null,
+          "time_str": "45'",
+          "is_home": false,
+          "team": "Nottingham Forest",
+          "player_name": "Liam Delap",
+          "player_id": 1113903,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 57,
+          "overload": null,
+          "time_str": "57'",
+          "is_home": false,
+          "team": "Nottingham Forest",
+          "player_name": "Daniel Muñoz",
+          "player_id": 859282,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 87,
+          "overload": null,
+          "time_str": "87'",
+          "is_home": true,
+          "team": "AFC Bournemouth",
+          "player_name": "Alex Scott",
+          "player_id": 1233655,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 90,
+          "overload": 1,
+          "time_str": "90+1'",
+          "is_home": false,
+          "team": "Nottingham Forest",
+          "player_name": "Murillo",
+          "player_id": 1458711,
+          "card": "Yellow",
+          "card_description": null
+        }
+      ],
+      "substitutions": [
+        {
+          "type": "Substitution",
+          "minute": 46,
+          "overload": 0,
+          "time_str": "46'",
+          "is_home": false,
+          "team": "Nottingham Forest",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Igor Jesus",
+          "player_out": "Dan Ndoye",
+          "player_in_id": "1082102",
+          "player_out_id": "1022649"
+        },
+        {
+          "type": "Substitution",
+          "minute": 46,
+          "overload": 0,
+          "time_str": "46'",
+          "is_home": false,
+          "team": "Nottingham Forest",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Xaver Schlager",
+          "player_out": "Ryan Yates",
+          "player_in_id": "620027",
+          "player_out_id": "775614"
+        },
+        {
+          "type": "Substitution",
+          "minute": 69,
+          "overload": 0,
+          "time_str": "69'",
+          "is_home": true,
+          "team": "AFC Bournemouth",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Junior Kroupi",
+          "player_out": "Justin Kluivert",
+          "player_in_id": "1460534",
+          "player_out_id": "794253"
+        },
+        {
+          "type": "Substitution",
+          "minute": 69,
+          "overload": 0,
+          "time_str": "69'",
+          "is_home": true,
+          "team": "AFC Bournemouth",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Lewis Cook",
+          "player_out": "Tyler Adams",
+          "player_in_id": "562724",
+          "player_out_id": "729769"
+        },
+        {
+          "type": "Substitution",
+          "minute": 69,
+          "overload": 0,
+          "time_str": "69'",
+          "is_home": true,
+          "team": "AFC Bournemouth",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Alex Scott",
+          "player_out": "Ryan Christie",
+          "player_in_id": "1233655",
+          "player_out_id": "439369"
+        },
+        {
+          "type": "Substitution",
+          "minute": 72,
+          "overload": 0,
+          "time_str": "72'",
+          "is_home": false,
+          "team": "Nottingham Forest",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Luca Netz",
+          "player_out": "James McAtee",
+          "player_in_id": "1155130",
+          "player_out_id": "1107648"
+        },
+        {
+          "type": "Substitution",
+          "minute": 72,
+          "overload": 0,
+          "time_str": "72'",
+          "is_home": false,
+          "team": "Nottingham Forest",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Chris Wood",
+          "player_out": "Neco Williams",
+          "player_in_id": "169719",
+          "player_out_id": "1078788"
+        },
+        {
+          "type": "Substitution",
+          "minute": 82,
+          "overload": 0,
+          "time_str": "82'",
+          "is_home": false,
+          "team": "Nottingham Forest",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Ola Aina",
+          "player_out": "Daniel Muñoz",
+          "player_in_id": "682548",
+          "player_out_id": "859282"
+        },
+        {
+          "type": "Substitution",
+          "minute": 87,
+          "overload": 0,
+          "time_str": "87'",
+          "is_home": true,
+          "team": "AFC Bournemouth",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Bafodé Diakité",
+          "player_out": "Adam Smith",
+          "player_in_id": "979752",
+          "player_out_id": "160447"
+        },
+        {
+          "type": "Substitution",
+          "minute": 90,
+          "overload": 0,
+          "time_str": "90'",
+          "is_home": true,
+          "team": "AFC Bournemouth",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Ben Gannon-Doak",
+          "player_out": "Rayan",
+          "player_in_id": "1324871",
+          "player_out_id": "1478295"
+        }
+      ]
+    },
+    "5795516": {
+      "match_id": "5795516",
+      "round": 11,
+      "gameweek": 11,
+      "home_team": "Aston Villa",
+      "away_team": "Sunderland",
+      "score": "0 - 0",
+      "kickoff_time": "2026-11-21T15:00:00Z",
+      "events_count": 13,
+      "events": [
+        {
+          "type": "Card",
+          "minute": 38,
+          "overload": null,
+          "time_str": "38'",
+          "is_home": false,
+          "team": "Sunderland",
+          "player_name": "Trai Hume",
+          "player_id": 1067763,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "AddedTime",
+          "minute": 45,
+          "overload": null,
+          "time_str": "45'",
+          "is_home": true,
+          "team": "Aston Villa",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Half",
+          "minute": 45,
+          "overload": null,
+          "time_str": "45'",
+          "is_home": true,
+          "team": "Aston Villa",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Card",
+          "minute": 54,
+          "overload": null,
+          "time_str": "54'",
+          "is_home": true,
+          "team": "Aston Villa",
+          "player_name": "Leon Goretzka",
+          "player_id": 343748,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Substitution",
+          "minute": 60,
+          "overload": 0,
+          "time_str": "60'",
+          "is_home": true,
+          "team": "Aston Villa",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "John McGinn",
+          "player_out": "Johan Manzambi",
+          "player_in_id": "356406",
+          "player_out_id": "1520063"
+        },
+        {
+          "type": "Substitution",
+          "minute": 60,
+          "overload": 0,
+          "time_str": "60'",
+          "is_home": true,
+          "team": "Aston Villa",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Ibrahim Mbaye",
+          "player_out": "Emiliano Buendía",
+          "player_in_id": "1593857",
+          "player_out_id": "610184"
+        },
+        {
+          "type": "Card",
+          "minute": 66,
+          "overload": null,
+          "time_str": "66'",
+          "is_home": true,
+          "team": "Aston Villa",
+          "player_name": "Ian Maatsen",
+          "player_id": 966026,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Substitution",
+          "minute": 73,
+          "overload": 0,
+          "time_str": "73'",
+          "is_home": true,
+          "team": "Aston Villa",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Ross Barkley",
+          "player_out": "Leon Goretzka",
+          "player_in_id": "215384",
+          "player_out_id": "343748"
+        },
+        {
+          "type": "Substitution",
+          "minute": 73,
+          "overload": 0,
+          "time_str": "73'",
+          "is_home": true,
+          "team": "Aston Villa",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Brian Madjo",
+          "player_out": "Nicolas Jackson",
+          "player_in_id": "1729841",
+          "player_out_id": "1197347"
+        },
+        {
+          "type": "Substitution",
+          "minute": 77,
+          "overload": 0,
+          "time_str": "77'",
+          "is_home": false,
+          "team": "Sunderland",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Nilson Angulo",
+          "player_out": "Wilson Isidor",
+          "player_in_id": "1287010",
+          "player_out_id": "887703"
+        },
+        {
+          "type": "Card",
+          "minute": 85,
+          "overload": null,
+          "time_str": "85'",
+          "is_home": false,
+          "team": "Sunderland",
+          "player_name": "Nilson Angulo",
+          "player_id": 1287010,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "AddedTime",
+          "minute": 90,
+          "overload": null,
+          "time_str": "90'",
+          "is_home": true,
+          "team": "Aston Villa",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Half",
+          "minute": 90,
+          "overload": null,
+          "time_str": "90'",
+          "is_home": true,
+          "team": "Aston Villa",
+          "player_name": "Unknown",
+          "player_id": null
+        }
+      ],
+      "goals": [],
+      "cards": [
+        {
+          "type": "Card",
+          "minute": 38,
+          "overload": null,
+          "time_str": "38'",
+          "is_home": false,
+          "team": "Sunderland",
+          "player_name": "Trai Hume",
+          "player_id": 1067763,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 54,
+          "overload": null,
+          "time_str": "54'",
+          "is_home": true,
+          "team": "Aston Villa",
+          "player_name": "Leon Goretzka",
+          "player_id": 343748,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 66,
+          "overload": null,
+          "time_str": "66'",
+          "is_home": true,
+          "team": "Aston Villa",
+          "player_name": "Ian Maatsen",
+          "player_id": 966026,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 85,
+          "overload": null,
+          "time_str": "85'",
+          "is_home": false,
+          "team": "Sunderland",
+          "player_name": "Nilson Angulo",
+          "player_id": 1287010,
+          "card": "Yellow",
+          "card_description": null
+        }
+      ],
+      "substitutions": [
+        {
+          "type": "Substitution",
+          "minute": 60,
+          "overload": 0,
+          "time_str": "60'",
+          "is_home": true,
+          "team": "Aston Villa",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "John McGinn",
+          "player_out": "Johan Manzambi",
+          "player_in_id": "356406",
+          "player_out_id": "1520063"
+        },
+        {
+          "type": "Substitution",
+          "minute": 60,
+          "overload": 0,
+          "time_str": "60'",
+          "is_home": true,
+          "team": "Aston Villa",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Ibrahim Mbaye",
+          "player_out": "Emiliano Buendía",
+          "player_in_id": "1593857",
+          "player_out_id": "610184"
+        },
+        {
+          "type": "Substitution",
+          "minute": 73,
+          "overload": 0,
+          "time_str": "73'",
+          "is_home": true,
+          "team": "Aston Villa",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Ross Barkley",
+          "player_out": "Leon Goretzka",
+          "player_in_id": "215384",
+          "player_out_id": "343748"
+        },
+        {
+          "type": "Substitution",
+          "minute": 73,
+          "overload": 0,
+          "time_str": "73'",
+          "is_home": true,
+          "team": "Aston Villa",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Brian Madjo",
+          "player_out": "Nicolas Jackson",
+          "player_in_id": "1729841",
+          "player_out_id": "1197347"
+        },
+        {
+          "type": "Substitution",
+          "minute": 77,
+          "overload": 0,
+          "time_str": "77'",
+          "is_home": false,
+          "team": "Sunderland",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Nilson Angulo",
+          "player_out": "Wilson Isidor",
+          "player_in_id": "1287010",
+          "player_out_id": "887703"
+        }
+      ]
+    },
+    "5795518": {
+      "match_id": "5795518",
+      "round": 11,
+      "gameweek": 11,
+      "home_team": "Chelsea",
+      "away_team": "Leeds United",
+      "score": "1 - 4",
+      "kickoff_time": "2026-11-21T15:00:00Z",
+      "events_count": 24,
+      "events": [
+        {
+          "type": "Substitution",
+          "minute": 22,
+          "overload": 0,
+          "time_str": "22'",
+          "is_home": true,
+          "team": "Chelsea",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Jordan Henderson",
+          "player_out": "Moisés Caicedo",
+          "player_in_id": "156008",
+          "player_out_id": "1137668"
+        },
+        {
+          "type": "Goal",
+          "minute": 25,
+          "overload": null,
+          "time_str": "25'",
+          "is_home": true,
+          "team": "Chelsea",
+          "player_name": "Emanuel Emegha",
+          "player_id": 1183148,
+          "assist": "Morgan Rogers",
+          "home_score": 0,
+          "away_score": 0,
+          "scoreline": "0 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Goal",
+          "minute": 28,
+          "overload": null,
+          "time_str": "28'",
+          "is_home": false,
+          "team": "Leeds United",
+          "player_name": "Noah Okafor",
+          "player_id": 915797,
+          "assist": "Dominic Calvert-Lewin",
+          "home_score": 1,
+          "away_score": 0,
+          "scoreline": "1 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Card",
+          "minute": 38,
+          "overload": null,
+          "time_str": "38'",
+          "is_home": false,
+          "team": "Leeds United",
+          "player_name": "Gabriel Gudmundsson",
+          "player_id": 744494,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "AddedTime",
+          "minute": 45,
+          "overload": null,
+          "time_str": "45'",
+          "is_home": true,
+          "team": "Chelsea",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Half",
+          "minute": 45,
+          "overload": null,
+          "time_str": "45'",
+          "is_home": true,
+          "team": "Chelsea",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Card",
+          "minute": 47,
+          "overload": null,
+          "time_str": "47'",
+          "is_home": true,
+          "team": "Chelsea",
+          "player_name": "Roméo Lavia",
+          "player_id": 1190867,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Comment",
+          "minute": 52,
+          "overload": null,
+          "time_str": "52'",
+          "is_home": false,
+          "team": "Leeds United",
+          "player_name": " ",
+          "player_id": 0
+        },
+        {
+          "type": "Goal",
+          "minute": 53,
+          "overload": null,
+          "time_str": "53'",
+          "is_home": false,
+          "team": "Leeds United",
+          "player_name": "Dominic Calvert-Lewin",
+          "player_id": 612150,
+          "assist": null,
+          "home_score": 1,
+          "away_score": 1,
+          "scoreline": "1 - 1",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Goal",
+          "minute": 58,
+          "overload": null,
+          "time_str": "58'",
+          "is_home": false,
+          "team": "Leeds United",
+          "player_name": "Noah Okafor",
+          "player_id": 915797,
+          "assist": null,
+          "home_score": 1,
+          "away_score": 2,
+          "scoreline": "1 - 2",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Substitution",
+          "minute": 64,
+          "overload": 0,
+          "time_str": "64'",
+          "is_home": true,
+          "team": "Chelsea",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Pedro Neto",
+          "player_out": "Estêvão",
+          "player_in_id": "843040",
+          "player_out_id": "1580774"
+        },
+        {
+          "type": "Substitution",
+          "minute": 64,
+          "overload": 0,
+          "time_str": "64'",
+          "is_home": true,
+          "team": "Chelsea",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Danny Welbeck",
+          "player_out": "Emanuel Emegha",
+          "player_in_id": "113836",
+          "player_out_id": "1183148"
+        },
+        {
+          "type": "Card",
+          "minute": 68,
+          "overload": null,
+          "time_str": "68'",
+          "is_home": false,
+          "team": "Leeds United",
+          "player_name": "Jayden Bogle",
+          "player_id": 789646,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Substitution",
+          "minute": 73,
+          "overload": 0,
+          "time_str": "73'",
+          "is_home": false,
+          "team": "Leeds United",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Brenden Aaronson",
+          "player_out": "Noah Okafor",
+          "player_in_id": "952322",
+          "player_out_id": "915797"
+        },
+        {
+          "type": "Substitution",
+          "minute": 73,
+          "overload": 0,
+          "time_str": "73'",
+          "is_home": true,
+          "team": "Chelsea",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Malo Gusto",
+          "player_out": "Josh Acheampong",
+          "player_in_id": "1197250",
+          "player_out_id": "1400216"
+        },
+        {
+          "type": "Substitution",
+          "minute": 73,
+          "overload": 0,
+          "time_str": "73'",
+          "is_home": true,
+          "team": "Chelsea",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Geovany Quenda",
+          "player_out": "Pep Chavarría",
+          "player_in_id": "1530314",
+          "player_out_id": "988805"
+        },
+        {
+          "type": "Card",
+          "minute": 83,
+          "overload": null,
+          "time_str": "83'",
+          "is_home": false,
+          "team": "Leeds United",
+          "player_name": "Sean Longstaff",
+          "player_id": 820024,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Substitution",
+          "minute": 86,
+          "overload": 0,
+          "time_str": "86'",
+          "is_home": false,
+          "team": "Leeds United",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Joe Rodon",
+          "player_out": "Jayden Bogle",
+          "player_in_id": "717174",
+          "player_out_id": "789646"
+        },
+        {
+          "type": "Substitution",
+          "minute": 86,
+          "overload": 0,
+          "time_str": "86'",
+          "is_home": false,
+          "team": "Leeds United",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Anton Stach",
+          "player_out": "Ao Tanaka",
+          "player_in_id": "881735",
+          "player_out_id": "935728"
+        },
+        {
+          "type": "AddedTime",
+          "minute": 90,
+          "overload": null,
+          "time_str": "90'",
+          "is_home": true,
+          "team": "Chelsea",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Substitution",
+          "minute": 90,
+          "overload": 1,
+          "time_str": "90+1'",
+          "is_home": false,
+          "team": "Leeds United",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Harry Wilson",
+          "player_out": "Sean Longstaff",
+          "player_in_id": "494417",
+          "player_out_id": "820024"
+        },
+        {
+          "type": "Substitution",
+          "minute": 90,
+          "overload": 1,
+          "time_str": "90+1'",
+          "is_home": false,
+          "team": "Leeds United",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Melvin Bard",
+          "player_out": "Gabriel Gudmundsson",
+          "player_in_id": "1092403",
+          "player_out_id": "744494"
+        },
+        {
+          "type": "Goal",
+          "minute": 90,
+          "overload": 1,
+          "time_str": "90+1'",
+          "is_home": false,
+          "team": "Leeds United",
+          "player_name": "Brenden Aaronson",
+          "player_id": 952322,
+          "assist": "Harry Wilson",
+          "home_score": 1,
+          "away_score": 3,
+          "scoreline": "1 - 3",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Half",
+          "minute": 90,
+          "overload": null,
+          "time_str": "90'",
+          "is_home": true,
+          "team": "Chelsea",
+          "player_name": "Unknown",
+          "player_id": null
+        }
+      ],
+      "goals": [
+        {
+          "type": "Goal",
+          "minute": 25,
+          "overload": null,
+          "time_str": "25'",
+          "is_home": true,
+          "team": "Chelsea",
+          "player_name": "Emanuel Emegha",
+          "player_id": 1183148,
+          "assist": "Morgan Rogers",
+          "home_score": 0,
+          "away_score": 0,
+          "scoreline": "0 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Goal",
+          "minute": 28,
+          "overload": null,
+          "time_str": "28'",
+          "is_home": false,
+          "team": "Leeds United",
+          "player_name": "Noah Okafor",
+          "player_id": 915797,
+          "assist": "Dominic Calvert-Lewin",
+          "home_score": 1,
+          "away_score": 0,
+          "scoreline": "1 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Goal",
+          "minute": 53,
+          "overload": null,
+          "time_str": "53'",
+          "is_home": false,
+          "team": "Leeds United",
+          "player_name": "Dominic Calvert-Lewin",
+          "player_id": 612150,
+          "assist": null,
+          "home_score": 1,
+          "away_score": 1,
+          "scoreline": "1 - 1",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Goal",
+          "minute": 58,
+          "overload": null,
+          "time_str": "58'",
+          "is_home": false,
+          "team": "Leeds United",
+          "player_name": "Noah Okafor",
+          "player_id": 915797,
+          "assist": null,
+          "home_score": 1,
+          "away_score": 2,
+          "scoreline": "1 - 2",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Goal",
+          "minute": 90,
+          "overload": 1,
+          "time_str": "90+1'",
+          "is_home": false,
+          "team": "Leeds United",
+          "player_name": "Brenden Aaronson",
+          "player_id": 952322,
+          "assist": "Harry Wilson",
+          "home_score": 1,
+          "away_score": 3,
+          "scoreline": "1 - 3",
+          "is_own_goal": false,
+          "is_penalty": false
+        }
+      ],
+      "cards": [
+        {
+          "type": "Card",
+          "minute": 38,
+          "overload": null,
+          "time_str": "38'",
+          "is_home": false,
+          "team": "Leeds United",
+          "player_name": "Gabriel Gudmundsson",
+          "player_id": 744494,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 47,
+          "overload": null,
+          "time_str": "47'",
+          "is_home": true,
+          "team": "Chelsea",
+          "player_name": "Roméo Lavia",
+          "player_id": 1190867,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 68,
+          "overload": null,
+          "time_str": "68'",
+          "is_home": false,
+          "team": "Leeds United",
+          "player_name": "Jayden Bogle",
+          "player_id": 789646,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 83,
+          "overload": null,
+          "time_str": "83'",
+          "is_home": false,
+          "team": "Leeds United",
+          "player_name": "Sean Longstaff",
+          "player_id": 820024,
+          "card": "Yellow",
+          "card_description": null
+        }
+      ],
+      "substitutions": [
+        {
+          "type": "Substitution",
+          "minute": 22,
+          "overload": 0,
+          "time_str": "22'",
+          "is_home": true,
+          "team": "Chelsea",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Jordan Henderson",
+          "player_out": "Moisés Caicedo",
+          "player_in_id": "156008",
+          "player_out_id": "1137668"
+        },
+        {
+          "type": "Substitution",
+          "minute": 64,
+          "overload": 0,
+          "time_str": "64'",
+          "is_home": true,
+          "team": "Chelsea",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Pedro Neto",
+          "player_out": "Estêvão",
+          "player_in_id": "843040",
+          "player_out_id": "1580774"
+        },
+        {
+          "type": "Substitution",
+          "minute": 64,
+          "overload": 0,
+          "time_str": "64'",
+          "is_home": true,
+          "team": "Chelsea",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Danny Welbeck",
+          "player_out": "Emanuel Emegha",
+          "player_in_id": "113836",
+          "player_out_id": "1183148"
+        },
+        {
+          "type": "Substitution",
+          "minute": 73,
+          "overload": 0,
+          "time_str": "73'",
+          "is_home": false,
+          "team": "Leeds United",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Brenden Aaronson",
+          "player_out": "Noah Okafor",
+          "player_in_id": "952322",
+          "player_out_id": "915797"
+        },
+        {
+          "type": "Substitution",
+          "minute": 73,
+          "overload": 0,
+          "time_str": "73'",
+          "is_home": true,
+          "team": "Chelsea",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Malo Gusto",
+          "player_out": "Josh Acheampong",
+          "player_in_id": "1197250",
+          "player_out_id": "1400216"
+        },
+        {
+          "type": "Substitution",
+          "minute": 73,
+          "overload": 0,
+          "time_str": "73'",
+          "is_home": true,
+          "team": "Chelsea",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Geovany Quenda",
+          "player_out": "Pep Chavarría",
+          "player_in_id": "1530314",
+          "player_out_id": "988805"
+        },
+        {
+          "type": "Substitution",
+          "minute": 86,
+          "overload": 0,
+          "time_str": "86'",
+          "is_home": false,
+          "team": "Leeds United",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Joe Rodon",
+          "player_out": "Jayden Bogle",
+          "player_in_id": "717174",
+          "player_out_id": "789646"
+        },
+        {
+          "type": "Substitution",
+          "minute": 86,
+          "overload": 0,
+          "time_str": "86'",
+          "is_home": false,
+          "team": "Leeds United",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Anton Stach",
+          "player_out": "Ao Tanaka",
+          "player_in_id": "881735",
+          "player_out_id": "935728"
+        },
+        {
+          "type": "Substitution",
+          "minute": 90,
+          "overload": 1,
+          "time_str": "90+1'",
+          "is_home": false,
+          "team": "Leeds United",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Harry Wilson",
+          "player_out": "Sean Longstaff",
+          "player_in_id": "494417",
+          "player_out_id": "820024"
+        },
+        {
+          "type": "Substitution",
+          "minute": 90,
+          "overload": 1,
+          "time_str": "90+1'",
+          "is_home": false,
+          "team": "Leeds United",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Melvin Bard",
+          "player_out": "Gabriel Gudmundsson",
+          "player_in_id": "1092403",
+          "player_out_id": "744494"
+        }
+      ]
+    },
+    "5795519": {
+      "match_id": "5795519",
+      "round": 11,
+      "gameweek": 11,
+      "home_team": "Coventry City",
+      "away_team": "Crystal Palace",
+      "score": "3 - 2",
+      "kickoff_time": "2026-11-21T15:00:00Z",
+      "events_count": 23,
+      "events": [
+        {
+          "type": "Goal",
+          "minute": 5,
+          "overload": null,
+          "time_str": "5'",
+          "is_home": true,
+          "team": "Coventry City",
+          "player_name": "Taiwo Awoniyi",
+          "player_id": 643717,
+          "assist": "Jack Rudoni",
+          "home_score": 0,
+          "away_score": 0,
+          "scoreline": "0 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Goal",
+          "minute": 13,
+          "overload": null,
+          "time_str": "13'",
+          "is_home": false,
+          "team": "Crystal Palace",
+          "player_name": "Yéremi Pino",
+          "player_id": 1047676,
+          "assist": "Jørgen Strand Larsen",
+          "home_score": 1,
+          "away_score": 0,
+          "scoreline": "1 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Goal",
+          "minute": 30,
+          "overload": null,
+          "time_str": "30'",
+          "is_home": true,
+          "team": "Coventry City",
+          "player_name": "Tatsuhiro Sakamoto",
+          "player_id": 1025603,
+          "assist": "Jack Rudoni",
+          "home_score": 1,
+          "away_score": 1,
+          "scoreline": "1 - 1",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Card",
+          "minute": 36,
+          "overload": null,
+          "time_str": "36'",
+          "is_home": false,
+          "team": "Crystal Palace",
+          "player_name": "Adam Wharton",
+          "player_id": 1296650,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 42,
+          "overload": null,
+          "time_str": "42'",
+          "is_home": true,
+          "team": "Coventry City",
+          "player_name": "Frank Lampard",
+          "player_id": 30631,
+          "card": "Yellow",
+          "card_description": {
+            "localizedKey": "coach",
+            "defaultText": "Coach"
+          }
+        },
+        {
+          "type": "AddedTime",
+          "minute": 45,
+          "overload": null,
+          "time_str": "45'",
+          "is_home": true,
+          "team": "Coventry City",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Goal",
+          "minute": 45,
+          "overload": 1,
+          "time_str": "45+1'",
+          "is_home": false,
+          "team": "Crystal Palace",
+          "player_name": "Jørgen Strand Larsen",
+          "player_id": 821100,
+          "assist": "Yéremi Pino",
+          "home_score": 2,
+          "away_score": 1,
+          "scoreline": "2 - 1",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Half",
+          "minute": 45,
+          "overload": null,
+          "time_str": "45'",
+          "is_home": true,
+          "team": "Coventry City",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Substitution",
+          "minute": 46,
+          "overload": 0,
+          "time_str": "46'",
+          "is_home": true,
+          "team": "Coventry City",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Sidiki Cherif",
+          "player_out": "Taiwo Awoniyi",
+          "player_in_id": "1524069",
+          "player_out_id": "643717"
+        },
+        {
+          "type": "Comment",
+          "minute": 60,
+          "overload": null,
+          "time_str": "60'",
+          "is_home": false,
+          "team": "Crystal Palace",
+          "player_name": " ",
+          "player_id": 0
+        },
+        {
+          "type": "Card",
+          "minute": 61,
+          "overload": null,
+          "time_str": "61'",
+          "is_home": true,
+          "team": "Coventry City",
+          "player_name": "Matt Grimes",
+          "player_id": 478357,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Substitution",
+          "minute": 70,
+          "overload": 0,
+          "time_str": "70'",
+          "is_home": true,
+          "team": "Coventry City",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Brandon Thomas-Asante",
+          "player_out": "Yann Gboho",
+          "player_in_id": "776184",
+          "player_out_id": "955411"
+        },
+        {
+          "type": "Substitution",
+          "minute": 71,
+          "overload": 0,
+          "time_str": "71'",
+          "is_home": true,
+          "team": "Coventry City",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Frank Onyeka",
+          "player_out": "Matt Grimes",
+          "player_in_id": "856685",
+          "player_out_id": "478357"
+        },
+        {
+          "type": "Substitution",
+          "minute": 71,
+          "overload": 0,
+          "time_str": "71'",
+          "is_home": true,
+          "team": "Coventry City",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Gustavo Hamer",
+          "player_out": "Victor Torp",
+          "player_in_id": "775355",
+          "player_out_id": "845985"
+        },
+        {
+          "type": "Substitution",
+          "minute": 73,
+          "overload": 0,
+          "time_str": "73'",
+          "is_home": false,
+          "team": "Crystal Palace",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Jefferson Lerma",
+          "player_out": "Quinten Timber",
+          "player_in_id": "466672",
+          "player_out_id": "970563"
+        },
+        {
+          "type": "Substitution",
+          "minute": 73,
+          "overload": 0,
+          "time_str": "73'",
+          "is_home": false,
+          "team": "Crystal Palace",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Jaydee Canvot",
+          "player_out": "Anan Khalaili",
+          "player_in_id": "1664722",
+          "player_out_id": "1477878"
+        },
+        {
+          "type": "Card",
+          "minute": 75,
+          "overload": null,
+          "time_str": "75'",
+          "is_home": false,
+          "team": "Crystal Palace",
+          "player_name": "Yéremi Pino",
+          "player_id": 1047676,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Substitution",
+          "minute": 79,
+          "overload": 0,
+          "time_str": "79'",
+          "is_home": false,
+          "team": "Crystal Palace",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Edward Nketiah",
+          "player_out": "Jørgen Strand Larsen",
+          "player_in_id": "860920",
+          "player_out_id": "821100"
+        },
+        {
+          "type": "Substitution",
+          "minute": 79,
+          "overload": 0,
+          "time_str": "79'",
+          "is_home": false,
+          "team": "Crystal Palace",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Evann Guessand",
+          "player_out": "Yéremi Pino",
+          "player_in_id": "1087966",
+          "player_out_id": "1047676"
+        },
+        {
+          "type": "Goal",
+          "minute": 85,
+          "overload": null,
+          "time_str": "85'",
+          "is_home": true,
+          "team": "Coventry City",
+          "player_name": "Dwight McNeil",
+          "player_id": 939542,
+          "assist": null,
+          "home_score": 2,
+          "away_score": 2,
+          "scoreline": "2 - 2",
+          "is_own_goal": true,
+          "is_penalty": false
+        },
+        {
+          "type": "Substitution",
+          "minute": 89,
+          "overload": 0,
+          "time_str": "89'",
+          "is_home": false,
+          "team": "Crystal Palace",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Darío Osorio",
+          "player_out": "Dwight McNeil",
+          "player_in_id": "1329007",
+          "player_out_id": "939542"
+        },
+        {
+          "type": "AddedTime",
+          "minute": 90,
+          "overload": null,
+          "time_str": "90'",
+          "is_home": true,
+          "team": "Coventry City",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Half",
+          "minute": 90,
+          "overload": null,
+          "time_str": "90'",
+          "is_home": true,
+          "team": "Coventry City",
+          "player_name": "Unknown",
+          "player_id": null
+        }
+      ],
+      "goals": [
+        {
+          "type": "Goal",
+          "minute": 5,
+          "overload": null,
+          "time_str": "5'",
+          "is_home": true,
+          "team": "Coventry City",
+          "player_name": "Taiwo Awoniyi",
+          "player_id": 643717,
+          "assist": "Jack Rudoni",
+          "home_score": 0,
+          "away_score": 0,
+          "scoreline": "0 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Goal",
+          "minute": 13,
+          "overload": null,
+          "time_str": "13'",
+          "is_home": false,
+          "team": "Crystal Palace",
+          "player_name": "Yéremi Pino",
+          "player_id": 1047676,
+          "assist": "Jørgen Strand Larsen",
+          "home_score": 1,
+          "away_score": 0,
+          "scoreline": "1 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Goal",
+          "minute": 30,
+          "overload": null,
+          "time_str": "30'",
+          "is_home": true,
+          "team": "Coventry City",
+          "player_name": "Tatsuhiro Sakamoto",
+          "player_id": 1025603,
+          "assist": "Jack Rudoni",
+          "home_score": 1,
+          "away_score": 1,
+          "scoreline": "1 - 1",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Goal",
+          "minute": 45,
+          "overload": 1,
+          "time_str": "45+1'",
+          "is_home": false,
+          "team": "Crystal Palace",
+          "player_name": "Jørgen Strand Larsen",
+          "player_id": 821100,
+          "assist": "Yéremi Pino",
+          "home_score": 2,
+          "away_score": 1,
+          "scoreline": "2 - 1",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Goal",
+          "minute": 85,
+          "overload": null,
+          "time_str": "85'",
+          "is_home": true,
+          "team": "Coventry City",
+          "player_name": "Dwight McNeil",
+          "player_id": 939542,
+          "assist": null,
+          "home_score": 2,
+          "away_score": 2,
+          "scoreline": "2 - 2",
+          "is_own_goal": true,
+          "is_penalty": false
+        }
+      ],
+      "cards": [
+        {
+          "type": "Card",
+          "minute": 36,
+          "overload": null,
+          "time_str": "36'",
+          "is_home": false,
+          "team": "Crystal Palace",
+          "player_name": "Adam Wharton",
+          "player_id": 1296650,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 42,
+          "overload": null,
+          "time_str": "42'",
+          "is_home": true,
+          "team": "Coventry City",
+          "player_name": "Frank Lampard",
+          "player_id": 30631,
+          "card": "Yellow",
+          "card_description": {
+            "localizedKey": "coach",
+            "defaultText": "Coach"
+          }
+        },
+        {
+          "type": "Card",
+          "minute": 61,
+          "overload": null,
+          "time_str": "61'",
+          "is_home": true,
+          "team": "Coventry City",
+          "player_name": "Matt Grimes",
+          "player_id": 478357,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 75,
+          "overload": null,
+          "time_str": "75'",
+          "is_home": false,
+          "team": "Crystal Palace",
+          "player_name": "Yéremi Pino",
+          "player_id": 1047676,
+          "card": "Yellow",
+          "card_description": null
+        }
+      ],
+      "substitutions": [
+        {
+          "type": "Substitution",
+          "minute": 46,
+          "overload": 0,
+          "time_str": "46'",
+          "is_home": true,
+          "team": "Coventry City",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Sidiki Cherif",
+          "player_out": "Taiwo Awoniyi",
+          "player_in_id": "1524069",
+          "player_out_id": "643717"
+        },
+        {
+          "type": "Substitution",
+          "minute": 70,
+          "overload": 0,
+          "time_str": "70'",
+          "is_home": true,
+          "team": "Coventry City",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Brandon Thomas-Asante",
+          "player_out": "Yann Gboho",
+          "player_in_id": "776184",
+          "player_out_id": "955411"
+        },
+        {
+          "type": "Substitution",
+          "minute": 71,
+          "overload": 0,
+          "time_str": "71'",
+          "is_home": true,
+          "team": "Coventry City",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Frank Onyeka",
+          "player_out": "Matt Grimes",
+          "player_in_id": "856685",
+          "player_out_id": "478357"
+        },
+        {
+          "type": "Substitution",
+          "minute": 71,
+          "overload": 0,
+          "time_str": "71'",
+          "is_home": true,
+          "team": "Coventry City",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Gustavo Hamer",
+          "player_out": "Victor Torp",
+          "player_in_id": "775355",
+          "player_out_id": "845985"
+        },
+        {
+          "type": "Substitution",
+          "minute": 73,
+          "overload": 0,
+          "time_str": "73'",
+          "is_home": false,
+          "team": "Crystal Palace",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Jefferson Lerma",
+          "player_out": "Quinten Timber",
+          "player_in_id": "466672",
+          "player_out_id": "970563"
+        },
+        {
+          "type": "Substitution",
+          "minute": 73,
+          "overload": 0,
+          "time_str": "73'",
+          "is_home": false,
+          "team": "Crystal Palace",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Jaydee Canvot",
+          "player_out": "Anan Khalaili",
+          "player_in_id": "1664722",
+          "player_out_id": "1477878"
+        },
+        {
+          "type": "Substitution",
+          "minute": 79,
+          "overload": 0,
+          "time_str": "79'",
+          "is_home": false,
+          "team": "Crystal Palace",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Edward Nketiah",
+          "player_out": "Jørgen Strand Larsen",
+          "player_in_id": "860920",
+          "player_out_id": "821100"
+        },
+        {
+          "type": "Substitution",
+          "minute": 79,
+          "overload": 0,
+          "time_str": "79'",
+          "is_home": false,
+          "team": "Crystal Palace",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Evann Guessand",
+          "player_out": "Yéremi Pino",
+          "player_in_id": "1087966",
+          "player_out_id": "1047676"
+        },
+        {
+          "type": "Substitution",
+          "minute": 89,
+          "overload": 0,
+          "time_str": "89'",
+          "is_home": false,
+          "team": "Crystal Palace",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Darío Osorio",
+          "player_out": "Dwight McNeil",
+          "player_in_id": "1329007",
+          "player_out_id": "939542"
+        }
+      ]
+    },
+    "5795524": {
+      "match_id": "5795524",
+      "round": 11,
+      "gameweek": 11,
+      "home_team": "Tottenham Hotspur",
+      "away_team": "Ipswich Town",
+      "score": "2 - 0",
+      "kickoff_time": "2026-11-21T15:00:00Z",
+      "events_count": 22,
+      "events": [
+        {
+          "type": "Goal",
+          "minute": 15,
+          "overload": null,
+          "time_str": "15'",
+          "is_home": true,
+          "team": "Tottenham Hotspur",
+          "player_name": "Lucá Williams-Barnett",
+          "player_id": 1636112,
+          "assist": "Pedro Porro",
+          "home_score": 0,
+          "away_score": 0,
+          "scoreline": "0 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Card",
+          "minute": 41,
+          "overload": null,
+          "time_str": "41'",
+          "is_home": true,
+          "team": "Tottenham Hotspur",
+          "player_name": "James Maddison",
+          "player_id": 493165,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 42,
+          "overload": null,
+          "time_str": "42'",
+          "is_home": false,
+          "team": "Ipswich Town",
+          "player_name": "Gary O'Neil",
+          "player_id": 24393,
+          "card": "Yellow",
+          "card_description": {
+            "localizedKey": "coach",
+            "defaultText": "Coach"
+          }
+        },
+        {
+          "type": "AddedTime",
+          "minute": 45,
+          "overload": null,
+          "time_str": "45'",
+          "is_home": true,
+          "team": "Tottenham Hotspur",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Half",
+          "minute": 45,
+          "overload": null,
+          "time_str": "45'",
+          "is_home": true,
+          "team": "Tottenham Hotspur",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Goal",
+          "minute": 51,
+          "overload": null,
+          "time_str": "51'",
+          "is_home": true,
+          "team": "Tottenham Hotspur",
+          "player_name": "Dominic Solanke",
+          "player_id": 591734,
+          "assist": null,
+          "home_score": 1,
+          "away_score": 0,
+          "scoreline": "1 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Card",
+          "minute": 52,
+          "overload": null,
+          "time_str": "52'",
+          "is_home": true,
+          "team": "Tottenham Hotspur",
+          "player_name": "Lucá Williams-Barnett",
+          "player_id": 1636112,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Substitution",
+          "minute": 56,
+          "overload": 0,
+          "time_str": "56'",
+          "is_home": false,
+          "team": "Ipswich Town",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Jack Clarke",
+          "player_out": "Daizen Maeda",
+          "player_in_id": "914402",
+          "player_out_id": "728765"
+        },
+        {
+          "type": "Substitution",
+          "minute": 56,
+          "overload": 0,
+          "time_str": "56'",
+          "is_home": false,
+          "team": "Ipswich Town",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Abdul Fatawu",
+          "player_out": "Abdoul Ouattara",
+          "player_in_id": "1265626",
+          "player_out_id": "1343053"
+        },
+        {
+          "type": "Substitution",
+          "minute": 56,
+          "overload": 0,
+          "time_str": "56'",
+          "is_home": false,
+          "team": "Ipswich Town",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Florentino",
+          "player_out": "Exequiel Palacios",
+          "player_in_id": "793255",
+          "player_out_id": "693599"
+        },
+        {
+          "type": "Substitution",
+          "minute": 64,
+          "overload": 0,
+          "time_str": "64'",
+          "is_home": true,
+          "team": "Tottenham Hotspur",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Sávio",
+          "player_out": "Lucá Williams-Barnett",
+          "player_in_id": "1174337",
+          "player_out_id": "1636112"
+        },
+        {
+          "type": "Substitution",
+          "minute": 64,
+          "overload": 0,
+          "time_str": "64'",
+          "is_home": true,
+          "team": "Tottenham Hotspur",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Omar Marmoush",
+          "player_out": "Dominic Solanke",
+          "player_in_id": "839204",
+          "player_out_id": "591734"
+        },
+        {
+          "type": "Substitution",
+          "minute": 64,
+          "overload": 0,
+          "time_str": "64'",
+          "is_home": true,
+          "team": "Tottenham Hotspur",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Lucas Bergvall",
+          "player_out": "James Maddison",
+          "player_in_id": "1386775",
+          "player_out_id": "493165"
+        },
+        {
+          "type": "Substitution",
+          "minute": 74,
+          "overload": 0,
+          "time_str": "74'",
+          "is_home": false,
+          "team": "Ipswich Town",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Emersonn",
+          "player_out": "Zian Flemming",
+          "player_in_id": "1320949",
+          "player_out_id": "873559"
+        },
+        {
+          "type": "Substitution",
+          "minute": 79,
+          "overload": 0,
+          "time_str": "79'",
+          "is_home": true,
+          "team": "Tottenham Hotspur",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Andrew Robertson",
+          "player_out": "Destiny Udogie",
+          "player_in_id": "357880",
+          "player_out_id": "1052898"
+        },
+        {
+          "type": "Card",
+          "minute": 79,
+          "overload": null,
+          "time_str": "79'",
+          "is_home": true,
+          "team": "Tottenham Hotspur",
+          "player_name": "Mohammed Kudus",
+          "player_id": 891743,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Substitution",
+          "minute": 83,
+          "overload": 0,
+          "time_str": "83'",
+          "is_home": false,
+          "team": "Ipswich Town",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Jacob Greaves",
+          "player_out": "Leif Davis",
+          "player_in_id": "1079103",
+          "player_out_id": "980381"
+        },
+        {
+          "type": "Card",
+          "minute": 83,
+          "overload": null,
+          "time_str": "83'",
+          "is_home": false,
+          "team": "Ipswich Town",
+          "player_name": "Issa Diop",
+          "player_id": 696443,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Substitution",
+          "minute": 90,
+          "overload": 0,
+          "time_str": "90'",
+          "is_home": true,
+          "team": "Tottenham Hotspur",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Archie Gray",
+          "player_out": "Sávio",
+          "player_in_id": "1323305",
+          "player_out_id": "1174337"
+        },
+        {
+          "type": "AddedTime",
+          "minute": 90,
+          "overload": null,
+          "time_str": "90'",
+          "is_home": true,
+          "team": "Tottenham Hotspur",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Card",
+          "minute": 90,
+          "overload": 5,
+          "time_str": "90+5'",
+          "is_home": true,
+          "team": "Tottenham Hotspur",
+          "player_name": "Mateus Fernandes",
+          "player_id": 1356312,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Half",
+          "minute": 90,
+          "overload": null,
+          "time_str": "90'",
+          "is_home": true,
+          "team": "Tottenham Hotspur",
+          "player_name": "Unknown",
+          "player_id": null
+        }
+      ],
+      "goals": [
+        {
+          "type": "Goal",
+          "minute": 15,
+          "overload": null,
+          "time_str": "15'",
+          "is_home": true,
+          "team": "Tottenham Hotspur",
+          "player_name": "Lucá Williams-Barnett",
+          "player_id": 1636112,
+          "assist": "Pedro Porro",
+          "home_score": 0,
+          "away_score": 0,
+          "scoreline": "0 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Goal",
+          "minute": 51,
+          "overload": null,
+          "time_str": "51'",
+          "is_home": true,
+          "team": "Tottenham Hotspur",
+          "player_name": "Dominic Solanke",
+          "player_id": 591734,
+          "assist": null,
+          "home_score": 1,
+          "away_score": 0,
+          "scoreline": "1 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        }
+      ],
+      "cards": [
+        {
+          "type": "Card",
+          "minute": 41,
+          "overload": null,
+          "time_str": "41'",
+          "is_home": true,
+          "team": "Tottenham Hotspur",
+          "player_name": "James Maddison",
+          "player_id": 493165,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 42,
+          "overload": null,
+          "time_str": "42'",
+          "is_home": false,
+          "team": "Ipswich Town",
+          "player_name": "Gary O'Neil",
+          "player_id": 24393,
+          "card": "Yellow",
+          "card_description": {
+            "localizedKey": "coach",
+            "defaultText": "Coach"
+          }
+        },
+        {
+          "type": "Card",
+          "minute": 52,
+          "overload": null,
+          "time_str": "52'",
+          "is_home": true,
+          "team": "Tottenham Hotspur",
+          "player_name": "Lucá Williams-Barnett",
+          "player_id": 1636112,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 79,
+          "overload": null,
+          "time_str": "79'",
+          "is_home": true,
+          "team": "Tottenham Hotspur",
+          "player_name": "Mohammed Kudus",
+          "player_id": 891743,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 83,
+          "overload": null,
+          "time_str": "83'",
+          "is_home": false,
+          "team": "Ipswich Town",
+          "player_name": "Issa Diop",
+          "player_id": 696443,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 90,
+          "overload": 5,
+          "time_str": "90+5'",
+          "is_home": true,
+          "team": "Tottenham Hotspur",
+          "player_name": "Mateus Fernandes",
+          "player_id": 1356312,
+          "card": "Yellow",
+          "card_description": null
+        }
+      ],
+      "substitutions": [
+        {
+          "type": "Substitution",
+          "minute": 56,
+          "overload": 0,
+          "time_str": "56'",
+          "is_home": false,
+          "team": "Ipswich Town",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Jack Clarke",
+          "player_out": "Daizen Maeda",
+          "player_in_id": "914402",
+          "player_out_id": "728765"
+        },
+        {
+          "type": "Substitution",
+          "minute": 56,
+          "overload": 0,
+          "time_str": "56'",
+          "is_home": false,
+          "team": "Ipswich Town",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Abdul Fatawu",
+          "player_out": "Abdoul Ouattara",
+          "player_in_id": "1265626",
+          "player_out_id": "1343053"
+        },
+        {
+          "type": "Substitution",
+          "minute": 56,
+          "overload": 0,
+          "time_str": "56'",
+          "is_home": false,
+          "team": "Ipswich Town",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Florentino",
+          "player_out": "Exequiel Palacios",
+          "player_in_id": "793255",
+          "player_out_id": "693599"
+        },
+        {
+          "type": "Substitution",
+          "minute": 64,
+          "overload": 0,
+          "time_str": "64'",
+          "is_home": true,
+          "team": "Tottenham Hotspur",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Sávio",
+          "player_out": "Lucá Williams-Barnett",
+          "player_in_id": "1174337",
+          "player_out_id": "1636112"
+        },
+        {
+          "type": "Substitution",
+          "minute": 64,
+          "overload": 0,
+          "time_str": "64'",
+          "is_home": true,
+          "team": "Tottenham Hotspur",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Omar Marmoush",
+          "player_out": "Dominic Solanke",
+          "player_in_id": "839204",
+          "player_out_id": "591734"
+        },
+        {
+          "type": "Substitution",
+          "minute": 64,
+          "overload": 0,
+          "time_str": "64'",
+          "is_home": true,
+          "team": "Tottenham Hotspur",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Lucas Bergvall",
+          "player_out": "James Maddison",
+          "player_in_id": "1386775",
+          "player_out_id": "493165"
+        },
+        {
+          "type": "Substitution",
+          "minute": 74,
+          "overload": 0,
+          "time_str": "74'",
+          "is_home": false,
+          "team": "Ipswich Town",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Emersonn",
+          "player_out": "Zian Flemming",
+          "player_in_id": "1320949",
+          "player_out_id": "873559"
+        },
+        {
+          "type": "Substitution",
+          "minute": 79,
+          "overload": 0,
+          "time_str": "79'",
+          "is_home": true,
+          "team": "Tottenham Hotspur",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Andrew Robertson",
+          "player_out": "Destiny Udogie",
+          "player_in_id": "357880",
+          "player_out_id": "1052898"
+        },
+        {
+          "type": "Substitution",
+          "minute": 83,
+          "overload": 0,
+          "time_str": "83'",
+          "is_home": false,
+          "team": "Ipswich Town",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Jacob Greaves",
+          "player_out": "Leif Davis",
+          "player_in_id": "1079103",
+          "player_out_id": "980381"
+        },
+        {
+          "type": "Substitution",
+          "minute": 90,
+          "overload": 0,
+          "time_str": "90'",
+          "is_home": true,
+          "team": "Tottenham Hotspur",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Archie Gray",
+          "player_out": "Sávio",
+          "player_in_id": "1323305",
+          "player_out_id": "1174337"
+        }
+      ]
+    },
+    "5795523": {
+      "match_id": "5795523",
+      "round": 11,
+      "gameweek": 11,
+      "home_team": "Newcastle United",
+      "away_team": "Arsenal",
+      "score": "2 - 2",
+      "kickoff_time": "2026-11-21T17:30:00Z",
+      "events_count": 25,
+      "events": [
+        {
+          "type": "Card",
+          "minute": 23,
+          "overload": null,
+          "time_str": "23'",
+          "is_home": true,
+          "team": "Newcastle United",
+          "player_name": "Amar Dedić",
+          "player_id": 958010,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Goal",
+          "minute": 33,
+          "overload": null,
+          "time_str": "33'",
+          "is_home": false,
+          "team": "Arsenal",
+          "player_name": "Eberechi Eze",
+          "player_id": 818975,
+          "assist": "Kai Havertz",
+          "home_score": 0,
+          "away_score": 0,
+          "scoreline": "0 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "AddedTime",
+          "minute": 45,
+          "overload": null,
+          "time_str": "45'",
+          "is_home": true,
+          "team": "Newcastle United",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Half",
+          "minute": 45,
+          "overload": null,
+          "time_str": "45'",
+          "is_home": true,
+          "team": "Newcastle United",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Substitution",
+          "minute": 46,
+          "overload": 0,
+          "time_str": "46'",
+          "is_home": true,
+          "team": "Newcastle United",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Jacob Ramsey",
+          "player_out": "Sean Steur",
+          "player_in_id": "1021929",
+          "player_out_id": "1643770"
+        },
+        {
+          "type": "Substitution",
+          "minute": 46,
+          "overload": 0,
+          "time_str": "46'",
+          "is_home": true,
+          "team": "Newcastle United",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Valentino Livramento",
+          "player_out": "Amar Dedić",
+          "player_in_id": "1107910",
+          "player_out_id": "958010"
+        },
+        {
+          "type": "Substitution",
+          "minute": 46,
+          "overload": 0,
+          "time_str": "46'",
+          "is_home": true,
+          "team": "Newcastle United",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Anthony Elanga",
+          "player_out": "Jacob Murphy",
+          "player_in_id": "1050166",
+          "player_out_id": "521148"
+        },
+        {
+          "type": "Goal",
+          "minute": 49,
+          "overload": null,
+          "time_str": "49'",
+          "is_home": true,
+          "team": "Newcastle United",
+          "player_name": "Harvey Barnes",
+          "player_id": 760359,
+          "assist": "William Osula",
+          "home_score": 0,
+          "away_score": 1,
+          "scoreline": "0 - 1",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Card",
+          "minute": 56,
+          "overload": null,
+          "time_str": "56'",
+          "is_home": false,
+          "team": "Arsenal",
+          "player_name": "Declan Rice",
+          "player_id": 654096,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 58,
+          "overload": null,
+          "time_str": "58'",
+          "is_home": true,
+          "team": "Newcastle United",
+          "player_name": "Harvey Barnes",
+          "player_id": 760359,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Goal",
+          "minute": 62,
+          "overload": null,
+          "time_str": "62'",
+          "is_home": true,
+          "team": "Newcastle United",
+          "player_name": "Malick Thiaw",
+          "player_id": 1137407,
+          "assist": "Joseph Willock",
+          "home_score": 1,
+          "away_score": 1,
+          "scoreline": "1 - 1",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Comment",
+          "minute": 64,
+          "overload": null,
+          "time_str": "64'",
+          "is_home": false,
+          "team": "Arsenal",
+          "player_name": " ",
+          "player_id": 0
+        },
+        {
+          "type": "Substitution",
+          "minute": 70,
+          "overload": 0,
+          "time_str": "70'",
+          "is_home": false,
+          "team": "Arsenal",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Kepa Arrizabalaga",
+          "player_out": "David Raya",
+          "player_in_id": "317564",
+          "player_out_id": "562727"
+        },
+        {
+          "type": "Substitution",
+          "minute": 70,
+          "overload": 0,
+          "time_str": "70'",
+          "is_home": false,
+          "team": "Arsenal",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Myles Lewis-Skelly",
+          "player_out": "Bruno Guimarães",
+          "player_in_id": "1406436",
+          "player_out_id": "850354"
+        },
+        {
+          "type": "Substitution",
+          "minute": 70,
+          "overload": 0,
+          "time_str": "70'",
+          "is_home": false,
+          "team": "Arsenal",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Christos Tzolis",
+          "player_out": "Eberechi Eze",
+          "player_in_id": "1157237",
+          "player_out_id": "818975"
+        },
+        {
+          "type": "Goal",
+          "minute": 78,
+          "overload": null,
+          "time_str": "78'",
+          "is_home": false,
+          "team": "Arsenal",
+          "player_name": "Noni Madueke",
+          "player_id": 1084981,
+          "assist": "Martin Ødegaard",
+          "home_score": 2,
+          "away_score": 1,
+          "scoreline": "2 - 1",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Card",
+          "minute": 81,
+          "overload": null,
+          "time_str": "81'",
+          "is_home": true,
+          "team": "Newcastle United",
+          "player_name": "Daniel Burn",
+          "player_id": 188058,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 81,
+          "overload": null,
+          "time_str": "81'",
+          "is_home": false,
+          "team": "Arsenal",
+          "player_name": "Noni Madueke",
+          "player_id": 1084981,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Substitution",
+          "minute": 83,
+          "overload": 0,
+          "time_str": "83'",
+          "is_home": true,
+          "team": "Newcastle United",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Yoane Wissa",
+          "player_out": "Joseph Willock",
+          "player_in_id": "666857",
+          "player_out_id": "860975"
+        },
+        {
+          "type": "AddedTime",
+          "minute": 90,
+          "overload": null,
+          "time_str": "90'",
+          "is_home": true,
+          "team": "Newcastle United",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Substitution",
+          "minute": 90,
+          "overload": 2,
+          "time_str": "90+2'",
+          "is_home": true,
+          "team": "Newcastle United",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Sven Botman",
+          "player_out": "Lewis Hall",
+          "player_in_id": "956682",
+          "player_out_id": "1197655"
+        },
+        {
+          "type": "Substitution",
+          "minute": 90,
+          "overload": 4,
+          "time_str": "90+4'",
+          "is_home": false,
+          "team": "Arsenal",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Viktor Gyökeres",
+          "player_out": "Kai Havertz",
+          "player_in_id": "664500",
+          "player_out_id": "749736"
+        },
+        {
+          "type": "Substitution",
+          "minute": 90,
+          "overload": 4,
+          "time_str": "90+4'",
+          "is_home": false,
+          "team": "Arsenal",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Mikel Merino",
+          "player_out": "Martin Ødegaard",
+          "player_in_id": "574645",
+          "player_out_id": "534670"
+        },
+        {
+          "type": "Card",
+          "minute": 90,
+          "overload": 10,
+          "time_str": "90+10'",
+          "is_home": false,
+          "team": "Arsenal",
+          "player_name": "Viktor Gyökeres",
+          "player_id": 664500,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Half",
+          "minute": 90,
+          "overload": null,
+          "time_str": "90'",
+          "is_home": true,
+          "team": "Newcastle United",
+          "player_name": "Unknown",
+          "player_id": null
+        }
+      ],
+      "goals": [
+        {
+          "type": "Goal",
+          "minute": 33,
+          "overload": null,
+          "time_str": "33'",
+          "is_home": false,
+          "team": "Arsenal",
+          "player_name": "Eberechi Eze",
+          "player_id": 818975,
+          "assist": "Kai Havertz",
+          "home_score": 0,
+          "away_score": 0,
+          "scoreline": "0 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Goal",
+          "minute": 49,
+          "overload": null,
+          "time_str": "49'",
+          "is_home": true,
+          "team": "Newcastle United",
+          "player_name": "Harvey Barnes",
+          "player_id": 760359,
+          "assist": "William Osula",
+          "home_score": 0,
+          "away_score": 1,
+          "scoreline": "0 - 1",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Goal",
+          "minute": 62,
+          "overload": null,
+          "time_str": "62'",
+          "is_home": true,
+          "team": "Newcastle United",
+          "player_name": "Malick Thiaw",
+          "player_id": 1137407,
+          "assist": "Joseph Willock",
+          "home_score": 1,
+          "away_score": 1,
+          "scoreline": "1 - 1",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Goal",
+          "minute": 78,
+          "overload": null,
+          "time_str": "78'",
+          "is_home": false,
+          "team": "Arsenal",
+          "player_name": "Noni Madueke",
+          "player_id": 1084981,
+          "assist": "Martin Ødegaard",
+          "home_score": 2,
+          "away_score": 1,
+          "scoreline": "2 - 1",
+          "is_own_goal": false,
+          "is_penalty": false
+        }
+      ],
+      "cards": [
+        {
+          "type": "Card",
+          "minute": 23,
+          "overload": null,
+          "time_str": "23'",
+          "is_home": true,
+          "team": "Newcastle United",
+          "player_name": "Amar Dedić",
+          "player_id": 958010,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 56,
+          "overload": null,
+          "time_str": "56'",
+          "is_home": false,
+          "team": "Arsenal",
+          "player_name": "Declan Rice",
+          "player_id": 654096,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 58,
+          "overload": null,
+          "time_str": "58'",
+          "is_home": true,
+          "team": "Newcastle United",
+          "player_name": "Harvey Barnes",
+          "player_id": 760359,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 81,
+          "overload": null,
+          "time_str": "81'",
+          "is_home": true,
+          "team": "Newcastle United",
+          "player_name": "Daniel Burn",
+          "player_id": 188058,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 81,
+          "overload": null,
+          "time_str": "81'",
+          "is_home": false,
+          "team": "Arsenal",
+          "player_name": "Noni Madueke",
+          "player_id": 1084981,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 90,
+          "overload": 10,
+          "time_str": "90+10'",
+          "is_home": false,
+          "team": "Arsenal",
+          "player_name": "Viktor Gyökeres",
+          "player_id": 664500,
+          "card": "Yellow",
+          "card_description": null
+        }
+      ],
+      "substitutions": [
+        {
+          "type": "Substitution",
+          "minute": 46,
+          "overload": 0,
+          "time_str": "46'",
+          "is_home": true,
+          "team": "Newcastle United",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Jacob Ramsey",
+          "player_out": "Sean Steur",
+          "player_in_id": "1021929",
+          "player_out_id": "1643770"
+        },
+        {
+          "type": "Substitution",
+          "minute": 46,
+          "overload": 0,
+          "time_str": "46'",
+          "is_home": true,
+          "team": "Newcastle United",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Valentino Livramento",
+          "player_out": "Amar Dedić",
+          "player_in_id": "1107910",
+          "player_out_id": "958010"
+        },
+        {
+          "type": "Substitution",
+          "minute": 46,
+          "overload": 0,
+          "time_str": "46'",
+          "is_home": true,
+          "team": "Newcastle United",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Anthony Elanga",
+          "player_out": "Jacob Murphy",
+          "player_in_id": "1050166",
+          "player_out_id": "521148"
+        },
+        {
+          "type": "Substitution",
+          "minute": 70,
+          "overload": 0,
+          "time_str": "70'",
+          "is_home": false,
+          "team": "Arsenal",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Kepa Arrizabalaga",
+          "player_out": "David Raya",
+          "player_in_id": "317564",
+          "player_out_id": "562727"
+        },
+        {
+          "type": "Substitution",
+          "minute": 70,
+          "overload": 0,
+          "time_str": "70'",
+          "is_home": false,
+          "team": "Arsenal",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Myles Lewis-Skelly",
+          "player_out": "Bruno Guimarães",
+          "player_in_id": "1406436",
+          "player_out_id": "850354"
+        },
+        {
+          "type": "Substitution",
+          "minute": 70,
+          "overload": 0,
+          "time_str": "70'",
+          "is_home": false,
+          "team": "Arsenal",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Christos Tzolis",
+          "player_out": "Eberechi Eze",
+          "player_in_id": "1157237",
+          "player_out_id": "818975"
+        },
+        {
+          "type": "Substitution",
+          "minute": 83,
+          "overload": 0,
+          "time_str": "83'",
+          "is_home": true,
+          "team": "Newcastle United",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Yoane Wissa",
+          "player_out": "Joseph Willock",
+          "player_in_id": "666857",
+          "player_out_id": "860975"
+        },
+        {
+          "type": "Substitution",
+          "minute": 90,
+          "overload": 2,
+          "time_str": "90+2'",
+          "is_home": true,
+          "team": "Newcastle United",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Sven Botman",
+          "player_out": "Lewis Hall",
+          "player_in_id": "956682",
+          "player_out_id": "1197655"
+        },
+        {
+          "type": "Substitution",
+          "minute": 90,
+          "overload": 4,
+          "time_str": "90+4'",
+          "is_home": false,
+          "team": "Arsenal",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Viktor Gyökeres",
+          "player_out": "Kai Havertz",
+          "player_in_id": "664500",
+          "player_out_id": "749736"
+        },
+        {
+          "type": "Substitution",
+          "minute": 90,
+          "overload": 4,
+          "time_str": "90+4'",
+          "is_home": false,
+          "team": "Arsenal",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Mikel Merino",
+          "player_out": "Martin Ødegaard",
+          "player_in_id": "574645",
+          "player_out_id": "534670"
+        }
+      ]
     }
   },
   "player_events": {
@@ -50740,6 +54359,15 @@
           "match": "Arsenal vs Hull City",
           "minute": 63,
           "time_str": "63'",
+          "replaced_by": "Viktor Gyökeres",
+          "team": "Arsenal"
+        },
+        {
+          "match_id": "5795523",
+          "gameweek": 11,
+          "match": "Newcastle United vs Arsenal",
+          "minute": 90,
+          "time_str": "90+4'",
           "replaced_by": "Viktor Gyökeres",
           "team": "Arsenal"
         }
@@ -50934,6 +54562,15 @@
           "match": "Liverpool vs Arsenal",
           "minute": 88,
           "time_str": "88'",
+          "replaced_by": "Mikel Merino",
+          "team": "Arsenal"
+        },
+        {
+          "match_id": "5795523",
+          "gameweek": 11,
+          "match": "Newcastle United vs Arsenal",
+          "minute": 90,
+          "time_str": "90+4'",
           "replaced_by": "Mikel Merino",
           "team": "Arsenal"
         }
@@ -51155,6 +54792,15 @@
           "time_str": "86'",
           "replaced_by": "Matt Grimes",
           "team": "Coventry City"
+        },
+        {
+          "match_id": "5795519",
+          "gameweek": 11,
+          "match": "Coventry City vs Crystal Palace",
+          "minute": 71,
+          "time_str": "71'",
+          "replaced_by": "Gustavo Hamer",
+          "team": "Coventry City"
         }
       ]
     },
@@ -51239,6 +54885,15 @@
           "time_str": "90+7'",
           "card": "Yellow",
           "team": "Arsenal"
+        },
+        {
+          "match_id": "5795523",
+          "gameweek": 11,
+          "match": "Newcastle United vs Arsenal",
+          "minute": 56,
+          "time_str": "56'",
+          "card": "Yellow",
+          "team": "Arsenal"
         }
       ],
       "substitutions_on": [],
@@ -51304,6 +54959,19 @@
           "is_own_goal": false,
           "is_home": false,
           "score_after": "0 - 0"
+        },
+        {
+          "match_id": "5795523",
+          "gameweek": 11,
+          "match": "Newcastle United vs Arsenal",
+          "minute": 78,
+          "time_str": "78'",
+          "assist": "Martin Ødegaard",
+          "team": "Arsenal",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": false,
+          "score_after": "2 - 1"
         }
       ],
       "cards": [
@@ -51322,6 +54990,15 @@
           "match": "Liverpool vs Arsenal",
           "minute": 55,
           "time_str": "55'",
+          "card": "Yellow",
+          "team": "Arsenal"
+        },
+        {
+          "match_id": "5795523",
+          "gameweek": 11,
+          "match": "Newcastle United vs Arsenal",
+          "minute": 81,
+          "time_str": "81'",
           "card": "Yellow",
           "team": "Arsenal"
         }
@@ -51371,6 +55048,19 @@
           "is_own_goal": false,
           "is_home": true,
           "score_after": "1 - 0"
+        },
+        {
+          "match_id": "5795519",
+          "gameweek": 11,
+          "match": "Coventry City vs Crystal Palace",
+          "minute": 5,
+          "time_str": "5'",
+          "assist": "Jack Rudoni",
+          "team": "Coventry City",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": true,
+          "score_after": "0 - 0"
         }
       ],
       "cards": [
@@ -51438,6 +55128,15 @@
           "match": "Everton vs Coventry City",
           "minute": 87,
           "time_str": "87'",
+          "replaced_by": "Sidiki Cherif",
+          "team": "Coventry City"
+        },
+        {
+          "match_id": "5795519",
+          "gameweek": 11,
+          "match": "Coventry City vs Crystal Palace",
+          "minute": 46,
+          "time_str": "46'",
           "replaced_by": "Sidiki Cherif",
           "team": "Coventry City"
         }
@@ -51679,6 +55378,15 @@
           "time_str": "73'",
           "replaced": "Yann Gboho",
           "team": "Coventry City"
+        },
+        {
+          "match_id": "5795519",
+          "gameweek": 11,
+          "match": "Coventry City vs Crystal Palace",
+          "minute": 70,
+          "time_str": "70'",
+          "replaced": "Yann Gboho",
+          "team": "Coventry City"
         }
       ],
       "substitutions_off": [
@@ -51712,7 +55420,21 @@
       ]
     },
     "Eberechi Eze": {
-      "goals": [],
+      "goals": [
+        {
+          "match_id": "5795523",
+          "gameweek": 11,
+          "match": "Newcastle United vs Arsenal",
+          "minute": 33,
+          "time_str": "33'",
+          "assist": "Kai Havertz",
+          "team": "Arsenal",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": false,
+          "score_after": "0 - 0"
+        }
+      ],
       "cards": [],
       "substitutions_on": [
         {
@@ -51779,6 +55501,15 @@
           "time_str": "80'",
           "replaced_by": "Max Dowman",
           "team": "Arsenal"
+        },
+        {
+          "match_id": "5795523",
+          "gameweek": 11,
+          "match": "Newcastle United vs Arsenal",
+          "minute": 70,
+          "time_str": "70'",
+          "replaced_by": "Christos Tzolis",
+          "team": "Arsenal"
         }
       ]
     },
@@ -51804,7 +55535,17 @@
           "team": "Arsenal"
         }
       ],
-      "substitutions_on": [],
+      "substitutions_on": [
+        {
+          "match_id": "5795523",
+          "gameweek": 11,
+          "match": "Newcastle United vs Arsenal",
+          "minute": 70,
+          "time_str": "70'",
+          "replaced": "Eberechi Eze",
+          "team": "Arsenal"
+        }
+      ],
       "substitutions_off": [
         {
           "match_id": "5795363",
@@ -51955,6 +55696,15 @@
           "minute": 63,
           "time_str": "63'",
           "replaced": "Declan Rice",
+          "team": "Arsenal"
+        },
+        {
+          "match_id": "5795523",
+          "gameweek": 11,
+          "match": "Newcastle United vs Arsenal",
+          "minute": 90,
+          "time_str": "90+4'",
+          "replaced": "Martin Ødegaard",
           "team": "Arsenal"
         }
       ],
@@ -52145,6 +55895,15 @@
           "minute": 86,
           "time_str": "86'",
           "replaced": "Jack Rudoni",
+          "team": "Coventry City"
+        },
+        {
+          "match_id": "5795519",
+          "gameweek": 11,
+          "match": "Coventry City vs Crystal Palace",
+          "minute": 71,
+          "time_str": "71'",
+          "replaced": "Victor Torp",
           "team": "Coventry City"
         }
       ],
@@ -53831,6 +57590,15 @@
           "time_str": "75'",
           "replaced_by": "Óscar Mingueza",
           "team": "Crystal Palace"
+        },
+        {
+          "match_id": "5795519",
+          "gameweek": 11,
+          "match": "Coventry City vs Crystal Palace",
+          "minute": 73,
+          "time_str": "73'",
+          "replaced_by": "Jaydee Canvot",
+          "team": "Crystal Palace"
         }
       ]
     },
@@ -53843,6 +57611,15 @@
           "match": "Brentford vs Nottingham Forest",
           "minute": 64,
           "time_str": "64'",
+          "card": "Yellow",
+          "team": "Nottingham Forest"
+        },
+        {
+          "match_id": "5795515",
+          "gameweek": 11,
+          "match": "AFC Bournemouth vs Nottingham Forest",
+          "minute": 57,
+          "time_str": "57'",
           "card": "Yellow",
           "team": "Nottingham Forest"
         }
@@ -53894,6 +57671,15 @@
           "time_str": "65'",
           "replaced_by": "Luca Netz",
           "team": "Nottingham Forest"
+        },
+        {
+          "match_id": "5795515",
+          "gameweek": 11,
+          "match": "AFC Bournemouth vs Nottingham Forest",
+          "minute": 82,
+          "time_str": "82'",
+          "replaced_by": "Ola Aina",
+          "team": "Nottingham Forest"
         }
       ]
     },
@@ -53911,6 +57697,19 @@
           "is_own_goal": false,
           "is_home": true,
           "score_after": "2 - 1"
+        },
+        {
+          "match_id": "5795519",
+          "gameweek": 11,
+          "match": "Coventry City vs Crystal Palace",
+          "minute": 13,
+          "time_str": "13'",
+          "assist": "Jørgen Strand Larsen",
+          "team": "Crystal Palace",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": false,
+          "score_after": "1 - 0"
         }
       ],
       "cards": [
@@ -53947,6 +57746,15 @@
           "match": "Crystal Palace vs Liverpool",
           "minute": 71,
           "time_str": "71'",
+          "card": "Yellow",
+          "team": "Crystal Palace"
+        },
+        {
+          "match_id": "5795519",
+          "gameweek": 11,
+          "match": "Coventry City vs Crystal Palace",
+          "minute": 75,
+          "time_str": "75'",
           "card": "Yellow",
           "team": "Crystal Palace"
         }
@@ -54034,6 +57842,15 @@
           "time_str": "87'",
           "replaced_by": "Dwight McNeil",
           "team": "Crystal Palace"
+        },
+        {
+          "match_id": "5795519",
+          "gameweek": 11,
+          "match": "Coventry City vs Crystal Palace",
+          "minute": 79,
+          "time_str": "79'",
+          "replaced_by": "Evann Guessand",
+          "team": "Crystal Palace"
         }
       ]
     },
@@ -54108,6 +57925,15 @@
           "time_str": "72'",
           "replaced": "Jørgen Strand Larsen",
           "team": "Crystal Palace"
+        },
+        {
+          "match_id": "5795519",
+          "gameweek": 11,
+          "match": "Coventry City vs Crystal Palace",
+          "minute": 79,
+          "time_str": "79'",
+          "replaced": "Jørgen Strand Larsen",
+          "team": "Crystal Palace"
         }
       ],
       "substitutions_off": [
@@ -54161,12 +57987,35 @@
           "time_str": "63'",
           "replaced": "Jørgen Strand Larsen",
           "team": "Crystal Palace"
+        },
+        {
+          "match_id": "5795519",
+          "gameweek": 11,
+          "match": "Coventry City vs Crystal Palace",
+          "minute": 79,
+          "time_str": "79'",
+          "replaced": "Yéremi Pino",
+          "team": "Crystal Palace"
         }
       ],
       "substitutions_off": []
     },
     "Dwight McNeil": {
-      "goals": [],
+      "goals": [
+        {
+          "match_id": "5795519",
+          "gameweek": 11,
+          "match": "Coventry City vs Crystal Palace",
+          "minute": 85,
+          "time_str": "85'",
+          "assist": null,
+          "team": "Coventry City",
+          "is_penalty": false,
+          "is_own_goal": true,
+          "is_home": true,
+          "score_after": "2 - 2"
+        }
+      ],
       "cards": [],
       "substitutions_on": [
         {
@@ -54233,6 +58082,15 @@
           "time_str": "77'",
           "replaced_by": "Darío Osorio",
           "team": "Crystal Palace"
+        },
+        {
+          "match_id": "5795519",
+          "gameweek": 11,
+          "match": "Coventry City vs Crystal Palace",
+          "minute": 89,
+          "time_str": "89'",
+          "replaced_by": "Darío Osorio",
+          "team": "Crystal Palace"
         }
       ]
     },
@@ -54250,6 +58108,19 @@
           "is_own_goal": false,
           "is_home": true,
           "score_after": "1 - 2"
+        },
+        {
+          "match_id": "5795519",
+          "gameweek": 11,
+          "match": "Coventry City vs Crystal Palace",
+          "minute": 45,
+          "time_str": "45+1'",
+          "assist": "Yéremi Pino",
+          "team": "Crystal Palace",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": false,
+          "score_after": "2 - 1"
         }
       ],
       "cards": [],
@@ -54325,6 +58196,15 @@
           "match": "Crystal Palace vs Liverpool",
           "minute": 72,
           "time_str": "72'",
+          "replaced_by": "Edward Nketiah",
+          "team": "Crystal Palace"
+        },
+        {
+          "match_id": "5795519",
+          "gameweek": 11,
+          "match": "Coventry City vs Crystal Palace",
+          "minute": 79,
+          "time_str": "79'",
           "replaced_by": "Edward Nketiah",
           "team": "Crystal Palace"
         }
@@ -54925,7 +58805,17 @@
         }
       ],
       "cards": [],
-      "substitutions_on": [],
+      "substitutions_on": [
+        {
+          "match_id": "5795524",
+          "gameweek": 11,
+          "match": "Tottenham Hotspur vs Ipswich Town",
+          "minute": 74,
+          "time_str": "74'",
+          "replaced": "Zian Flemming",
+          "team": "Ipswich Town"
+        }
+      ],
       "substitutions_off": [
         {
           "match_id": "5795366",
@@ -55053,6 +58943,15 @@
           "time_str": "90+4'",
           "card": "Yellow",
           "team": "Sunderland"
+        },
+        {
+          "match_id": "5795516",
+          "gameweek": 11,
+          "match": "Aston Villa vs Sunderland",
+          "minute": 85,
+          "time_str": "85'",
+          "card": "Yellow",
+          "team": "Sunderland"
         }
       ],
       "substitutions_on": [
@@ -55063,6 +58962,15 @@
           "minute": 88,
           "time_str": "88'",
           "replaced": "Chemsdine Talbi",
+          "team": "Sunderland"
+        },
+        {
+          "match_id": "5795516",
+          "gameweek": 11,
+          "match": "Aston Villa vs Sunderland",
+          "minute": 77,
+          "time_str": "77'",
+          "replaced": "Wilson Isidor",
           "team": "Sunderland"
         }
       ],
@@ -55243,6 +59151,15 @@
           "minute": 54,
           "time_str": "54'",
           "replaced": "Jaden Philogene-Bidace",
+          "team": "Ipswich Town"
+        },
+        {
+          "match_id": "5795524",
+          "gameweek": 11,
+          "match": "Tottenham Hotspur vs Ipswich Town",
+          "minute": 56,
+          "time_str": "56'",
+          "replaced": "Daizen Maeda",
           "team": "Ipswich Town"
         }
       ],
@@ -55566,6 +59483,15 @@
           "time_str": "65'",
           "replaced": "Daizen Maeda",
           "team": "Ipswich Town"
+        },
+        {
+          "match_id": "5795524",
+          "gameweek": 11,
+          "match": "Tottenham Hotspur vs Ipswich Town",
+          "minute": 56,
+          "time_str": "56'",
+          "replaced": "Abdoul Ouattara",
+          "team": "Ipswich Town"
         }
       ],
       "substitutions_off": [
@@ -55770,7 +59696,17 @@
           "team": "Sunderland"
         }
       ],
-      "substitutions_off": []
+      "substitutions_off": [
+        {
+          "match_id": "5795516",
+          "gameweek": 11,
+          "match": "Aston Villa vs Sunderland",
+          "minute": 77,
+          "time_str": "77'",
+          "replaced_by": "Nilson Angulo",
+          "team": "Sunderland"
+        }
+      ]
     },
     "Brian Brobbey": {
       "goals": [
@@ -56055,7 +59991,17 @@
     },
     "Trai Hume": {
       "goals": [],
-      "cards": [],
+      "cards": [
+        {
+          "match_id": "5795516",
+          "gameweek": 11,
+          "match": "Aston Villa vs Sunderland",
+          "minute": 38,
+          "time_str": "38'",
+          "card": "Yellow",
+          "team": "Sunderland"
+        }
+      ],
       "substitutions_on": [
         {
           "match_id": "5795436",
@@ -56357,7 +60303,17 @@
           "team": "Ipswich Town"
         }
       ],
-      "substitutions_off": []
+      "substitutions_off": [
+        {
+          "match_id": "5795524",
+          "gameweek": 11,
+          "match": "Tottenham Hotspur vs Ipswich Town",
+          "minute": 56,
+          "time_str": "56'",
+          "replaced_by": "Abdul Fatawu",
+          "team": "Ipswich Town"
+        }
+      ]
     },
     "Daizen Maeda": {
       "goals": [
@@ -56468,6 +60424,15 @@
           "time_str": "65'",
           "replaced_by": "Abdul Fatawu",
           "team": "Ipswich Town"
+        },
+        {
+          "match_id": "5795524",
+          "gameweek": 11,
+          "match": "Tottenham Hotspur vs Ipswich Town",
+          "minute": 56,
+          "time_str": "56'",
+          "replaced_by": "Jack Clarke",
+          "team": "Ipswich Town"
         }
       ]
     },
@@ -56505,6 +60470,15 @@
           "minute": 65,
           "time_str": "65'",
           "replaced": "Daniel James",
+          "team": "Leeds United"
+        },
+        {
+          "match_id": "5795518",
+          "gameweek": 11,
+          "match": "Chelsea vs Leeds United",
+          "minute": 86,
+          "time_str": "86'",
+          "replaced": "Ao Tanaka",
           "team": "Leeds United"
         }
       ],
@@ -56551,7 +60525,17 @@
           "team": "Nottingham Forest"
         }
       ],
-      "substitutions_on": [],
+      "substitutions_on": [
+        {
+          "match_id": "5795515",
+          "gameweek": 11,
+          "match": "AFC Bournemouth vs Nottingham Forest",
+          "minute": 82,
+          "time_str": "82'",
+          "replaced": "Daniel Muñoz",
+          "team": "Nottingham Forest"
+        }
+      ],
       "substitutions_off": [
         {
           "match_id": "5795367",
@@ -56653,6 +60637,19 @@
           "is_own_goal": false,
           "is_home": true,
           "score_after": "0 - 1"
+        },
+        {
+          "match_id": "5795518",
+          "gameweek": 11,
+          "match": "Chelsea vs Leeds United",
+          "minute": 53,
+          "time_str": "53'",
+          "assist": null,
+          "team": "Leeds United",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": false,
+          "score_after": "1 - 1"
         }
       ],
       "cards": [
@@ -56839,6 +60836,15 @@
           "time_str": "65'",
           "replaced": "Liam Delap",
           "team": "Nottingham Forest"
+        },
+        {
+          "match_id": "5795515",
+          "gameweek": 11,
+          "match": "AFC Bournemouth vs Nottingham Forest",
+          "minute": 72,
+          "time_str": "72'",
+          "replaced": "Neco Williams",
+          "team": "Nottingham Forest"
         }
       ],
       "substitutions_off": []
@@ -56984,6 +60990,15 @@
           "time_str": "65'",
           "replaced_by": "Arnaud Kalimuendo-Muinga",
           "team": "Nottingham Forest"
+        },
+        {
+          "match_id": "5795515",
+          "gameweek": 11,
+          "match": "AFC Bournemouth vs Nottingham Forest",
+          "minute": 46,
+          "time_str": "46'",
+          "replaced_by": "Igor Jesus",
+          "team": "Nottingham Forest"
         }
       ]
     },
@@ -57014,6 +61029,32 @@
           "is_own_goal": false,
           "is_home": true,
           "score_after": "0 - 0"
+        },
+        {
+          "match_id": "5795518",
+          "gameweek": 11,
+          "match": "Chelsea vs Leeds United",
+          "minute": 28,
+          "time_str": "28'",
+          "assist": "Dominic Calvert-Lewin",
+          "team": "Leeds United",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": false,
+          "score_after": "1 - 0"
+        },
+        {
+          "match_id": "5795518",
+          "gameweek": 11,
+          "match": "Chelsea vs Leeds United",
+          "minute": 58,
+          "time_str": "58'",
+          "assist": null,
+          "team": "Leeds United",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": false,
+          "score_after": "1 - 2"
         }
       ],
       "cards": [
@@ -57110,6 +61151,15 @@
           "time_str": "74'",
           "replaced_by": "Lukas Nmecha",
           "team": "Leeds United"
+        },
+        {
+          "match_id": "5795518",
+          "gameweek": 11,
+          "match": "Chelsea vs Leeds United",
+          "minute": 73,
+          "time_str": "73'",
+          "replaced_by": "Brenden Aaronson",
+          "team": "Leeds United"
         }
       ]
     },
@@ -57170,6 +61220,15 @@
           "minute": 77,
           "time_str": "77'",
           "replaced": "Ao Tanaka",
+          "team": "Leeds United"
+        },
+        {
+          "match_id": "5795518",
+          "gameweek": 11,
+          "match": "Chelsea vs Leeds United",
+          "minute": 90,
+          "time_str": "90+1'",
+          "replaced": "Sean Longstaff",
           "team": "Leeds United"
         }
       ],
@@ -57261,6 +61320,15 @@
           "time_str": "65'",
           "replaced": "Daniel Muñoz",
           "team": "Nottingham Forest"
+        },
+        {
+          "match_id": "5795515",
+          "gameweek": 11,
+          "match": "AFC Bournemouth vs Nottingham Forest",
+          "minute": 72,
+          "time_str": "72'",
+          "replaced": "James McAtee",
+          "team": "Nottingham Forest"
         }
       ],
       "substitutions_off": []
@@ -57286,6 +61354,15 @@
           "minute": 74,
           "time_str": "74'",
           "replaced": "James McAtee",
+          "team": "Nottingham Forest"
+        },
+        {
+          "match_id": "5795515",
+          "gameweek": 11,
+          "match": "AFC Bournemouth vs Nottingham Forest",
+          "minute": 46,
+          "time_str": "46'",
+          "replaced": "Ryan Yates",
           "team": "Nottingham Forest"
         }
       ],
@@ -57405,6 +61482,15 @@
           "time_str": "65'",
           "replaced_by": "Dan Ndoye",
           "team": "Nottingham Forest"
+        },
+        {
+          "match_id": "5795515",
+          "gameweek": 11,
+          "match": "AFC Bournemouth vs Nottingham Forest",
+          "minute": 72,
+          "time_str": "72'",
+          "replaced_by": "Luca Netz",
+          "team": "Nottingham Forest"
         }
       ]
     },
@@ -57417,6 +61503,15 @@
           "match": "Leeds United vs Tottenham Hotspur",
           "minute": 22,
           "time_str": "22'",
+          "card": "Yellow",
+          "team": "Leeds United"
+        },
+        {
+          "match_id": "5795518",
+          "gameweek": 11,
+          "match": "Chelsea vs Leeds United",
+          "minute": 83,
+          "time_str": "83'",
           "card": "Yellow",
           "team": "Leeds United"
         }
@@ -57477,11 +61572,34 @@
           "time_str": "90+3'",
           "replaced_by": "Ilia Gruev",
           "team": "Leeds United"
+        },
+        {
+          "match_id": "5795518",
+          "gameweek": 11,
+          "match": "Chelsea vs Leeds United",
+          "minute": 90,
+          "time_str": "90+1'",
+          "replaced_by": "Harry Wilson",
+          "team": "Leeds United"
         }
       ]
     },
     "Brenden Aaronson": {
-      "goals": [],
+      "goals": [
+        {
+          "match_id": "5795518",
+          "gameweek": 11,
+          "match": "Chelsea vs Leeds United",
+          "minute": 90,
+          "time_str": "90+1'",
+          "assist": "Harry Wilson",
+          "team": "Leeds United",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": false,
+          "score_after": "1 - 3"
+        }
+      ],
       "cards": [],
       "substitutions_on": [
         {
@@ -57527,6 +61645,15 @@
           "minute": 84,
           "time_str": "84'",
           "replaced": "Harry Wilson",
+          "team": "Leeds United"
+        },
+        {
+          "match_id": "5795518",
+          "gameweek": 11,
+          "match": "Chelsea vs Leeds United",
+          "minute": 73,
+          "time_str": "73'",
+          "replaced": "Noah Okafor",
           "team": "Leeds United"
         }
       ],
@@ -57630,6 +61757,15 @@
           "match": "Ipswich Town vs Nottingham Forest",
           "minute": 54,
           "time_str": "54'",
+          "card": "Yellow",
+          "team": "Nottingham Forest"
+        },
+        {
+          "match_id": "5795515",
+          "gameweek": 11,
+          "match": "AFC Bournemouth vs Nottingham Forest",
+          "minute": 90,
+          "time_str": "90+1'",
           "card": "Yellow",
           "team": "Nottingham Forest"
         }
@@ -58133,6 +62269,15 @@
           "time_str": "84'",
           "replaced": "Rodrigo Bentancur",
           "team": "Tottenham Hotspur"
+        },
+        {
+          "match_id": "5795524",
+          "gameweek": 11,
+          "match": "Tottenham Hotspur vs Ipswich Town",
+          "minute": 64,
+          "time_str": "64'",
+          "replaced": "James Maddison",
+          "team": "Tottenham Hotspur"
         }
       ],
       "substitutions_off": [
@@ -58174,6 +62319,15 @@
           "match": "Chelsea vs Tottenham Hotspur",
           "minute": 72,
           "time_str": "72'",
+          "card": "Yellow",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "match_id": "5795524",
+          "gameweek": 11,
+          "match": "Tottenham Hotspur vs Ipswich Town",
+          "minute": 90,
+          "time_str": "90+5'",
           "card": "Yellow",
           "team": "Tottenham Hotspur"
         }
@@ -58642,6 +62796,19 @@
           "is_own_goal": false,
           "is_home": false,
           "score_after": "1 - 0"
+        },
+        {
+          "match_id": "5795524",
+          "gameweek": 11,
+          "match": "Tottenham Hotspur vs Ipswich Town",
+          "minute": 51,
+          "time_str": "51'",
+          "assist": null,
+          "team": "Tottenham Hotspur",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": true,
+          "score_after": "1 - 0"
         }
       ],
       "cards": [
@@ -58729,6 +62896,15 @@
           "time_str": "66'",
           "replaced_by": "Conor Gallagher",
           "team": "Tottenham Hotspur"
+        },
+        {
+          "match_id": "5795524",
+          "gameweek": 11,
+          "match": "Tottenham Hotspur vs Ipswich Town",
+          "minute": 64,
+          "time_str": "64'",
+          "replaced_by": "Omar Marmoush",
+          "team": "Tottenham Hotspur"
         }
       ]
     },
@@ -58764,7 +62940,17 @@
           "score_after": "0 - 0"
         }
       ],
-      "cards": [],
+      "cards": [
+        {
+          "match_id": "5795524",
+          "gameweek": 11,
+          "match": "Tottenham Hotspur vs Ipswich Town",
+          "minute": 41,
+          "time_str": "41'",
+          "card": "Yellow",
+          "team": "Tottenham Hotspur"
+        }
+      ],
       "substitutions_on": [
         {
           "match_id": "5795368",
@@ -58820,6 +63006,15 @@
           "minute": 51,
           "time_str": "51'",
           "replaced_by": "Conor Gallagher",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "match_id": "5795524",
+          "gameweek": 11,
+          "match": "Tottenham Hotspur vs Ipswich Town",
+          "minute": 64,
+          "time_str": "64'",
+          "replaced_by": "Lucas Bergvall",
           "team": "Tottenham Hotspur"
         }
       ]
@@ -59357,6 +63552,15 @@
           "time_str": "74'",
           "replaced_by": "Micky van de Ven",
           "team": "Tottenham Hotspur"
+        },
+        {
+          "match_id": "5795524",
+          "gameweek": 11,
+          "match": "Tottenham Hotspur vs Ipswich Town",
+          "minute": 79,
+          "time_str": "79'",
+          "replaced_by": "Andrew Robertson",
+          "team": "Tottenham Hotspur"
         }
       ]
     },
@@ -59404,6 +63608,15 @@
           "minute": 19,
           "time_str": "19'",
           "replaced": "Pedro Porro",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "match_id": "5795524",
+          "gameweek": 11,
+          "match": "Tottenham Hotspur vs Ipswich Town",
+          "minute": 90,
+          "time_str": "90'",
+          "replaced": "Sávio",
           "team": "Tottenham Hotspur"
         }
       ],
@@ -60026,6 +64239,15 @@
           "time_str": "46'",
           "replaced": "Alysson Edward",
           "team": "Aston Villa"
+        },
+        {
+          "match_id": "5795516",
+          "gameweek": 11,
+          "match": "Aston Villa vs Sunderland",
+          "minute": 60,
+          "time_str": "60'",
+          "replaced": "Johan Manzambi",
+          "team": "Aston Villa"
         }
       ],
       "substitutions_off": [
@@ -60449,6 +64671,15 @@
           "time_str": "71'",
           "replaced": "Alysson Edward",
           "team": "Aston Villa"
+        },
+        {
+          "match_id": "5795516",
+          "gameweek": 11,
+          "match": "Aston Villa vs Sunderland",
+          "minute": 73,
+          "time_str": "73'",
+          "replaced": "Leon Goretzka",
+          "team": "Aston Villa"
         }
       ],
       "substitutions_off": [
@@ -60699,6 +64930,15 @@
           "match": "Aston Villa vs Arsenal",
           "minute": 90,
           "time_str": "90+6'",
+          "card": "Yellow",
+          "team": "Aston Villa"
+        },
+        {
+          "match_id": "5795516",
+          "gameweek": 11,
+          "match": "Aston Villa vs Sunderland",
+          "minute": 66,
+          "time_str": "66'",
           "card": "Yellow",
           "team": "Aston Villa"
         }
@@ -61208,6 +65448,15 @@
           "time_str": "72'",
           "replaced_by": "Ibrahim Mbaye",
           "team": "Aston Villa"
+        },
+        {
+          "match_id": "5795516",
+          "gameweek": 11,
+          "match": "Aston Villa vs Sunderland",
+          "minute": 60,
+          "time_str": "60'",
+          "replaced_by": "Ibrahim Mbaye",
+          "team": "Aston Villa"
         }
       ]
     },
@@ -61510,6 +65759,19 @@
           "is_own_goal": false,
           "is_home": false,
           "score_after": "0 - 0"
+        },
+        {
+          "match_id": "5795515",
+          "gameweek": 11,
+          "match": "AFC Bournemouth vs Nottingham Forest",
+          "minute": 19,
+          "time_str": "19'",
+          "assist": "James Hill",
+          "team": "AFC Bournemouth",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": true,
+          "score_after": "0 - 0"
         }
       ],
       "cards": [
@@ -61682,6 +65944,15 @@
           "time_str": "77'",
           "replaced_by": "Elliot Anderson",
           "team": "Manchester City"
+        },
+        {
+          "match_id": "5795522",
+          "gameweek": 11,
+          "match": "Manchester City vs Fulham",
+          "minute": 70,
+          "time_str": "70'",
+          "replaced_by": "Rayan Cherki",
+          "team": "Manchester City"
         }
       ]
     },
@@ -61806,7 +66077,21 @@
       "substitutions_off": []
     },
     "Elliot Anderson": {
-      "goals": [],
+      "goals": [
+        {
+          "match_id": "5795522",
+          "gameweek": 11,
+          "match": "Manchester City vs Fulham",
+          "minute": 57,
+          "time_str": "57'",
+          "assist": null,
+          "team": "Manchester City",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": true,
+          "score_after": "0 - 1"
+        }
+      ],
       "cards": [
         {
           "match_id": "5795429",
@@ -61965,6 +66250,15 @@
           "time_str": "55'",
           "replaced": "Ayyoub Bouaddi",
           "team": "Manchester City"
+        },
+        {
+          "match_id": "5795522",
+          "gameweek": 11,
+          "match": "Manchester City vs Fulham",
+          "minute": 70,
+          "time_str": "70'",
+          "replaced": "Phil Foden",
+          "team": "Manchester City"
         }
       ],
       "substitutions_off": [
@@ -62102,6 +66396,15 @@
           "time_str": "61'",
           "replaced_by": "Joško Gvardiol",
           "team": "Manchester City"
+        },
+        {
+          "match_id": "5795522",
+          "gameweek": 11,
+          "match": "Manchester City vs Fulham",
+          "minute": 78,
+          "time_str": "78'",
+          "replaced_by": "Joško Gvardiol",
+          "team": "Manchester City"
         }
       ]
     },
@@ -62144,6 +66447,19 @@
           "is_own_goal": false,
           "is_home": true,
           "score_after": "0 - 1"
+        },
+        {
+          "match_id": "5795515",
+          "gameweek": 11,
+          "match": "AFC Bournemouth vs Nottingham Forest",
+          "minute": 45,
+          "time_str": "45+3'",
+          "assist": "Marcus Tavernier",
+          "team": "AFC Bournemouth",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": true,
+          "score_after": "1 - 0"
         }
       ],
       "cards": [
@@ -62229,6 +66545,15 @@
           "match": "Ipswich Town vs AFC Bournemouth",
           "minute": 68,
           "time_str": "68'",
+          "replaced_by": "Junior Kroupi",
+          "team": "AFC Bournemouth"
+        },
+        {
+          "match_id": "5795515",
+          "gameweek": 11,
+          "match": "AFC Bournemouth vs Nottingham Forest",
+          "minute": 69,
+          "time_str": "69'",
           "replaced_by": "Junior Kroupi",
           "team": "AFC Bournemouth"
         }
@@ -62355,6 +66680,15 @@
           "time_str": "89'",
           "replaced_by": "Bafodé Diakité",
           "team": "AFC Bournemouth"
+        },
+        {
+          "match_id": "5795515",
+          "gameweek": 11,
+          "match": "AFC Bournemouth vs Nottingham Forest",
+          "minute": 69,
+          "time_str": "69'",
+          "replaced_by": "Lewis Cook",
+          "team": "AFC Bournemouth"
         }
       ]
     },
@@ -62433,6 +66767,15 @@
           "minute": 67,
           "time_str": "67'",
           "replaced": "Ryan Christie",
+          "team": "AFC Bournemouth"
+        },
+        {
+          "match_id": "5795515",
+          "gameweek": 11,
+          "match": "AFC Bournemouth vs Nottingham Forest",
+          "minute": 69,
+          "time_str": "69'",
+          "replaced": "Tyler Adams",
           "team": "AFC Bournemouth"
         }
       ],
@@ -62603,6 +66946,15 @@
           "time_str": "63'",
           "replaced": "Justin Kluivert",
           "team": "AFC Bournemouth"
+        },
+        {
+          "match_id": "5795515",
+          "gameweek": 11,
+          "match": "AFC Bournemouth vs Nottingham Forest",
+          "minute": 90,
+          "time_str": "90'",
+          "replaced": "Rayan",
+          "team": "AFC Bournemouth"
         }
       ],
       "substitutions_off": []
@@ -62688,6 +67040,15 @@
           "time_str": "85'",
           "replaced_by": "Amine Adli",
           "team": "AFC Bournemouth"
+        },
+        {
+          "match_id": "5795515",
+          "gameweek": 11,
+          "match": "AFC Bournemouth vs Nottingham Forest",
+          "minute": 90,
+          "time_str": "90'",
+          "replaced_by": "Ben Gannon-Doak",
+          "team": "AFC Bournemouth"
         }
       ]
     },
@@ -62748,6 +67109,15 @@
           "minute": 85,
           "time_str": "85'",
           "replaced": "William Osula",
+          "team": "Newcastle United"
+        },
+        {
+          "match_id": "5795523",
+          "gameweek": 11,
+          "match": "Newcastle United vs Arsenal",
+          "minute": 46,
+          "time_str": "46'",
+          "replaced": "Jacob Murphy",
           "team": "Newcastle United"
         }
       ],
@@ -62970,6 +67340,15 @@
           "time_str": "64'",
           "replaced_by": "Yoane Wissa",
           "team": "Newcastle United"
+        },
+        {
+          "match_id": "5795523",
+          "gameweek": 11,
+          "match": "Newcastle United vs Arsenal",
+          "minute": 83,
+          "time_str": "83'",
+          "replaced_by": "Yoane Wissa",
+          "team": "Newcastle United"
         }
       ]
     },
@@ -63102,6 +67481,15 @@
           "match": "Newcastle United vs Everton",
           "minute": 64,
           "time_str": "64'",
+          "replaced": "Joseph Willock",
+          "team": "Newcastle United"
+        },
+        {
+          "match_id": "5795523",
+          "gameweek": 11,
+          "match": "Newcastle United vs Arsenal",
+          "minute": 83,
+          "time_str": "83'",
           "replaced": "Joseph Willock",
           "team": "Newcastle United"
         }
@@ -63401,6 +67789,15 @@
           "time_str": "75'",
           "replaced": "Joelinton",
           "team": "Newcastle United"
+        },
+        {
+          "match_id": "5795523",
+          "gameweek": 11,
+          "match": "Newcastle United vs Arsenal",
+          "minute": 46,
+          "time_str": "46'",
+          "replaced": "Sean Steur",
+          "team": "Newcastle United"
         }
       ],
       "substitutions_off": []
@@ -63505,6 +67902,15 @@
           "minute": 59,
           "time_str": "59'",
           "replaced_by": "Bazoumana Touré",
+          "team": "Newcastle United"
+        },
+        {
+          "match_id": "5795523",
+          "gameweek": 11,
+          "match": "Newcastle United vs Arsenal",
+          "minute": 46,
+          "time_str": "46'",
+          "replaced_by": "Anthony Elanga",
           "team": "Newcastle United"
         }
       ]
@@ -63635,6 +68041,15 @@
           "minute": 74,
           "time_str": "74'",
           "replaced_by": "Matias Fernandez-Pardo",
+          "team": "Newcastle United"
+        },
+        {
+          "match_id": "5795523",
+          "gameweek": 11,
+          "match": "Newcastle United vs Arsenal",
+          "minute": 46,
+          "time_str": "46'",
+          "replaced_by": "Jacob Ramsey",
           "team": "Newcastle United"
         }
       ]
@@ -64729,6 +69144,15 @@
           "time_str": "72'",
           "replaced_by": "César Palacios",
           "team": "Fulham"
+        },
+        {
+          "match_id": "5795522",
+          "gameweek": 11,
+          "match": "Manchester City vs Fulham",
+          "minute": 70,
+          "time_str": "70'",
+          "replaced_by": "Hugo Larsson",
+          "team": "Fulham"
         }
       ]
     },
@@ -64988,7 +69412,17 @@
         }
       ],
       "cards": [],
-      "substitutions_on": [],
+      "substitutions_on": [
+        {
+          "match_id": "5795522",
+          "gameweek": 11,
+          "match": "Manchester City vs Fulham",
+          "minute": 78,
+          "time_str": "78'",
+          "replaced": "Oscar Bobb",
+          "team": "Fulham"
+        }
+      ],
       "substitutions_off": [
         {
           "match_id": "5795451",
@@ -65124,6 +69558,15 @@
           "time_str": "12'",
           "card": "Yellow",
           "team": "Chelsea"
+        },
+        {
+          "match_id": "5795518",
+          "gameweek": 11,
+          "match": "Chelsea vs Leeds United",
+          "minute": 47,
+          "time_str": "47'",
+          "card": "Yellow",
+          "team": "Chelsea"
         }
       ],
       "substitutions_on": [
@@ -65240,6 +69683,15 @@
           "time_str": "45+4'",
           "card": "Yellow",
           "team": "Fulham"
+        },
+        {
+          "match_id": "5795522",
+          "gameweek": 11,
+          "match": "Manchester City vs Fulham",
+          "minute": 22,
+          "time_str": "22'",
+          "card": "Yellow",
+          "team": "Fulham"
         }
       ],
       "substitutions_on": [],
@@ -65352,6 +69804,15 @@
           "time_str": "50'",
           "replaced": "Mateo Kovačić",
           "team": "Manchester City"
+        },
+        {
+          "match_id": "5795522",
+          "gameweek": 11,
+          "match": "Manchester City vs Fulham",
+          "minute": 85,
+          "time_str": "85'",
+          "replaced": "Ayyoub Bouaddi",
+          "team": "Manchester City"
         }
       ],
       "substitutions_off": [
@@ -65461,6 +69922,15 @@
           "time_str": "79'",
           "replaced_by": "Geovany Quenda",
           "team": "Chelsea"
+        },
+        {
+          "match_id": "5795518",
+          "gameweek": 11,
+          "match": "Chelsea vs Leeds United",
+          "minute": 73,
+          "time_str": "73'",
+          "replaced_by": "Geovany Quenda",
+          "team": "Chelsea"
         }
       ]
     },
@@ -65525,6 +69995,15 @@
           "match": "Coventry City vs Fulham",
           "minute": 36,
           "time_str": "36'",
+          "card": "Yellow",
+          "team": "Fulham"
+        },
+        {
+          "match_id": "5795522",
+          "gameweek": 11,
+          "match": "Manchester City vs Fulham",
+          "minute": 44,
+          "time_str": "44'",
           "card": "Yellow",
           "team": "Fulham"
         }
@@ -65678,6 +70157,15 @@
           "time_str": "78'",
           "replaced_by": "Ryan Sessegnon",
           "team": "Fulham"
+        },
+        {
+          "match_id": "5795522",
+          "gameweek": 11,
+          "match": "Manchester City vs Fulham",
+          "minute": 78,
+          "time_str": "78'",
+          "replaced_by": "Gonzalo García",
+          "team": "Fulham"
         }
       ]
     },
@@ -65805,6 +70293,15 @@
           "time_str": "72'",
           "replaced": "Joshua King",
           "team": "Fulham"
+        },
+        {
+          "match_id": "5795522",
+          "gameweek": 11,
+          "match": "Manchester City vs Fulham",
+          "minute": 83,
+          "time_str": "83'",
+          "replaced": "Ryan Sessegnon",
+          "team": "Fulham"
         }
       ],
       "substitutions_off": [
@@ -65911,7 +70408,17 @@
           "team": "Fulham"
         }
       ],
-      "substitutions_off": []
+      "substitutions_off": [
+        {
+          "match_id": "5795522",
+          "gameweek": 11,
+          "match": "Manchester City vs Fulham",
+          "minute": 83,
+          "time_str": "83'",
+          "replaced_by": "César Palacios",
+          "team": "Fulham"
+        }
+      ]
     },
     "Sander Berge": {
       "goals": [],
@@ -66056,6 +70563,15 @@
           "time_str": "76'",
           "replaced": "Malo Gusto",
           "team": "Chelsea"
+        },
+        {
+          "match_id": "5795518",
+          "gameweek": 11,
+          "match": "Chelsea vs Leeds United",
+          "minute": 64,
+          "time_str": "64'",
+          "replaced": "Estêvão",
+          "team": "Chelsea"
         }
       ],
       "substitutions_off": [
@@ -66181,6 +70697,15 @@
           "time_str": "62'",
           "replaced": "Marco Palestra",
           "team": "Chelsea"
+        },
+        {
+          "match_id": "5795518",
+          "gameweek": 11,
+          "match": "Chelsea vs Leeds United",
+          "minute": 73,
+          "time_str": "73'",
+          "replaced": "Josh Acheampong",
+          "team": "Chelsea"
         }
       ],
       "substitutions_off": [
@@ -66218,6 +70743,19 @@
           "is_own_goal": false,
           "is_home": true,
           "score_after": "0 - 1"
+        },
+        {
+          "match_id": "5795522",
+          "gameweek": 11,
+          "match": "Manchester City vs Fulham",
+          "minute": 16,
+          "time_str": "16'",
+          "assist": "Oscar Bobb",
+          "team": "Fulham",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": false,
+          "score_after": "0 - 0"
         }
       ],
       "cards": [
@@ -66305,7 +70843,17 @@
           "team": "Fulham"
         }
       ],
-      "substitutions_off": []
+      "substitutions_off": [
+        {
+          "match_id": "5795522",
+          "gameweek": 11,
+          "match": "Manchester City vs Fulham",
+          "minute": 83,
+          "time_str": "83'",
+          "replaced_by": "Tom Cairney",
+          "team": "Fulham"
+        }
+      ]
     },
     "Antonee Robinson": {
       "goals": [],
@@ -66320,7 +70868,17 @@
           "team": "Fulham"
         }
       ],
-      "substitutions_on": [],
+      "substitutions_on": [
+        {
+          "match_id": "5795522",
+          "gameweek": 11,
+          "match": "Manchester City vs Fulham",
+          "minute": 70,
+          "time_str": "70'",
+          "replaced": "Alex Iwobi",
+          "team": "Fulham"
+        }
+      ],
       "substitutions_off": [
         {
           "match_id": "5795372",
@@ -66388,6 +70946,15 @@
           "match": "Sunderland vs Chelsea",
           "minute": 79,
           "time_str": "79'",
+          "replaced": "Pep Chavarría",
+          "team": "Chelsea"
+        },
+        {
+          "match_id": "5795518",
+          "gameweek": 11,
+          "match": "Chelsea vs Leeds United",
+          "minute": 73,
+          "time_str": "73'",
           "replaced": "Pep Chavarría",
           "team": "Chelsea"
         }
@@ -66480,6 +71047,15 @@
           "minute": 87,
           "time_str": "87'",
           "replaced_by": "Malo Gusto",
+          "team": "Chelsea"
+        },
+        {
+          "match_id": "5795518",
+          "gameweek": 11,
+          "match": "Chelsea vs Leeds United",
+          "minute": 64,
+          "time_str": "64'",
+          "replaced_by": "Pedro Neto",
           "team": "Chelsea"
         }
       ]
@@ -66634,7 +71210,17 @@
           "score_after": "0 - 2"
         }
       ],
-      "cards": [],
+      "cards": [
+        {
+          "match_id": "5795522",
+          "gameweek": 11,
+          "match": "Manchester City vs Fulham",
+          "minute": 76,
+          "time_str": "76'",
+          "card": "Yellow",
+          "team": "Manchester City"
+        }
+      ],
       "substitutions_on": [],
       "substitutions_off": []
     },
@@ -66809,6 +71395,15 @@
           "time_str": "61'",
           "replaced": "Nico O'Reilly",
           "team": "Manchester City"
+        },
+        {
+          "match_id": "5795522",
+          "gameweek": 11,
+          "match": "Manchester City vs Fulham",
+          "minute": 78,
+          "time_str": "78'",
+          "replaced": "Nico O'Reilly",
+          "team": "Manchester City"
         }
       ],
       "substitutions_off": [
@@ -66935,6 +71530,15 @@
           "minute": 55,
           "time_str": "55'",
           "replaced_by": "Rayan Cherki",
+          "team": "Manchester City"
+        },
+        {
+          "match_id": "5795522",
+          "gameweek": 11,
+          "match": "Manchester City vs Fulham",
+          "minute": 85,
+          "time_str": "85'",
+          "replaced_by": "Enzo Fernández",
           "team": "Manchester City"
         }
       ]
@@ -67253,6 +71857,15 @@
           "time_str": "87'",
           "replaced": "Liam Delap",
           "team": "Nottingham Forest"
+        },
+        {
+          "match_id": "5795515",
+          "gameweek": 11,
+          "match": "AFC Bournemouth vs Nottingham Forest",
+          "minute": 46,
+          "time_str": "46'",
+          "replaced": "Dan Ndoye",
+          "team": "Nottingham Forest"
         }
       ],
       "substitutions_off": [
@@ -67341,6 +71954,15 @@
           "match": "Nottingham Forest vs Coventry City",
           "minute": 59,
           "time_str": "59'",
+          "card": "Yellow",
+          "team": "Nottingham Forest"
+        },
+        {
+          "match_id": "5795515",
+          "gameweek": 11,
+          "match": "AFC Bournemouth vs Nottingham Forest",
+          "minute": 45,
+          "time_str": "45'",
           "card": "Yellow",
           "team": "Nottingham Forest"
         }
@@ -67631,9 +72253,28 @@
           "time_str": "21'",
           "card": "Yellow",
           "team": "AFC Bournemouth"
+        },
+        {
+          "match_id": "5795515",
+          "gameweek": 11,
+          "match": "AFC Bournemouth vs Nottingham Forest",
+          "minute": 87,
+          "time_str": "87'",
+          "card": "Yellow",
+          "team": "AFC Bournemouth"
         }
       ],
-      "substitutions_on": [],
+      "substitutions_on": [
+        {
+          "match_id": "5795515",
+          "gameweek": 11,
+          "match": "AFC Bournemouth vs Nottingham Forest",
+          "minute": 69,
+          "time_str": "69'",
+          "replaced": "Ryan Christie",
+          "team": "AFC Bournemouth"
+        }
+      ],
       "substitutions_off": [
         {
           "match_id": "5795425",
@@ -67778,6 +72419,15 @@
           "match": "Ipswich Town vs AFC Bournemouth",
           "minute": 79,
           "time_str": "79'",
+          "replaced_by": "Bafodé Diakité",
+          "team": "AFC Bournemouth"
+        },
+        {
+          "match_id": "5795515",
+          "gameweek": 11,
+          "match": "AFC Bournemouth vs Nottingham Forest",
+          "minute": 87,
+          "time_str": "87'",
           "replaced_by": "Bafodé Diakité",
           "team": "AFC Bournemouth"
         }
@@ -68231,6 +72881,15 @@
           "time_str": "67'",
           "replaced_by": "Lewis Cook",
           "team": "AFC Bournemouth"
+        },
+        {
+          "match_id": "5795515",
+          "gameweek": 11,
+          "match": "AFC Bournemouth vs Nottingham Forest",
+          "minute": 69,
+          "time_str": "69'",
+          "replaced_by": "Alex Scott",
+          "team": "AFC Bournemouth"
         }
       ]
     },
@@ -68593,6 +73252,19 @@
           "is_own_goal": false,
           "is_home": true,
           "score_after": "0 - 0"
+        },
+        {
+          "match_id": "5795519",
+          "gameweek": 11,
+          "match": "Coventry City vs Crystal Palace",
+          "minute": 30,
+          "time_str": "30'",
+          "assist": "Jack Rudoni",
+          "team": "Coventry City",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": true,
+          "score_after": "1 - 1"
         }
       ],
       "cards": [
@@ -69064,12 +73736,32 @@
           "team": "Newcastle United"
         }
       ],
-      "substitutions_on": [],
+      "substitutions_on": [
+        {
+          "match_id": "5795523",
+          "gameweek": 11,
+          "match": "Newcastle United vs Arsenal",
+          "minute": 90,
+          "time_str": "90+2'",
+          "replaced": "Lewis Hall",
+          "team": "Newcastle United"
+        }
+      ],
       "substitutions_off": []
     },
     "Mohammed Kudus": {
       "goals": [],
-      "cards": [],
+      "cards": [
+        {
+          "match_id": "5795524",
+          "gameweek": 11,
+          "match": "Tottenham Hotspur vs Ipswich Town",
+          "minute": 79,
+          "time_str": "79'",
+          "card": "Yellow",
+          "team": "Tottenham Hotspur"
+        }
+      ],
       "substitutions_on": [
         {
           "match_id": "5795434",
@@ -69242,6 +73934,15 @@
           "match": "Nottingham Forest vs Tottenham Hotspur",
           "minute": 61,
           "time_str": "61'",
+          "replaced": "Destiny Udogie",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "match_id": "5795524",
+          "gameweek": 11,
+          "match": "Tottenham Hotspur vs Ipswich Town",
+          "minute": 79,
+          "time_str": "79'",
           "replaced": "Destiny Udogie",
           "team": "Tottenham Hotspur"
         }
@@ -69448,9 +74149,32 @@
           "is_own_goal": false,
           "is_home": false,
           "score_after": "0 - 1"
+        },
+        {
+          "match_id": "5795523",
+          "gameweek": 11,
+          "match": "Newcastle United vs Arsenal",
+          "minute": 49,
+          "time_str": "49'",
+          "assist": "William Osula",
+          "team": "Newcastle United",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": true,
+          "score_after": "0 - 1"
         }
       ],
-      "cards": [],
+      "cards": [
+        {
+          "match_id": "5795523",
+          "gameweek": 11,
+          "match": "Newcastle United vs Arsenal",
+          "minute": 58,
+          "time_str": "58'",
+          "card": "Yellow",
+          "team": "Newcastle United"
+        }
+      ],
       "substitutions_on": [],
       "substitutions_off": [
         {
@@ -69743,6 +74467,15 @@
           "time_str": "87'",
           "replaced_by": "Danny Welbeck",
           "team": "Chelsea"
+        },
+        {
+          "match_id": "5795518",
+          "gameweek": 11,
+          "match": "Chelsea vs Leeds United",
+          "minute": 22,
+          "time_str": "22'",
+          "replaced_by": "Jordan Henderson",
+          "team": "Chelsea"
         }
       ]
     },
@@ -69779,7 +74512,17 @@
           "team": "Chelsea"
         }
       ],
-      "substitutions_off": []
+      "substitutions_off": [
+        {
+          "match_id": "5795518",
+          "gameweek": 11,
+          "match": "Chelsea vs Leeds United",
+          "minute": 73,
+          "time_str": "73'",
+          "replaced_by": "Malo Gusto",
+          "team": "Chelsea"
+        }
+      ]
     },
     "Promise David": {
       "goals": [],
@@ -70114,6 +74857,15 @@
           "time_str": "90+3'",
           "replaced": "Jayden Bogle",
           "team": "Leeds United"
+        },
+        {
+          "match_id": "5795518",
+          "gameweek": 11,
+          "match": "Chelsea vs Leeds United",
+          "minute": 86,
+          "time_str": "86'",
+          "replaced": "Jayden Bogle",
+          "team": "Leeds United"
         }
       ],
       "substitutions_off": [
@@ -70232,6 +74984,15 @@
           "minute": 77,
           "time_str": "77'",
           "replaced_by": "Harry Wilson",
+          "team": "Leeds United"
+        },
+        {
+          "match_id": "5795518",
+          "gameweek": 11,
+          "match": "Chelsea vs Leeds United",
+          "minute": 86,
+          "time_str": "86'",
+          "replaced_by": "Anton Stach",
           "team": "Leeds United"
         }
       ]
@@ -70447,6 +75208,15 @@
           "time_str": "67'",
           "card": "Yellow",
           "team": "Leeds United"
+        },
+        {
+          "match_id": "5795518",
+          "gameweek": 11,
+          "match": "Chelsea vs Leeds United",
+          "minute": 68,
+          "time_str": "68'",
+          "card": "Yellow",
+          "team": "Leeds United"
         }
       ],
       "substitutions_on": [],
@@ -70502,6 +75272,15 @@
           "match": "Leeds United vs Tottenham Hotspur",
           "minute": 90,
           "time_str": "90+3'",
+          "replaced_by": "Joe Rodon",
+          "team": "Leeds United"
+        },
+        {
+          "match_id": "5795518",
+          "gameweek": 11,
+          "match": "Chelsea vs Leeds United",
+          "minute": 86,
+          "time_str": "86'",
           "replaced_by": "Joe Rodon",
           "team": "Leeds United"
         }
@@ -70681,7 +75460,17 @@
         }
       ],
       "substitutions_on": [],
-      "substitutions_off": []
+      "substitutions_off": [
+        {
+          "match_id": "5795524",
+          "gameweek": 11,
+          "match": "Tottenham Hotspur vs Ipswich Town",
+          "minute": 83,
+          "time_str": "83'",
+          "replaced_by": "Jacob Greaves",
+          "team": "Ipswich Town"
+        }
+      ]
     },
     "Bruno Fernandes": {
       "goals": [
@@ -70797,7 +75586,17 @@
           "team": "Ipswich Town"
         }
       ],
-      "substitutions_on": [],
+      "substitutions_on": [
+        {
+          "match_id": "5795524",
+          "gameweek": 11,
+          "match": "Tottenham Hotspur vs Ipswich Town",
+          "minute": 83,
+          "time_str": "83'",
+          "replaced": "Leif Davis",
+          "team": "Ipswich Town"
+        }
+      ],
       "substitutions_off": [
         {
           "match_id": "5795449",
@@ -70983,6 +75782,15 @@
           "minute": 81,
           "time_str": "81'",
           "replaced_by": "Chuba Akpom",
+          "team": "Ipswich Town"
+        },
+        {
+          "match_id": "5795524",
+          "gameweek": 11,
+          "match": "Tottenham Hotspur vs Ipswich Town",
+          "minute": 56,
+          "time_str": "56'",
+          "replaced_by": "Florentino",
           "team": "Ipswich Town"
         }
       ]
@@ -71204,6 +76012,15 @@
           "time_str": "89'",
           "replaced_by": "Martín Zubimendi",
           "team": "Arsenal"
+        },
+        {
+          "match_id": "5795523",
+          "gameweek": 11,
+          "match": "Newcastle United vs Arsenal",
+          "minute": 70,
+          "time_str": "70'",
+          "replaced_by": "Myles Lewis-Skelly",
+          "team": "Arsenal"
         }
       ]
     },
@@ -71236,6 +76053,15 @@
           "match": "Liverpool vs Arsenal",
           "minute": 62,
           "time_str": "62'",
+          "replaced": "Bruno Guimarães",
+          "team": "Arsenal"
+        },
+        {
+          "match_id": "5795523",
+          "gameweek": 11,
+          "match": "Newcastle United vs Arsenal",
+          "minute": 70,
+          "time_str": "70'",
           "replaced": "Bruno Guimarães",
           "team": "Arsenal"
         }
@@ -71485,6 +76311,15 @@
           "match": "Manchester United vs Aston Villa",
           "minute": 86,
           "time_str": "86'",
+          "replaced_by": "Brian Madjo",
+          "team": "Aston Villa"
+        },
+        {
+          "match_id": "5795516",
+          "gameweek": 11,
+          "match": "Aston Villa vs Sunderland",
+          "minute": 73,
+          "time_str": "73'",
           "replaced_by": "Brian Madjo",
           "team": "Aston Villa"
         }
@@ -71909,7 +76744,17 @@
           "team": "Ipswich Town"
         }
       ],
-      "substitutions_off": []
+      "substitutions_off": [
+        {
+          "match_id": "5795524",
+          "gameweek": 11,
+          "match": "Tottenham Hotspur vs Ipswich Town",
+          "minute": 74,
+          "time_str": "74'",
+          "replaced_by": "Emersonn",
+          "team": "Ipswich Town"
+        }
+      ]
     },
     "Malick Thiaw": {
       "goals": [
@@ -71925,6 +76770,19 @@
           "is_own_goal": true,
           "is_home": false,
           "score_after": "0 - 1"
+        },
+        {
+          "match_id": "5795523",
+          "gameweek": 11,
+          "match": "Newcastle United vs Arsenal",
+          "minute": 62,
+          "time_str": "62'",
+          "assist": "Joseph Willock",
+          "team": "Newcastle United",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": true,
+          "score_after": "1 - 1"
         }
       ],
       "cards": [
@@ -72096,6 +76954,15 @@
           "time_str": "58'",
           "replaced": "Amar Dedić",
           "team": "Newcastle United"
+        },
+        {
+          "match_id": "5795523",
+          "gameweek": 11,
+          "match": "Newcastle United vs Arsenal",
+          "minute": 46,
+          "time_str": "46'",
+          "replaced": "Amar Dedić",
+          "team": "Newcastle United"
         }
       ],
       "substitutions_off": []
@@ -72136,6 +77003,15 @@
           "minute": 90,
           "time_str": "90'",
           "replaced_by": "Valentino Livramento",
+          "team": "Newcastle United"
+        },
+        {
+          "match_id": "5795523",
+          "gameweek": 11,
+          "match": "Newcastle United vs Arsenal",
+          "minute": 90,
+          "time_str": "90+2'",
+          "replaced_by": "Sven Botman",
           "team": "Newcastle United"
         }
       ]
@@ -72653,6 +77529,15 @@
           "time_str": "60'",
           "replaced_by": "Darío Osorio",
           "team": "Crystal Palace"
+        },
+        {
+          "match_id": "5795519",
+          "gameweek": 11,
+          "match": "Coventry City vs Crystal Palace",
+          "minute": 73,
+          "time_str": "73'",
+          "replaced_by": "Jefferson Lerma",
+          "team": "Crystal Palace"
         }
       ]
     },
@@ -72704,6 +77589,15 @@
           "time_str": "87'",
           "replaced": "Timothy Castagne",
           "team": "Fulham"
+        },
+        {
+          "match_id": "5795522",
+          "gameweek": 11,
+          "match": "Manchester City vs Fulham",
+          "minute": 70,
+          "time_str": "70'",
+          "replaced": "Joshua King",
+          "team": "Fulham"
         }
       ],
       "substitutions_off": [
@@ -72734,7 +77628,17 @@
           "score_after": "0 - 0"
         }
       ],
-      "cards": [],
+      "cards": [
+        {
+          "match_id": "5795522",
+          "gameweek": 11,
+          "match": "Manchester City vs Fulham",
+          "minute": 7,
+          "time_str": "7'",
+          "card": "Yellow",
+          "team": "Fulham"
+        }
+      ],
       "substitutions_on": [],
       "substitutions_off": [
         {
@@ -72790,6 +77694,15 @@
           "time_str": "75'",
           "replaced_by": "Tom Cairney",
           "team": "Fulham"
+        },
+        {
+          "match_id": "5795522",
+          "gameweek": 11,
+          "match": "Manchester City vs Fulham",
+          "minute": 70,
+          "time_str": "70'",
+          "replaced_by": "Antonee Robinson",
+          "team": "Fulham"
         }
       ]
     },
@@ -72831,6 +77744,15 @@
           "minute": 60,
           "time_str": "60'",
           "replaced": "Quinten Timber",
+          "team": "Crystal Palace"
+        },
+        {
+          "match_id": "5795519",
+          "gameweek": 11,
+          "match": "Coventry City vs Crystal Palace",
+          "minute": 89,
+          "time_str": "89'",
+          "replaced": "Dwight McNeil",
           "team": "Crystal Palace"
         }
       ],
@@ -72890,6 +77812,15 @@
           "minute": 67,
           "time_str": "67'",
           "replaced": "Caleb Yirenkyi",
+          "team": "Coventry City"
+        },
+        {
+          "match_id": "5795519",
+          "gameweek": 11,
+          "match": "Coventry City vs Crystal Palace",
+          "minute": 71,
+          "time_str": "71'",
+          "replaced": "Matt Grimes",
           "team": "Coventry City"
         }
       ],
@@ -73013,6 +77944,15 @@
           "time_str": "79'",
           "replaced_by": "Allan",
           "team": "Manchester City"
+        },
+        {
+          "match_id": "5795522",
+          "gameweek": 11,
+          "match": "Manchester City vs Fulham",
+          "minute": 78,
+          "time_str": "78'",
+          "replaced_by": "Allan",
+          "team": "Manchester City"
         }
       ]
     },
@@ -73058,7 +77998,17 @@
     "Sávio": {
       "goals": [],
       "cards": [],
-      "substitutions_on": [],
+      "substitutions_on": [
+        {
+          "match_id": "5795524",
+          "gameweek": 11,
+          "match": "Tottenham Hotspur vs Ipswich Town",
+          "minute": 64,
+          "time_str": "64'",
+          "replaced": "Lucá Williams-Barnett",
+          "team": "Tottenham Hotspur"
+        }
+      ],
       "substitutions_off": [
         {
           "match_id": "5795444",
@@ -73067,6 +78017,15 @@
           "minute": 61,
           "time_str": "61'",
           "replaced_by": "Mohammed Kudus",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "match_id": "5795524",
+          "gameweek": 11,
+          "match": "Tottenham Hotspur vs Ipswich Town",
+          "minute": 90,
+          "time_str": "90'",
+          "replaced_by": "Archie Gray",
           "team": "Tottenham Hotspur"
         }
       ]
@@ -73112,6 +78071,15 @@
           "minute": 66,
           "time_str": "66'",
           "replaced": "Mohammed Kudus",
+          "team": "Tottenham Hotspur"
+        },
+        {
+          "match_id": "5795524",
+          "gameweek": 11,
+          "match": "Tottenham Hotspur vs Ipswich Town",
+          "minute": 64,
+          "time_str": "64'",
+          "replaced": "Dominic Solanke",
           "team": "Tottenham Hotspur"
         }
       ],
@@ -73535,7 +78503,17 @@
     },
     "Viktor Gyökeres": {
       "goals": [],
-      "cards": [],
+      "cards": [
+        {
+          "match_id": "5795523",
+          "gameweek": 11,
+          "match": "Newcastle United vs Arsenal",
+          "minute": 90,
+          "time_str": "90+10'",
+          "card": "Yellow",
+          "team": "Arsenal"
+        }
+      ],
       "substitutions_on": [
         {
           "match_id": "5795435",
@@ -73588,6 +78566,15 @@
           "match": "Arsenal vs Hull City",
           "minute": 63,
           "time_str": "63'",
+          "replaced": "Kai Havertz",
+          "team": "Arsenal"
+        },
+        {
+          "match_id": "5795523",
+          "gameweek": 11,
+          "match": "Newcastle United vs Arsenal",
+          "minute": 90,
+          "time_str": "90+4'",
           "replaced": "Kai Havertz",
           "team": "Arsenal"
         }
@@ -73669,6 +78656,15 @@
           "minute": 62,
           "time_str": "62'",
           "replaced": "Pedro Neto",
+          "team": "Chelsea"
+        },
+        {
+          "match_id": "5795518",
+          "gameweek": 11,
+          "match": "Chelsea vs Leeds United",
+          "minute": 64,
+          "time_str": "64'",
+          "replaced": "Emanuel Emegha",
           "team": "Chelsea"
         }
       ],
@@ -73818,6 +78814,15 @@
           "time_str": "78'",
           "replaced": "Johan Manzambi",
           "team": "Aston Villa"
+        },
+        {
+          "match_id": "5795516",
+          "gameweek": 11,
+          "match": "Aston Villa vs Sunderland",
+          "minute": 60,
+          "time_str": "60'",
+          "replaced": "Emiliano Buendía",
+          "team": "Aston Villa"
         }
       ],
       "substitutions_off": []
@@ -73926,6 +78931,15 @@
           "minute": 78,
           "time_str": "78'",
           "replaced_by": "Ibrahim Mbaye",
+          "team": "Aston Villa"
+        },
+        {
+          "match_id": "5795516",
+          "gameweek": 11,
+          "match": "Aston Villa vs Sunderland",
+          "minute": 60,
+          "time_str": "60'",
+          "replaced_by": "John McGinn",
           "team": "Aston Villa"
         }
       ]
@@ -74193,6 +79207,15 @@
           "time_str": "64'",
           "card": "Yellow",
           "team": "Crystal Palace"
+        },
+        {
+          "match_id": "5795519",
+          "gameweek": 11,
+          "match": "Coventry City vs Crystal Palace",
+          "minute": 36,
+          "time_str": "36'",
+          "card": "Yellow",
+          "team": "Crystal Palace"
         }
       ],
       "substitutions_on": [],
@@ -74251,6 +79274,15 @@
           "minute": 73,
           "time_str": "73'",
           "replaced": "Saša Lukić",
+          "team": "Ipswich Town"
+        },
+        {
+          "match_id": "5795524",
+          "gameweek": 11,
+          "match": "Tottenham Hotspur vs Ipswich Town",
+          "minute": 56,
+          "time_str": "56'",
+          "replaced": "Exequiel Palacios",
           "team": "Ipswich Town"
         }
       ],
@@ -74382,6 +79414,15 @@
           "minute": 88,
           "time_str": "88'",
           "replaced": "Daichi Kamada",
+          "team": "Crystal Palace"
+        },
+        {
+          "match_id": "5795519",
+          "gameweek": 11,
+          "match": "Coventry City vs Crystal Palace",
+          "minute": 73,
+          "time_str": "73'",
+          "replaced": "Quinten Timber",
           "team": "Crystal Palace"
         }
       ],
@@ -74780,6 +79821,15 @@
           "time_str": "87'",
           "replaced": "Taiwo Awoniyi",
           "team": "Coventry City"
+        },
+        {
+          "match_id": "5795519",
+          "gameweek": 11,
+          "match": "Coventry City vs Crystal Palace",
+          "minute": 46,
+          "time_str": "46'",
+          "replaced": "Taiwo Awoniyi",
+          "team": "Coventry City"
         }
       ],
       "substitutions_off": [
@@ -74909,7 +79959,17 @@
     },
     "Matt Grimes": {
       "goals": [],
-      "cards": [],
+      "cards": [
+        {
+          "match_id": "5795519",
+          "gameweek": 11,
+          "match": "Coventry City vs Crystal Palace",
+          "minute": 61,
+          "time_str": "61'",
+          "card": "Yellow",
+          "team": "Coventry City"
+        }
+      ],
       "substitutions_on": [
         {
           "match_id": "5795499",
@@ -74947,6 +80007,15 @@
           "minute": 83,
           "time_str": "83'",
           "replaced_by": "Stephen Mfuni",
+          "team": "Coventry City"
+        },
+        {
+          "match_id": "5795519",
+          "gameweek": 11,
+          "match": "Coventry City vs Crystal Palace",
+          "minute": 71,
+          "time_str": "71'",
+          "replaced_by": "Frank Onyeka",
           "team": "Coventry City"
         }
       ]
@@ -75088,6 +80157,15 @@
           "time_str": "90+2'",
           "card": "Yellow",
           "team": "Newcastle United"
+        },
+        {
+          "match_id": "5795523",
+          "gameweek": 11,
+          "match": "Newcastle United vs Arsenal",
+          "minute": 23,
+          "time_str": "23'",
+          "card": "Yellow",
+          "team": "Newcastle United"
         }
       ],
       "substitutions_on": [
@@ -75128,6 +80206,15 @@
           "time_str": "87'",
           "replaced_by": "Bazoumana Touré",
           "team": "Newcastle United"
+        },
+        {
+          "match_id": "5795523",
+          "gameweek": 11,
+          "match": "Newcastle United vs Arsenal",
+          "minute": 46,
+          "time_str": "46'",
+          "replaced_by": "Valentino Livramento",
+          "team": "Newcastle United"
         }
       ]
     },
@@ -75152,6 +80239,15 @@
           "time_str": "46'",
           "replaced": "Gabriel Gudmundsson",
           "team": "Leeds United"
+        },
+        {
+          "match_id": "5795518",
+          "gameweek": 11,
+          "match": "Chelsea vs Leeds United",
+          "minute": 90,
+          "time_str": "90+1'",
+          "replaced": "Gabriel Gudmundsson",
+          "team": "Leeds United"
         }
       ],
       "substitutions_off": []
@@ -75165,6 +80261,15 @@
           "match": "Leeds United vs Manchester United",
           "minute": 19,
           "time_str": "19'",
+          "card": "Yellow",
+          "team": "Leeds United"
+        },
+        {
+          "match_id": "5795518",
+          "gameweek": 11,
+          "match": "Chelsea vs Leeds United",
+          "minute": 38,
+          "time_str": "38'",
           "card": "Yellow",
           "team": "Leeds United"
         }
@@ -75204,6 +80309,15 @@
           "match": "Leeds United vs Tottenham Hotspur",
           "minute": 46,
           "time_str": "46'",
+          "replaced_by": "Melvin Bard",
+          "team": "Leeds United"
+        },
+        {
+          "match_id": "5795518",
+          "gameweek": 11,
+          "match": "Chelsea vs Leeds United",
+          "minute": 90,
+          "time_str": "90+1'",
           "replaced_by": "Melvin Bard",
           "team": "Leeds United"
         }
@@ -76151,7 +81265,17 @@
         }
       ],
       "cards": [],
-      "substitutions_on": [],
+      "substitutions_on": [
+        {
+          "match_id": "5795518",
+          "gameweek": 11,
+          "match": "Chelsea vs Leeds United",
+          "minute": 22,
+          "time_str": "22'",
+          "replaced": "Moisés Caicedo",
+          "team": "Chelsea"
+        }
+      ],
       "substitutions_off": [
         {
           "match_id": "5795514",
@@ -76604,6 +81728,15 @@
           "time_str": "79'",
           "replaced": "Iliman Ndiaye",
           "team": "Manchester City"
+        },
+        {
+          "match_id": "5795522",
+          "gameweek": 11,
+          "match": "Manchester City vs Fulham",
+          "minute": 78,
+          "time_str": "78'",
+          "replaced": "Iliman Ndiaye",
+          "team": "Manchester City"
         }
       ],
       "substitutions_off": []
@@ -76769,6 +81902,15 @@
           "match": "Newcastle United vs Everton",
           "minute": 32,
           "time_str": "32'",
+          "card": "Yellow",
+          "team": "Newcastle United"
+        },
+        {
+          "match_id": "5795523",
+          "gameweek": 11,
+          "match": "Newcastle United vs Arsenal",
+          "minute": 81,
+          "time_str": "81'",
           "card": "Yellow",
           "team": "Newcastle United"
         }
@@ -76942,6 +82084,15 @@
           "time_str": "75'",
           "replaced": "Alex Iwobi",
           "team": "Fulham"
+        },
+        {
+          "match_id": "5795522",
+          "gameweek": 11,
+          "match": "Manchester City vs Fulham",
+          "minute": 83,
+          "time_str": "83'",
+          "replaced": "Rodrigo Muniz",
+          "team": "Fulham"
         }
       ],
       "substitutions_off": []
@@ -76996,7 +82147,17 @@
           "score_after": "2 - 3"
         }
       ],
-      "cards": [],
+      "cards": [
+        {
+          "match_id": "5795516",
+          "gameweek": 11,
+          "match": "Aston Villa vs Sunderland",
+          "minute": 54,
+          "time_str": "54'",
+          "card": "Yellow",
+          "team": "Aston Villa"
+        }
+      ],
       "substitutions_on": [
         {
           "match_id": "5795482",
@@ -77034,6 +82195,15 @@
           "minute": 78,
           "time_str": "78'",
           "replaced_by": "João Gomes",
+          "team": "Aston Villa"
+        },
+        {
+          "match_id": "5795516",
+          "gameweek": 11,
+          "match": "Aston Villa vs Sunderland",
+          "minute": 73,
+          "time_str": "73'",
+          "replaced_by": "Ross Barkley",
           "team": "Aston Villa"
         }
       ]
@@ -77211,6 +82381,15 @@
           "time_str": "79'",
           "replaced": "Adam Smith",
           "team": "AFC Bournemouth"
+        },
+        {
+          "match_id": "5795515",
+          "gameweek": 11,
+          "match": "AFC Bournemouth vs Nottingham Forest",
+          "minute": 87,
+          "time_str": "87'",
+          "replaced": "Adam Smith",
+          "team": "AFC Bournemouth"
         }
       ],
       "substitutions_off": []
@@ -77242,7 +82421,17 @@
           "team": "Crystal Palace"
         }
       ],
-      "substitutions_on": [],
+      "substitutions_on": [
+        {
+          "match_id": "5795519",
+          "gameweek": 11,
+          "match": "Coventry City vs Crystal Palace",
+          "minute": 73,
+          "time_str": "73'",
+          "replaced": "Anan Khalaili",
+          "team": "Crystal Palace"
+        }
+      ],
       "substitutions_off": []
     },
     "Neco Williams": {
@@ -77281,6 +82470,15 @@
           "minute": 84,
           "time_str": "84'",
           "replaced_by": "Luca Netz",
+          "team": "Nottingham Forest"
+        },
+        {
+          "match_id": "5795515",
+          "gameweek": 11,
+          "match": "AFC Bournemouth vs Nottingham Forest",
+          "minute": 72,
+          "time_str": "72'",
+          "replaced_by": "Chris Wood",
           "team": "Nottingham Forest"
         }
       ]
@@ -77403,6 +82601,15 @@
           "time_str": "90+2'",
           "card": "Yellow",
           "team": "Ipswich Town"
+        },
+        {
+          "match_id": "5795524",
+          "gameweek": 11,
+          "match": "Tottenham Hotspur vs Ipswich Town",
+          "minute": 83,
+          "time_str": "83'",
+          "card": "Yellow",
+          "team": "Ipswich Town"
         }
       ],
       "substitutions_on": [],
@@ -77437,6 +82644,15 @@
           "match": "Manchester United vs Aston Villa",
           "minute": 86,
           "time_str": "86'",
+          "replaced": "Nicolas Jackson",
+          "team": "Aston Villa"
+        },
+        {
+          "match_id": "5795516",
+          "gameweek": 11,
+          "match": "Aston Villa vs Sunderland",
+          "minute": 73,
+          "time_str": "73'",
           "replaced": "Nicolas Jackson",
           "team": "Aston Villa"
         }
@@ -77498,6 +82714,15 @@
           "time_str": "68'",
           "replaced": "Justin Kluivert",
           "team": "AFC Bournemouth"
+        },
+        {
+          "match_id": "5795515",
+          "gameweek": 11,
+          "match": "AFC Bournemouth vs Nottingham Forest",
+          "minute": 69,
+          "time_str": "69'",
+          "replaced": "Justin Kluivert",
+          "team": "AFC Bournemouth"
         }
       ],
       "substitutions_off": []
@@ -77524,6 +82749,15 @@
           "minute": 79,
           "time_str": "79'",
           "replaced_by": "Ibrahim Sangaré",
+          "team": "Nottingham Forest"
+        },
+        {
+          "match_id": "5795515",
+          "gameweek": 11,
+          "match": "AFC Bournemouth vs Nottingham Forest",
+          "minute": 46,
+          "time_str": "46'",
+          "replaced_by": "Xaver Schlager",
           "team": "Nottingham Forest"
         }
       ]
@@ -77562,6 +82796,15 @@
           "match": "Everton vs Coventry City",
           "minute": 73,
           "time_str": "73'",
+          "replaced_by": "Brandon Thomas-Asante",
+          "team": "Coventry City"
+        },
+        {
+          "match_id": "5795519",
+          "gameweek": 11,
+          "match": "Coventry City vs Crystal Palace",
+          "minute": 70,
+          "time_str": "70'",
           "replaced_by": "Brandon Thomas-Asante",
           "team": "Coventry City"
         }
@@ -77652,7 +82895,17 @@
         }
       ],
       "substitutions_on": [],
-      "substitutions_off": []
+      "substitutions_off": [
+        {
+          "match_id": "5795523",
+          "gameweek": 11,
+          "match": "Newcastle United vs Arsenal",
+          "minute": 70,
+          "time_str": "70'",
+          "replaced_by": "Kepa Arrizabalaga",
+          "team": "Arsenal"
+        }
+      ]
     },
     "Michael Keane": {
       "goals": [],
@@ -77779,7 +83032,21 @@
       "substitutions_off": []
     },
     "Emanuel Emegha": {
-      "goals": [],
+      "goals": [
+        {
+          "match_id": "5795518",
+          "gameweek": 11,
+          "match": "Chelsea vs Leeds United",
+          "minute": 25,
+          "time_str": "25'",
+          "assist": "Morgan Rogers",
+          "team": "Chelsea",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": true,
+          "score_after": "0 - 0"
+        }
+      ],
       "cards": [],
       "substitutions_on": [
         {
@@ -77790,6 +83057,104 @@
           "time_str": "87'",
           "replaced": "Jordan Henderson",
           "team": "Chelsea"
+        }
+      ],
+      "substitutions_off": [
+        {
+          "match_id": "5795518",
+          "gameweek": 11,
+          "match": "Chelsea vs Leeds United",
+          "minute": 64,
+          "time_str": "64'",
+          "replaced_by": "Danny Welbeck",
+          "team": "Chelsea"
+        }
+      ]
+    },
+    "Frank Lampard": {
+      "goals": [],
+      "cards": [
+        {
+          "match_id": "5795519",
+          "gameweek": 11,
+          "match": "Coventry City vs Crystal Palace",
+          "minute": 42,
+          "time_str": "42'",
+          "card": "Yellow",
+          "team": "Coventry City"
+        }
+      ],
+      "substitutions_on": [],
+      "substitutions_off": []
+    },
+    "Lucá Williams-Barnett": {
+      "goals": [
+        {
+          "match_id": "5795524",
+          "gameweek": 11,
+          "match": "Tottenham Hotspur vs Ipswich Town",
+          "minute": 15,
+          "time_str": "15'",
+          "assist": "Pedro Porro",
+          "team": "Tottenham Hotspur",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": true,
+          "score_after": "0 - 0"
+        }
+      ],
+      "cards": [
+        {
+          "match_id": "5795524",
+          "gameweek": 11,
+          "match": "Tottenham Hotspur vs Ipswich Town",
+          "minute": 52,
+          "time_str": "52'",
+          "card": "Yellow",
+          "team": "Tottenham Hotspur"
+        }
+      ],
+      "substitutions_on": [],
+      "substitutions_off": [
+        {
+          "match_id": "5795524",
+          "gameweek": 11,
+          "match": "Tottenham Hotspur vs Ipswich Town",
+          "minute": 64,
+          "time_str": "64'",
+          "replaced_by": "Sávio",
+          "team": "Tottenham Hotspur"
+        }
+      ]
+    },
+    "Gary O'Neil": {
+      "goals": [],
+      "cards": [
+        {
+          "match_id": "5795524",
+          "gameweek": 11,
+          "match": "Tottenham Hotspur vs Ipswich Town",
+          "minute": 42,
+          "time_str": "42'",
+          "card": "Yellow",
+          "team": "Ipswich Town"
+        }
+      ],
+      "substitutions_on": [],
+      "substitutions_off": []
+    },
+    "Kepa Arrizabalaga": {
+      "goals": [],
+      "cards": [],
+      "substitutions_on": [
+        {
+          "match_id": "5795523",
+          "gameweek": 11,
+          "match": "Newcastle United vs Arsenal",
+          "minute": 70,
+          "time_str": "70'",
+          "replaced": "David Raya",
+          "team": "Arsenal"
         }
       ],
       "substitutions_off": []
