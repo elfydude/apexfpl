@@ -1,6 +1,6 @@
 {
-  "_cached_at": "2026-11-22T09:24:32Z",
-  "total_finished_matches": 107,
+  "_cached_at": "2026-11-23T03:32:36Z",
+  "total_finished_matches": 109,
   "matches": {
     "5795363": {
       "match_id": "5795363",
@@ -54249,6 +54249,1076 @@
           "player_out_id": "534670"
         }
       ]
+    },
+    "5795520": {
+      "match_id": "5795520",
+      "round": 11,
+      "gameweek": 11,
+      "home_team": "Hull City",
+      "away_team": "Brighton & Hove Albion",
+      "score": "2 - 0",
+      "kickoff_time": "2026-11-22T14:00:00Z",
+      "events_count": 22,
+      "events": [
+        {
+          "type": "Card",
+          "minute": 34,
+          "overload": null,
+          "time_str": "34'",
+          "is_home": false,
+          "team": "Brighton & Hove Albion",
+          "player_name": "Luka Vušković",
+          "player_id": 1413996,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 37,
+          "overload": null,
+          "time_str": "37'",
+          "is_home": true,
+          "team": "Hull City",
+          "player_name": "Nobel Mendy",
+          "player_id": 1428427,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Substitution",
+          "minute": 45,
+          "overload": 0,
+          "time_str": "45'",
+          "is_home": true,
+          "team": "Hull City",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Lucas Gourna-Douath",
+          "player_out": "Tim Iroegbunam",
+          "player_in_id": "1137106",
+          "player_out_id": "1203512"
+        },
+        {
+          "type": "AddedTime",
+          "minute": 45,
+          "overload": null,
+          "time_str": "45'",
+          "is_home": true,
+          "team": "Hull City",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Half",
+          "minute": 45,
+          "overload": null,
+          "time_str": "45'",
+          "is_home": true,
+          "team": "Hull City",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Substitution",
+          "minute": 46,
+          "overload": 0,
+          "time_str": "46'",
+          "is_home": true,
+          "team": "Hull City",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Sorba Thomas",
+          "player_out": "Mohamed-Ali Cho",
+          "player_in_id": "812982",
+          "player_out_id": "1180718"
+        },
+        {
+          "type": "Card",
+          "minute": 59,
+          "overload": null,
+          "time_str": "59'",
+          "is_home": true,
+          "team": "Hull City",
+          "player_name": "Lucas Gourna-Douath",
+          "player_id": 1137106,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 63,
+          "overload": null,
+          "time_str": "63'",
+          "is_home": false,
+          "team": "Brighton & Hove Albion",
+          "player_name": "Costinha",
+          "player_id": 1079456,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Substitution",
+          "minute": 67,
+          "overload": 0,
+          "time_str": "67'",
+          "is_home": false,
+          "team": "Brighton & Hove Albion",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Jack Hinshelwood",
+          "player_out": "Yasin Ayari",
+          "player_in_id": "1251334",
+          "player_out_id": "1168311"
+        },
+        {
+          "type": "Substitution",
+          "minute": 67,
+          "overload": 0,
+          "time_str": "67'",
+          "is_home": false,
+          "team": "Brighton & Hove Albion",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Charalampos Kostoulas",
+          "player_out": "Georginio Rutter",
+          "player_in_id": "1561249",
+          "player_out_id": "956925"
+        },
+        {
+          "type": "Substitution",
+          "minute": 67,
+          "overload": 0,
+          "time_str": "67'",
+          "is_home": false,
+          "team": "Brighton & Hove Albion",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Yankuba Minteh",
+          "player_out": "Olivier Boscagli",
+          "player_in_id": "1400227",
+          "player_out_id": "613715"
+        },
+        {
+          "type": "Substitution",
+          "minute": 67,
+          "overload": 0,
+          "time_str": "67'",
+          "is_home": true,
+          "team": "Hull City",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Ryan Giles",
+          "player_out": "Elliot Stroud",
+          "player_in_id": "933635",
+          "player_out_id": "1272349"
+        },
+        {
+          "type": "Substitution",
+          "minute": 68,
+          "overload": 0,
+          "time_str": "68'",
+          "is_home": true,
+          "team": "Hull City",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Jens Hjertø-Dahl",
+          "player_out": "Matt Crooks",
+          "player_in_id": "1377949",
+          "player_out_id": "280507"
+        },
+        {
+          "type": "Substitution",
+          "minute": 80,
+          "overload": 0,
+          "time_str": "80'",
+          "is_home": false,
+          "team": "Brighton & Hove Albion",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Ferdi Kadıoğlu",
+          "player_out": "Diego Gómez",
+          "player_in_id": "774448",
+          "player_out_id": "1354561"
+        },
+        {
+          "type": "Card",
+          "minute": 81,
+          "overload": null,
+          "time_str": "81'",
+          "is_home": false,
+          "team": "Brighton & Hove Albion",
+          "player_name": "Chema Andrés",
+          "player_id": 1586552,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Substitution",
+          "minute": 84,
+          "overload": 0,
+          "time_str": "84'",
+          "is_home": true,
+          "team": "Hull City",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Brooke Norton-Cuffy",
+          "player_out": "Lewie Coyle",
+          "player_in_id": "1214915",
+          "player_out_id": "709148"
+        },
+        {
+          "type": "Card",
+          "minute": 89,
+          "overload": null,
+          "time_str": "89'",
+          "is_home": false,
+          "team": "Brighton & Hove Albion",
+          "player_name": "Costinha",
+          "player_id": 1079456,
+          "card": "YellowRed",
+          "card_description": null
+        },
+        {
+          "type": "AddedTime",
+          "minute": 90,
+          "overload": null,
+          "time_str": "90'",
+          "is_home": true,
+          "team": "Hull City",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Goal",
+          "minute": 90,
+          "overload": 2,
+          "time_str": "90+2'",
+          "is_home": true,
+          "team": "Hull City",
+          "player_name": "Oli McBurnie",
+          "player_id": 509151,
+          "assist": "Lucas Gourna-Douath",
+          "home_score": 0,
+          "away_score": 0,
+          "scoreline": "0 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Substitution",
+          "minute": 90,
+          "overload": 4,
+          "time_str": "90+4'",
+          "is_home": false,
+          "team": "Brighton & Hove Albion",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Ibrahim Osman",
+          "player_out": "Chema Andrés",
+          "player_in_id": "1215410",
+          "player_out_id": "1586552"
+        },
+        {
+          "type": "Goal",
+          "minute": 90,
+          "overload": 5,
+          "time_str": "90+5'",
+          "is_home": true,
+          "team": "Hull City",
+          "player_name": "Oli McBurnie",
+          "player_id": 509151,
+          "assist": "Mohamed Belloumi",
+          "home_score": 1,
+          "away_score": 0,
+          "scoreline": "1 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Half",
+          "minute": 90,
+          "overload": null,
+          "time_str": "90'",
+          "is_home": true,
+          "team": "Hull City",
+          "player_name": "Unknown",
+          "player_id": null
+        }
+      ],
+      "goals": [
+        {
+          "type": "Goal",
+          "minute": 90,
+          "overload": 2,
+          "time_str": "90+2'",
+          "is_home": true,
+          "team": "Hull City",
+          "player_name": "Oli McBurnie",
+          "player_id": 509151,
+          "assist": "Lucas Gourna-Douath",
+          "home_score": 0,
+          "away_score": 0,
+          "scoreline": "0 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Goal",
+          "minute": 90,
+          "overload": 5,
+          "time_str": "90+5'",
+          "is_home": true,
+          "team": "Hull City",
+          "player_name": "Oli McBurnie",
+          "player_id": 509151,
+          "assist": "Mohamed Belloumi",
+          "home_score": 1,
+          "away_score": 0,
+          "scoreline": "1 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        }
+      ],
+      "cards": [
+        {
+          "type": "Card",
+          "minute": 34,
+          "overload": null,
+          "time_str": "34'",
+          "is_home": false,
+          "team": "Brighton & Hove Albion",
+          "player_name": "Luka Vušković",
+          "player_id": 1413996,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 37,
+          "overload": null,
+          "time_str": "37'",
+          "is_home": true,
+          "team": "Hull City",
+          "player_name": "Nobel Mendy",
+          "player_id": 1428427,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 59,
+          "overload": null,
+          "time_str": "59'",
+          "is_home": true,
+          "team": "Hull City",
+          "player_name": "Lucas Gourna-Douath",
+          "player_id": 1137106,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 63,
+          "overload": null,
+          "time_str": "63'",
+          "is_home": false,
+          "team": "Brighton & Hove Albion",
+          "player_name": "Costinha",
+          "player_id": 1079456,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 81,
+          "overload": null,
+          "time_str": "81'",
+          "is_home": false,
+          "team": "Brighton & Hove Albion",
+          "player_name": "Chema Andrés",
+          "player_id": 1586552,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 89,
+          "overload": null,
+          "time_str": "89'",
+          "is_home": false,
+          "team": "Brighton & Hove Albion",
+          "player_name": "Costinha",
+          "player_id": 1079456,
+          "card": "YellowRed",
+          "card_description": null
+        }
+      ],
+      "substitutions": [
+        {
+          "type": "Substitution",
+          "minute": 45,
+          "overload": 0,
+          "time_str": "45'",
+          "is_home": true,
+          "team": "Hull City",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Lucas Gourna-Douath",
+          "player_out": "Tim Iroegbunam",
+          "player_in_id": "1137106",
+          "player_out_id": "1203512"
+        },
+        {
+          "type": "Substitution",
+          "minute": 46,
+          "overload": 0,
+          "time_str": "46'",
+          "is_home": true,
+          "team": "Hull City",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Sorba Thomas",
+          "player_out": "Mohamed-Ali Cho",
+          "player_in_id": "812982",
+          "player_out_id": "1180718"
+        },
+        {
+          "type": "Substitution",
+          "minute": 67,
+          "overload": 0,
+          "time_str": "67'",
+          "is_home": false,
+          "team": "Brighton & Hove Albion",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Jack Hinshelwood",
+          "player_out": "Yasin Ayari",
+          "player_in_id": "1251334",
+          "player_out_id": "1168311"
+        },
+        {
+          "type": "Substitution",
+          "minute": 67,
+          "overload": 0,
+          "time_str": "67'",
+          "is_home": false,
+          "team": "Brighton & Hove Albion",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Charalampos Kostoulas",
+          "player_out": "Georginio Rutter",
+          "player_in_id": "1561249",
+          "player_out_id": "956925"
+        },
+        {
+          "type": "Substitution",
+          "minute": 67,
+          "overload": 0,
+          "time_str": "67'",
+          "is_home": false,
+          "team": "Brighton & Hove Albion",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Yankuba Minteh",
+          "player_out": "Olivier Boscagli",
+          "player_in_id": "1400227",
+          "player_out_id": "613715"
+        },
+        {
+          "type": "Substitution",
+          "minute": 67,
+          "overload": 0,
+          "time_str": "67'",
+          "is_home": true,
+          "team": "Hull City",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Ryan Giles",
+          "player_out": "Elliot Stroud",
+          "player_in_id": "933635",
+          "player_out_id": "1272349"
+        },
+        {
+          "type": "Substitution",
+          "minute": 68,
+          "overload": 0,
+          "time_str": "68'",
+          "is_home": true,
+          "team": "Hull City",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Jens Hjertø-Dahl",
+          "player_out": "Matt Crooks",
+          "player_in_id": "1377949",
+          "player_out_id": "280507"
+        },
+        {
+          "type": "Substitution",
+          "minute": 80,
+          "overload": 0,
+          "time_str": "80'",
+          "is_home": false,
+          "team": "Brighton & Hove Albion",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Ferdi Kadıoğlu",
+          "player_out": "Diego Gómez",
+          "player_in_id": "774448",
+          "player_out_id": "1354561"
+        },
+        {
+          "type": "Substitution",
+          "minute": 84,
+          "overload": 0,
+          "time_str": "84'",
+          "is_home": true,
+          "team": "Hull City",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Brooke Norton-Cuffy",
+          "player_out": "Lewie Coyle",
+          "player_in_id": "1214915",
+          "player_out_id": "709148"
+        },
+        {
+          "type": "Substitution",
+          "minute": 90,
+          "overload": 4,
+          "time_str": "90+4'",
+          "is_home": false,
+          "team": "Brighton & Hove Albion",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Ibrahim Osman",
+          "player_out": "Chema Andrés",
+          "player_in_id": "1215410",
+          "player_out_id": "1586552"
+        }
+      ]
+    },
+    "5795521": {
+      "match_id": "5795521",
+      "round": 11,
+      "gameweek": 11,
+      "home_team": "Liverpool",
+      "away_team": "Manchester United",
+      "score": "4 - 0",
+      "kickoff_time": "2026-11-22T16:30:00Z",
+      "events_count": 21,
+      "events": [
+        {
+          "type": "Card",
+          "minute": 8,
+          "overload": null,
+          "time_str": "8'",
+          "is_home": false,
+          "team": "Manchester United",
+          "player_name": "Leny Yoro",
+          "player_id": 1358581,
+          "card": "Red",
+          "card_description": null
+        },
+        {
+          "type": "Goal",
+          "minute": 10,
+          "overload": null,
+          "time_str": "10'",
+          "is_home": true,
+          "team": "Liverpool",
+          "player_name": "Dominik Szoboszlai",
+          "player_id": 846005,
+          "assist": null,
+          "home_score": 0,
+          "away_score": 0,
+          "scoreline": "0 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Comment",
+          "minute": 10,
+          "overload": null,
+          "time_str": "10'",
+          "is_home": false,
+          "team": "Manchester United",
+          "player_name": " ",
+          "player_id": 1358581
+        },
+        {
+          "type": "Goal",
+          "minute": 13,
+          "overload": null,
+          "time_str": "13'",
+          "is_home": true,
+          "team": "Liverpool",
+          "player_name": "Florian Wirtz",
+          "player_id": 1152455,
+          "assist": "Rio Ngumoha",
+          "home_score": 1,
+          "away_score": 0,
+          "scoreline": "1 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Substitution",
+          "minute": 22,
+          "overload": 0,
+          "time_str": "22'",
+          "is_home": false,
+          "team": "Manchester United",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Harry Maguire",
+          "player_out": "Bryan Mbeumo",
+          "player_in_id": "255610",
+          "player_out_id": "923312"
+        },
+        {
+          "type": "AddedTime",
+          "minute": 45,
+          "overload": null,
+          "time_str": "45'",
+          "is_home": true,
+          "team": "Liverpool",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Half",
+          "minute": 45,
+          "overload": null,
+          "time_str": "45'",
+          "is_home": true,
+          "team": "Liverpool",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Substitution",
+          "minute": 46,
+          "overload": 0,
+          "time_str": "46'",
+          "is_home": false,
+          "team": "Manchester United",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Joshua Zirkzee",
+          "player_out": "Matheus Cunha",
+          "player_in_id": "950830",
+          "player_out_id": "863098"
+        },
+        {
+          "type": "Card",
+          "minute": 62,
+          "overload": null,
+          "time_str": "62'",
+          "is_home": true,
+          "team": "Liverpool",
+          "player_name": "Bradley Barcola",
+          "player_id": 1297165,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Substitution",
+          "minute": 65,
+          "overload": 0,
+          "time_str": "65'",
+          "is_home": false,
+          "team": "Manchester United",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Mason Mount",
+          "player_out": "Youri Tielemans",
+          "player_in_id": "750032",
+          "player_out_id": "465960"
+        },
+        {
+          "type": "Substitution",
+          "minute": 65,
+          "overload": 0,
+          "time_str": "65'",
+          "is_home": false,
+          "team": "Manchester United",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Noussair Mazraoui",
+          "player_out": "Patrick Dorgu",
+          "player_in_id": "775539",
+          "player_out_id": "1526560"
+        },
+        {
+          "type": "Goal",
+          "minute": 66,
+          "overload": null,
+          "time_str": "66'",
+          "is_home": true,
+          "team": "Liverpool",
+          "player_name": "Rio Ngumoha",
+          "player_id": 1597668,
+          "assist": "Bradley Barcola",
+          "home_score": 2,
+          "away_score": 0,
+          "scoreline": "2 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Substitution",
+          "minute": 72,
+          "overload": 0,
+          "time_str": "72'",
+          "is_home": true,
+          "team": "Liverpool",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Trey Nyoni",
+          "player_out": "Alexis Mac Allister",
+          "player_in_id": "1436258",
+          "player_out_id": "831489"
+        },
+        {
+          "type": "Substitution",
+          "minute": 72,
+          "overload": 0,
+          "time_str": "72'",
+          "is_home": true,
+          "team": "Liverpool",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Víctor Muñoz",
+          "player_out": "Bradley Barcola",
+          "player_in_id": "1553105",
+          "player_out_id": "1297165"
+        },
+        {
+          "type": "Substitution",
+          "minute": 78,
+          "overload": 0,
+          "time_str": "78'",
+          "is_home": true,
+          "team": "Liverpool",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Jeremie Frimpong",
+          "player_out": "Rio Ngumoha",
+          "player_in_id": "966018",
+          "player_out_id": "1597668"
+        },
+        {
+          "type": "Goal",
+          "minute": 82,
+          "overload": null,
+          "time_str": "82'",
+          "is_home": true,
+          "team": "Liverpool",
+          "player_name": "Víctor Muñoz",
+          "player_id": 1553105,
+          "assist": "Florian Wirtz",
+          "home_score": 3,
+          "away_score": 0,
+          "scoreline": "3 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Substitution",
+          "minute": 85,
+          "overload": 0,
+          "time_str": "85'",
+          "is_home": true,
+          "team": "Liverpool",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Joseph Gomez",
+          "player_out": "Ronald Araujo",
+          "player_in_id": "568571",
+          "player_out_id": "921253"
+        },
+        {
+          "type": "Substitution",
+          "minute": 85,
+          "overload": 0,
+          "time_str": "85'",
+          "is_home": true,
+          "team": "Liverpool",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Lewis Koumas",
+          "player_out": "Alexander Isak",
+          "player_in_id": "1364042",
+          "player_out_id": "690107"
+        },
+        {
+          "type": "Substitution",
+          "minute": 87,
+          "overload": 0,
+          "time_str": "87'",
+          "is_home": false,
+          "team": "Manchester United",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Andrey Santos",
+          "player_out": "Kobbie Mainoo",
+          "player_in_id": "1372921",
+          "player_out_id": "1292810"
+        },
+        {
+          "type": "AddedTime",
+          "minute": 90,
+          "overload": null,
+          "time_str": "90'",
+          "is_home": true,
+          "team": "Liverpool",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Half",
+          "minute": 90,
+          "overload": null,
+          "time_str": "90'",
+          "is_home": true,
+          "team": "Liverpool",
+          "player_name": "Unknown",
+          "player_id": null
+        }
+      ],
+      "goals": [
+        {
+          "type": "Goal",
+          "minute": 10,
+          "overload": null,
+          "time_str": "10'",
+          "is_home": true,
+          "team": "Liverpool",
+          "player_name": "Dominik Szoboszlai",
+          "player_id": 846005,
+          "assist": null,
+          "home_score": 0,
+          "away_score": 0,
+          "scoreline": "0 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Goal",
+          "minute": 13,
+          "overload": null,
+          "time_str": "13'",
+          "is_home": true,
+          "team": "Liverpool",
+          "player_name": "Florian Wirtz",
+          "player_id": 1152455,
+          "assist": "Rio Ngumoha",
+          "home_score": 1,
+          "away_score": 0,
+          "scoreline": "1 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Goal",
+          "minute": 66,
+          "overload": null,
+          "time_str": "66'",
+          "is_home": true,
+          "team": "Liverpool",
+          "player_name": "Rio Ngumoha",
+          "player_id": 1597668,
+          "assist": "Bradley Barcola",
+          "home_score": 2,
+          "away_score": 0,
+          "scoreline": "2 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Goal",
+          "minute": 82,
+          "overload": null,
+          "time_str": "82'",
+          "is_home": true,
+          "team": "Liverpool",
+          "player_name": "Víctor Muñoz",
+          "player_id": 1553105,
+          "assist": "Florian Wirtz",
+          "home_score": 3,
+          "away_score": 0,
+          "scoreline": "3 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        }
+      ],
+      "cards": [
+        {
+          "type": "Card",
+          "minute": 8,
+          "overload": null,
+          "time_str": "8'",
+          "is_home": false,
+          "team": "Manchester United",
+          "player_name": "Leny Yoro",
+          "player_id": 1358581,
+          "card": "Red",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 62,
+          "overload": null,
+          "time_str": "62'",
+          "is_home": true,
+          "team": "Liverpool",
+          "player_name": "Bradley Barcola",
+          "player_id": 1297165,
+          "card": "Yellow",
+          "card_description": null
+        }
+      ],
+      "substitutions": [
+        {
+          "type": "Substitution",
+          "minute": 22,
+          "overload": 0,
+          "time_str": "22'",
+          "is_home": false,
+          "team": "Manchester United",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Harry Maguire",
+          "player_out": "Bryan Mbeumo",
+          "player_in_id": "255610",
+          "player_out_id": "923312"
+        },
+        {
+          "type": "Substitution",
+          "minute": 46,
+          "overload": 0,
+          "time_str": "46'",
+          "is_home": false,
+          "team": "Manchester United",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Joshua Zirkzee",
+          "player_out": "Matheus Cunha",
+          "player_in_id": "950830",
+          "player_out_id": "863098"
+        },
+        {
+          "type": "Substitution",
+          "minute": 65,
+          "overload": 0,
+          "time_str": "65'",
+          "is_home": false,
+          "team": "Manchester United",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Mason Mount",
+          "player_out": "Youri Tielemans",
+          "player_in_id": "750032",
+          "player_out_id": "465960"
+        },
+        {
+          "type": "Substitution",
+          "minute": 65,
+          "overload": 0,
+          "time_str": "65'",
+          "is_home": false,
+          "team": "Manchester United",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Noussair Mazraoui",
+          "player_out": "Patrick Dorgu",
+          "player_in_id": "775539",
+          "player_out_id": "1526560"
+        },
+        {
+          "type": "Substitution",
+          "minute": 72,
+          "overload": 0,
+          "time_str": "72'",
+          "is_home": true,
+          "team": "Liverpool",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Trey Nyoni",
+          "player_out": "Alexis Mac Allister",
+          "player_in_id": "1436258",
+          "player_out_id": "831489"
+        },
+        {
+          "type": "Substitution",
+          "minute": 72,
+          "overload": 0,
+          "time_str": "72'",
+          "is_home": true,
+          "team": "Liverpool",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Víctor Muñoz",
+          "player_out": "Bradley Barcola",
+          "player_in_id": "1553105",
+          "player_out_id": "1297165"
+        },
+        {
+          "type": "Substitution",
+          "minute": 78,
+          "overload": 0,
+          "time_str": "78'",
+          "is_home": true,
+          "team": "Liverpool",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Jeremie Frimpong",
+          "player_out": "Rio Ngumoha",
+          "player_in_id": "966018",
+          "player_out_id": "1597668"
+        },
+        {
+          "type": "Substitution",
+          "minute": 85,
+          "overload": 0,
+          "time_str": "85'",
+          "is_home": true,
+          "team": "Liverpool",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Joseph Gomez",
+          "player_out": "Ronald Araujo",
+          "player_in_id": "568571",
+          "player_out_id": "921253"
+        },
+        {
+          "type": "Substitution",
+          "minute": 85,
+          "overload": 0,
+          "time_str": "85'",
+          "is_home": true,
+          "team": "Liverpool",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Lewis Koumas",
+          "player_out": "Alexander Isak",
+          "player_in_id": "1364042",
+          "player_out_id": "690107"
+        },
+        {
+          "type": "Substitution",
+          "minute": 87,
+          "overload": 0,
+          "time_str": "87'",
+          "is_home": false,
+          "team": "Manchester United",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Andrey Santos",
+          "player_out": "Kobbie Mainoo",
+          "player_in_id": "1372921",
+          "player_out_id": "1292810"
+        }
+      ]
     }
   },
   "player_events": {
@@ -56045,6 +57115,15 @@
           "time_str": "87'",
           "card": "Yellow",
           "team": "Hull City"
+        },
+        {
+          "match_id": "5795520",
+          "gameweek": 11,
+          "match": "Hull City vs Brighton & Hove Albion",
+          "minute": 37,
+          "time_str": "37'",
+          "card": "Yellow",
+          "team": "Hull City"
         }
       ],
       "substitutions_on": [],
@@ -56161,6 +57240,15 @@
           "time_str": "46'",
           "replaced_by": "Marcus Rashford",
           "team": "Manchester United"
+        },
+        {
+          "match_id": "5795521",
+          "gameweek": 11,
+          "match": "Liverpool vs Manchester United",
+          "minute": 65,
+          "time_str": "65'",
+          "replaced_by": "Noussair Mazraoui",
+          "team": "Manchester United"
         }
       ]
     },
@@ -56259,6 +57347,15 @@
           "minute": 68,
           "time_str": "68'",
           "replaced_by": "Robinio Vaz",
+          "team": "Hull City"
+        },
+        {
+          "match_id": "5795520",
+          "gameweek": 11,
+          "match": "Hull City vs Brighton & Hove Albion",
+          "minute": 68,
+          "time_str": "68'",
+          "replaced_by": "Jens Hjertø-Dahl",
           "team": "Hull City"
         }
       ]
@@ -56527,6 +57624,15 @@
           "time_str": "84'",
           "replaced": "Kobbie Mainoo",
           "team": "Manchester United"
+        },
+        {
+          "match_id": "5795521",
+          "gameweek": 11,
+          "match": "Liverpool vs Manchester United",
+          "minute": 87,
+          "time_str": "87'",
+          "replaced": "Kobbie Mainoo",
+          "team": "Manchester United"
         }
       ],
       "substitutions_off": [
@@ -56609,6 +57715,15 @@
           "minute": 80,
           "time_str": "80'",
           "replaced_by": "Mason Mount",
+          "team": "Manchester United"
+        },
+        {
+          "match_id": "5795521",
+          "gameweek": 11,
+          "match": "Liverpool vs Manchester United",
+          "minute": 87,
+          "time_str": "87'",
+          "replaced_by": "Andrey Santos",
           "team": "Manchester United"
         }
       ]
@@ -56693,6 +57808,15 @@
           "match": "Manchester United vs Aston Villa",
           "minute": 66,
           "time_str": "66'",
+          "replaced_by": "Mason Mount",
+          "team": "Manchester United"
+        },
+        {
+          "match_id": "5795521",
+          "gameweek": 11,
+          "match": "Liverpool vs Manchester United",
+          "minute": 65,
+          "time_str": "65'",
           "replaced_by": "Mason Mount",
           "team": "Manchester United"
         }
@@ -56809,6 +57933,15 @@
           "time_str": "61'",
           "replaced_by": "Brooke Norton-Cuffy",
           "team": "Hull City"
+        },
+        {
+          "match_id": "5795520",
+          "gameweek": 11,
+          "match": "Hull City vs Brighton & Hove Albion",
+          "minute": 84,
+          "time_str": "84'",
+          "replaced_by": "Brooke Norton-Cuffy",
+          "team": "Hull City"
         }
       ]
     },
@@ -56906,6 +58039,15 @@
           "match": "Arsenal vs Hull City",
           "minute": 75,
           "time_str": "75'",
+          "replaced_by": "Ryan Giles",
+          "team": "Hull City"
+        },
+        {
+          "match_id": "5795520",
+          "gameweek": 11,
+          "match": "Hull City vs Brighton & Hove Albion",
+          "minute": 67,
+          "time_str": "67'",
           "replaced_by": "Ryan Giles",
           "team": "Hull City"
         }
@@ -57012,6 +58154,15 @@
           "minute": 46,
           "time_str": "46'",
           "replaced": "Lisandro Martínez",
+          "team": "Manchester United"
+        },
+        {
+          "match_id": "5795521",
+          "gameweek": 11,
+          "match": "Liverpool vs Manchester United",
+          "minute": 65,
+          "time_str": "65'",
+          "replaced": "Patrick Dorgu",
           "team": "Manchester United"
         }
       ],
@@ -57143,6 +58294,15 @@
           "time_str": "66'",
           "replaced_by": "Ayden Heaven",
           "team": "Manchester United"
+        },
+        {
+          "match_id": "5795521",
+          "gameweek": 11,
+          "match": "Liverpool vs Manchester United",
+          "minute": 46,
+          "time_str": "46'",
+          "replaced_by": "Joshua Zirkzee",
+          "team": "Manchester United"
         }
       ]
     },
@@ -57191,6 +58351,15 @@
           "match": "Arsenal vs Hull City",
           "minute": 75,
           "time_str": "75'",
+          "replaced": "Elliot Stroud",
+          "team": "Hull City"
+        },
+        {
+          "match_id": "5795520",
+          "gameweek": 11,
+          "match": "Hull City vs Brighton & Hove Albion",
+          "minute": 67,
+          "time_str": "67'",
           "replaced": "Elliot Stroud",
           "team": "Hull City"
         }
@@ -63865,6 +65034,15 @@
           "time_str": "78'",
           "replaced": "Yasin Ayari",
           "team": "Brighton & Hove Albion"
+        },
+        {
+          "match_id": "5795520",
+          "gameweek": 11,
+          "match": "Hull City vs Brighton & Hove Albion",
+          "minute": 67,
+          "time_str": "67'",
+          "replaced": "Yasin Ayari",
+          "team": "Brighton & Hove Albion"
         }
       ],
       "substitutions_off": [
@@ -64178,6 +65356,15 @@
           "time_str": "78'",
           "replaced_by": "Jack Hinshelwood",
           "team": "Brighton & Hove Albion"
+        },
+        {
+          "match_id": "5795520",
+          "gameweek": 11,
+          "match": "Hull City vs Brighton & Hove Albion",
+          "minute": 67,
+          "time_str": "67'",
+          "replaced_by": "Jack Hinshelwood",
+          "team": "Brighton & Hove Albion"
         }
       ]
     },
@@ -64441,6 +65628,15 @@
           "time_str": "64'",
           "replaced": "Jack Hinshelwood",
           "team": "Brighton & Hove Albion"
+        },
+        {
+          "match_id": "5795520",
+          "gameweek": 11,
+          "match": "Hull City vs Brighton & Hove Albion",
+          "minute": 67,
+          "time_str": "67'",
+          "replaced": "Georginio Rutter",
+          "team": "Brighton & Hove Albion"
         }
       ],
       "substitutions_off": [
@@ -64528,6 +65724,24 @@
           "minute": 73,
           "time_str": "73'",
           "card": "Yellow",
+          "team": "Brighton & Hove Albion"
+        },
+        {
+          "match_id": "5795520",
+          "gameweek": 11,
+          "match": "Hull City vs Brighton & Hove Albion",
+          "minute": 63,
+          "time_str": "63'",
+          "card": "Yellow",
+          "team": "Brighton & Hove Albion"
+        },
+        {
+          "match_id": "5795520",
+          "gameweek": 11,
+          "match": "Hull City vs Brighton & Hove Albion",
+          "minute": 89,
+          "time_str": "89'",
+          "card": "YellowRed",
           "team": "Brighton & Hove Albion"
         }
       ],
@@ -64881,6 +66095,15 @@
           "minute": 78,
           "time_str": "78'",
           "replaced": "Olivier Boscagli",
+          "team": "Brighton & Hove Albion"
+        },
+        {
+          "match_id": "5795520",
+          "gameweek": 11,
+          "match": "Hull City vs Brighton & Hove Albion",
+          "minute": 90,
+          "time_str": "90+4'",
+          "replaced": "Chema Andrés",
           "team": "Brighton & Hove Albion"
         }
       ],
@@ -65300,6 +66523,15 @@
           "minute": 90,
           "time_str": "90+3'",
           "replaced_by": "Malick Junior Yalcouyé",
+          "team": "Brighton & Hove Albion"
+        },
+        {
+          "match_id": "5795520",
+          "gameweek": 11,
+          "match": "Hull City vs Brighton & Hove Albion",
+          "minute": 80,
+          "time_str": "80'",
+          "replaced_by": "Ferdi Kadıoğlu",
           "team": "Brighton & Hove Albion"
         }
       ]
@@ -67366,6 +68598,19 @@
           "is_own_goal": false,
           "is_home": false,
           "score_after": "2 - 1"
+        },
+        {
+          "match_id": "5795521",
+          "gameweek": 11,
+          "match": "Liverpool vs Manchester United",
+          "minute": 10,
+          "time_str": "10'",
+          "assist": null,
+          "team": "Liverpool",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": true,
+          "score_after": "0 - 0"
         }
       ],
       "cards": [
@@ -67598,6 +68843,15 @@
           "minute": 46,
           "time_str": "46'",
           "replaced": "Ronald Araujo",
+          "team": "Liverpool"
+        },
+        {
+          "match_id": "5795521",
+          "gameweek": 11,
+          "match": "Liverpool vs Manchester United",
+          "minute": 78,
+          "time_str": "78'",
+          "replaced": "Rio Ngumoha",
           "team": "Liverpool"
         }
       ],
@@ -68223,6 +69477,15 @@
           "time_str": "84'",
           "replaced_by": "Trey Nyoni",
           "team": "Liverpool"
+        },
+        {
+          "match_id": "5795521",
+          "gameweek": 11,
+          "match": "Liverpool vs Manchester United",
+          "minute": 72,
+          "time_str": "72'",
+          "replaced_by": "Trey Nyoni",
+          "team": "Liverpool"
         }
       ]
     },
@@ -68240,6 +69503,19 @@
           "is_own_goal": false,
           "is_home": false,
           "score_after": "0 - 1"
+        },
+        {
+          "match_id": "5795521",
+          "gameweek": 11,
+          "match": "Liverpool vs Manchester United",
+          "minute": 13,
+          "time_str": "13'",
+          "assist": "Rio Ngumoha",
+          "team": "Liverpool",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": true,
+          "score_after": "1 - 0"
         }
       ],
       "cards": [
@@ -68338,6 +69614,19 @@
           "is_own_goal": false,
           "is_home": false,
           "score_after": "1 - 0"
+        },
+        {
+          "match_id": "5795521",
+          "gameweek": 11,
+          "match": "Liverpool vs Manchester United",
+          "minute": 82,
+          "time_str": "82'",
+          "assist": "Florian Wirtz",
+          "team": "Liverpool",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": true,
+          "score_after": "3 - 0"
         }
       ],
       "cards": [
@@ -68396,6 +69685,15 @@
           "time_str": "69'",
           "replaced": "Bradley Barcola",
           "team": "Liverpool"
+        },
+        {
+          "match_id": "5795521",
+          "gameweek": 11,
+          "match": "Liverpool vs Manchester United",
+          "minute": 72,
+          "time_str": "72'",
+          "replaced": "Bradley Barcola",
+          "team": "Liverpool"
         }
       ],
       "substitutions_off": [
@@ -68429,7 +69727,21 @@
       ]
     },
     "Rio Ngumoha": {
-      "goals": [],
+      "goals": [
+        {
+          "match_id": "5795521",
+          "gameweek": 11,
+          "match": "Liverpool vs Manchester United",
+          "minute": 66,
+          "time_str": "66'",
+          "assist": "Bradley Barcola",
+          "team": "Liverpool",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": true,
+          "score_after": "2 - 0"
+        }
+      ],
       "cards": [],
       "substitutions_on": [
         {
@@ -68504,6 +69816,15 @@
           "minute": 63,
           "time_str": "63'",
           "replaced_by": "Víctor Muñoz",
+          "team": "Liverpool"
+        },
+        {
+          "match_id": "5795521",
+          "gameweek": 11,
+          "match": "Liverpool vs Manchester United",
+          "minute": 78,
+          "time_str": "78'",
+          "replaced_by": "Jeremie Frimpong",
           "team": "Liverpool"
         }
       ]
@@ -68602,6 +69923,15 @@
           "match": "Crystal Palace vs Liverpool",
           "minute": 90,
           "time_str": "90+1'",
+          "replaced_by": "Joseph Gomez",
+          "team": "Liverpool"
+        },
+        {
+          "match_id": "5795521",
+          "gameweek": 11,
+          "match": "Liverpool vs Manchester United",
+          "minute": 85,
+          "time_str": "85'",
           "replaced_by": "Joseph Gomez",
           "team": "Liverpool"
         }
@@ -68758,6 +70088,15 @@
           "match": "Crystal Palace vs Liverpool",
           "minute": 90,
           "time_str": "90'",
+          "replaced": "Alexander Isak",
+          "team": "Liverpool"
+        },
+        {
+          "match_id": "5795521",
+          "gameweek": 11,
+          "match": "Liverpool vs Manchester United",
+          "minute": 85,
+          "time_str": "85'",
           "replaced": "Alexander Isak",
           "team": "Liverpool"
         }
@@ -71762,6 +73101,15 @@
           "time_str": "90'",
           "replaced_by": "Lewis Koumas",
           "team": "Liverpool"
+        },
+        {
+          "match_id": "5795521",
+          "gameweek": 11,
+          "match": "Liverpool vs Manchester United",
+          "minute": 85,
+          "time_str": "85'",
+          "replaced_by": "Lewis Koumas",
+          "team": "Liverpool"
         }
       ]
     },
@@ -72144,6 +73492,15 @@
           "minute": 69,
           "time_str": "69'",
           "replaced": "Dominik Szoboszlai",
+          "team": "Liverpool"
+        },
+        {
+          "match_id": "5795521",
+          "gameweek": 11,
+          "match": "Liverpool vs Manchester United",
+          "minute": 72,
+          "time_str": "72'",
+          "replaced": "Alexis Mac Allister",
           "team": "Liverpool"
         }
       ],
@@ -72729,6 +74086,15 @@
           "time_str": "75'",
           "replaced_by": "Christos Mouzakitis",
           "team": "Hull City"
+        },
+        {
+          "match_id": "5795520",
+          "gameweek": 11,
+          "match": "Hull City vs Brighton & Hove Albion",
+          "minute": 45,
+          "time_str": "45'",
+          "replaced_by": "Lucas Gourna-Douath",
+          "team": "Hull City"
         }
       ]
     },
@@ -72982,6 +74348,32 @@
           "is_own_goal": false,
           "is_home": true,
           "score_after": "1 - 1"
+        },
+        {
+          "match_id": "5795520",
+          "gameweek": 11,
+          "match": "Hull City vs Brighton & Hove Albion",
+          "minute": 90,
+          "time_str": "90+2'",
+          "assist": "Lucas Gourna-Douath",
+          "team": "Hull City",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": true,
+          "score_after": "0 - 0"
+        },
+        {
+          "match_id": "5795520",
+          "gameweek": 11,
+          "match": "Hull City vs Brighton & Hove Albion",
+          "minute": 90,
+          "time_str": "90+5'",
+          "assist": "Mohamed Belloumi",
+          "team": "Hull City",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": true,
+          "score_after": "1 - 0"
         }
       ],
       "cards": [
@@ -73080,6 +74472,15 @@
           "time_str": "48'",
           "card": "Yellow",
           "team": "Hull City"
+        },
+        {
+          "match_id": "5795520",
+          "gameweek": 11,
+          "match": "Hull City vs Brighton & Hove Albion",
+          "minute": 59,
+          "time_str": "59'",
+          "card": "Yellow",
+          "team": "Hull City"
         }
       ],
       "substitutions_on": [
@@ -73099,6 +74500,15 @@
           "minute": 78,
           "time_str": "78'",
           "replaced": "Regan Slater",
+          "team": "Hull City"
+        },
+        {
+          "match_id": "5795520",
+          "gameweek": 11,
+          "match": "Hull City vs Brighton & Hove Albion",
+          "minute": 45,
+          "time_str": "45'",
+          "replaced": "Tim Iroegbunam",
           "team": "Hull City"
         }
       ],
@@ -73460,6 +74870,15 @@
           "minute": 60,
           "time_str": "60'",
           "replaced_by": "Joe Gelhardt",
+          "team": "Hull City"
+        },
+        {
+          "match_id": "5795520",
+          "gameweek": 11,
+          "match": "Hull City vs Brighton & Hove Albion",
+          "minute": 46,
+          "time_str": "46'",
+          "replaced_by": "Sorba Thomas",
           "team": "Hull City"
         }
       ]
@@ -74403,6 +75822,15 @@
           "minute": 64,
           "time_str": "64'",
           "replaced_by": "Jaouen Hadjam",
+          "team": "Brighton & Hove Albion"
+        },
+        {
+          "match_id": "5795520",
+          "gameweek": 11,
+          "match": "Hull City vs Brighton & Hove Albion",
+          "minute": 67,
+          "time_str": "67'",
+          "replaced_by": "Yankuba Minteh",
           "team": "Brighton & Hove Albion"
         }
       ]
@@ -75703,6 +77131,15 @@
           "time_str": "83'",
           "replaced_by": "Joshua Zirkzee",
           "team": "Manchester United"
+        },
+        {
+          "match_id": "5795521",
+          "gameweek": 11,
+          "match": "Liverpool vs Manchester United",
+          "minute": 22,
+          "time_str": "22'",
+          "replaced_by": "Harry Maguire",
+          "team": "Manchester United"
         }
       ]
     },
@@ -75875,7 +77312,17 @@
     },
     "Leny Yoro": {
       "goals": [],
-      "cards": [],
+      "cards": [
+        {
+          "match_id": "5795521",
+          "gameweek": 11,
+          "match": "Liverpool vs Manchester United",
+          "minute": 8,
+          "time_str": "8'",
+          "card": "Red",
+          "team": "Manchester United"
+        }
+      ],
       "substitutions_on": [
         {
           "match_id": "5795432",
@@ -76560,6 +78007,15 @@
           "time_str": "59'",
           "card": "Yellow",
           "team": "Liverpool"
+        },
+        {
+          "match_id": "5795521",
+          "gameweek": 11,
+          "match": "Liverpool vs Manchester United",
+          "minute": 62,
+          "time_str": "62'",
+          "card": "Yellow",
+          "team": "Liverpool"
         }
       ],
       "substitutions_on": [
@@ -76616,6 +78072,15 @@
           "match": "Crystal Palace vs Liverpool",
           "minute": 69,
           "time_str": "69'",
+          "replaced_by": "Víctor Muñoz",
+          "team": "Liverpool"
+        },
+        {
+          "match_id": "5795521",
+          "gameweek": 11,
+          "match": "Liverpool vs Manchester United",
+          "minute": 72,
+          "time_str": "72'",
           "replaced_by": "Víctor Muñoz",
           "team": "Liverpool"
         }
@@ -77252,7 +78717,17 @@
           "score_after": "0 - 1"
         }
       ],
-      "cards": [],
+      "cards": [
+        {
+          "match_id": "5795520",
+          "gameweek": 11,
+          "match": "Hull City vs Brighton & Hove Albion",
+          "minute": 34,
+          "time_str": "34'",
+          "card": "Yellow",
+          "team": "Brighton & Hove Albion"
+        }
+      ],
       "substitutions_on": [],
       "substitutions_off": [
         {
@@ -77279,7 +78754,17 @@
           "team": "Brighton & Hove Albion"
         }
       ],
-      "substitutions_on": [],
+      "substitutions_on": [
+        {
+          "match_id": "5795520",
+          "gameweek": 11,
+          "match": "Hull City vs Brighton & Hove Albion",
+          "minute": 80,
+          "time_str": "80'",
+          "replaced": "Diego Gómez",
+          "team": "Brighton & Hove Albion"
+        }
+      ],
       "substitutions_off": [
         {
           "match_id": "5795437",
@@ -78187,6 +79672,15 @@
           "time_str": "60'",
           "replaced": "Elliot Stroud",
           "team": "Hull City"
+        },
+        {
+          "match_id": "5795520",
+          "gameweek": 11,
+          "match": "Hull City vs Brighton & Hove Albion",
+          "minute": 46,
+          "time_str": "46'",
+          "replaced": "Mohamed-Ali Cho",
+          "team": "Hull City"
         }
       ],
       "substitutions_off": [
@@ -78286,6 +79780,15 @@
           "time_str": "61'",
           "replaced": "Lewie Coyle",
           "team": "Hull City"
+        },
+        {
+          "match_id": "5795520",
+          "gameweek": 11,
+          "match": "Hull City vs Brighton & Hove Albion",
+          "minute": 84,
+          "time_str": "84'",
+          "replaced": "Lewie Coyle",
+          "team": "Hull City"
         }
       ],
       "substitutions_off": [
@@ -78311,6 +79814,15 @@
           "minute": 82,
           "time_str": "82'",
           "replaced": "Lucas Gourna-Douath",
+          "team": "Hull City"
+        },
+        {
+          "match_id": "5795520",
+          "gameweek": 11,
+          "match": "Hull City vs Brighton & Hove Albion",
+          "minute": 68,
+          "time_str": "68'",
+          "replaced": "Matt Crooks",
           "team": "Hull City"
         }
       ],
@@ -78462,7 +79974,17 @@
           "team": "Manchester United"
         }
       ],
-      "substitutions_on": [],
+      "substitutions_on": [
+        {
+          "match_id": "5795521",
+          "gameweek": 11,
+          "match": "Liverpool vs Manchester United",
+          "minute": 22,
+          "time_str": "22'",
+          "replaced": "Bryan Mbeumo",
+          "team": "Manchester United"
+        }
+      ],
       "substitutions_off": [
         {
           "match_id": "5795512",
@@ -79905,6 +81427,15 @@
           "time_str": "22'",
           "card": "Yellow",
           "team": "Brighton & Hove Albion"
+        },
+        {
+          "match_id": "5795520",
+          "gameweek": 11,
+          "match": "Hull City vs Brighton & Hove Albion",
+          "minute": 81,
+          "time_str": "81'",
+          "card": "Yellow",
+          "team": "Brighton & Hove Albion"
         }
       ],
       "substitutions_on": [
@@ -79953,6 +81484,15 @@
           "minute": 46,
           "time_str": "46'",
           "replaced_by": "Mats Wieffer",
+          "team": "Brighton & Hove Albion"
+        },
+        {
+          "match_id": "5795520",
+          "gameweek": 11,
+          "match": "Hull City vs Brighton & Hove Albion",
+          "minute": 90,
+          "time_str": "90+4'",
+          "replaced_by": "Ibrahim Osman",
           "team": "Brighton & Hove Albion"
         }
       ]
@@ -80141,6 +81681,15 @@
           "minute": 83,
           "time_str": "83'",
           "replaced": "Bryan Mbeumo",
+          "team": "Manchester United"
+        },
+        {
+          "match_id": "5795521",
+          "gameweek": 11,
+          "match": "Liverpool vs Manchester United",
+          "minute": 46,
+          "time_str": "46'",
+          "replaced": "Matheus Cunha",
           "team": "Manchester United"
         }
       ],
@@ -80575,7 +82124,17 @@
           "team": "Brighton & Hove Albion"
         }
       ],
-      "substitutions_off": []
+      "substitutions_off": [
+        {
+          "match_id": "5795520",
+          "gameweek": 11,
+          "match": "Hull City vs Brighton & Hove Albion",
+          "minute": 67,
+          "time_str": "67'",
+          "replaced_by": "Charalampos Kostoulas",
+          "team": "Brighton & Hove Albion"
+        }
+      ]
     },
     "Max Dowman": {
       "goals": [],
@@ -81096,6 +82655,15 @@
           "match": "Manchester United vs Aston Villa",
           "minute": 66,
           "time_str": "66'",
+          "replaced": "Youri Tielemans",
+          "team": "Manchester United"
+        },
+        {
+          "match_id": "5795521",
+          "gameweek": 11,
+          "match": "Liverpool vs Manchester United",
+          "minute": 65,
+          "time_str": "65'",
           "replaced": "Youri Tielemans",
           "team": "Manchester United"
         }
@@ -81769,6 +83337,15 @@
           "match": "Crystal Palace vs Liverpool",
           "minute": 90,
           "time_str": "90+1'",
+          "replaced": "Ronald Araujo",
+          "team": "Liverpool"
+        },
+        {
+          "match_id": "5795521",
+          "gameweek": 11,
+          "match": "Liverpool vs Manchester United",
+          "minute": 85,
+          "time_str": "85'",
           "replaced": "Ronald Araujo",
           "team": "Liverpool"
         }
@@ -83010,6 +84587,15 @@
           "minute": 82,
           "time_str": "82'",
           "replaced": "Maxim De Cuyper",
+          "team": "Brighton & Hove Albion"
+        },
+        {
+          "match_id": "5795520",
+          "gameweek": 11,
+          "match": "Hull City vs Brighton & Hove Albion",
+          "minute": 67,
+          "time_str": "67'",
+          "replaced": "Olivier Boscagli",
           "team": "Brighton & Hove Albion"
         }
       ],
