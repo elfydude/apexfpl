@@ -1,6 +1,6 @@
 {
-  "_cached_at": "2026-11-23T10:20:12Z",
-  "total_finished_matches": 109,
+  "_cached_at": "2026-11-24T06:46:42Z",
+  "total_finished_matches": 110,
   "matches": {
     "5795363": {
       "match_id": "5795363",
@@ -55319,6 +55319,550 @@
           "player_out_id": "1292810"
         }
       ]
+    },
+    "5795517": {
+      "match_id": "5795517",
+      "round": 11,
+      "gameweek": 11,
+      "home_team": "Brentford",
+      "away_team": "Everton",
+      "score": "4 - 0",
+      "kickoff_time": "2026-11-23T20:00:00Z",
+      "events_count": 23,
+      "events": [
+        {
+          "type": "Goal",
+          "minute": 23,
+          "overload": null,
+          "time_str": "23'",
+          "is_home": true,
+          "team": "Brentford",
+          "player_name": "Keane Lewis-Potter",
+          "player_id": 1010426,
+          "assist": "Jaidon Anthony",
+          "home_score": 0,
+          "away_score": 0,
+          "scoreline": "0 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Card",
+          "minute": 24,
+          "overload": null,
+          "time_str": "24'",
+          "is_home": false,
+          "team": "Everton",
+          "player_name": "Vitaliy Mykolenko",
+          "player_id": 874025,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Goal",
+          "minute": 25,
+          "overload": null,
+          "time_str": "25'",
+          "is_home": true,
+          "team": "Brentford",
+          "player_name": "Keane Lewis-Potter",
+          "player_id": 1010426,
+          "assist": null,
+          "home_score": 1,
+          "away_score": 0,
+          "scoreline": "1 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "VAR",
+          "minute": 38,
+          "overload": null,
+          "time_str": "38'",
+          "is_home": false,
+          "team": "Everton",
+          "player_name": "James Tarkowski",
+          "player_id": 243138
+        },
+        {
+          "type": "Card",
+          "minute": 40,
+          "overload": null,
+          "time_str": "40'",
+          "is_home": false,
+          "team": "Everton",
+          "player_name": "James Tarkowski",
+          "player_id": 243138,
+          "card": "Red",
+          "card_description": null
+        },
+        {
+          "type": "Comment",
+          "minute": 40,
+          "overload": null,
+          "time_str": "40'",
+          "is_home": false,
+          "team": "Everton",
+          "player_name": " ",
+          "player_id": 243138
+        },
+        {
+          "type": "AddedTime",
+          "minute": 45,
+          "overload": null,
+          "time_str": "45'",
+          "is_home": true,
+          "team": "Brentford",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Half",
+          "minute": 45,
+          "overload": null,
+          "time_str": "45'",
+          "is_home": true,
+          "team": "Brentford",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Substitution",
+          "minute": 46,
+          "overload": 0,
+          "time_str": "46'",
+          "is_home": false,
+          "team": "Everton",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Jack Grealish",
+          "player_out": "Tyrique George",
+          "player_in_id": "312765",
+          "player_out_id": "1424875"
+        },
+        {
+          "type": "Substitution",
+          "minute": 66,
+          "overload": 0,
+          "time_str": "66'",
+          "is_home": true,
+          "team": "Brentford",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Kevin Schade",
+          "player_out": "Dango Ouattara",
+          "player_in_id": "1083796",
+          "player_out_id": "1250253"
+        },
+        {
+          "type": "Goal",
+          "minute": 67,
+          "overload": null,
+          "time_str": "67'",
+          "is_home": true,
+          "team": "Brentford",
+          "player_name": "Vitaly Janelt",
+          "player_id": 688273,
+          "assist": "Jaidon Anthony",
+          "home_score": 2,
+          "away_score": 0,
+          "scoreline": "2 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Substitution",
+          "minute": 69,
+          "overload": 0,
+          "time_str": "69'",
+          "is_home": false,
+          "team": "Everton",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Hayden Hackney",
+          "player_out": "Kiernan Dewsbury-Hall",
+          "player_in_id": "982394",
+          "player_out_id": "886016"
+        },
+        {
+          "type": "Substitution",
+          "minute": 69,
+          "overload": 0,
+          "time_str": "69'",
+          "is_home": false,
+          "team": "Everton",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Brennan Johnson",
+          "player_out": "Thierno Barry",
+          "player_in_id": "1076756",
+          "player_out_id": "1398392"
+        },
+        {
+          "type": "Substitution",
+          "minute": 69,
+          "overload": 0,
+          "time_str": "69'",
+          "is_home": false,
+          "team": "Everton",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Michael Keane",
+          "player_out": "Merlin Röhl",
+          "player_in_id": "290410",
+          "player_out_id": "1210384"
+        },
+        {
+          "type": "Substitution",
+          "minute": 74,
+          "overload": 0,
+          "time_str": "74'",
+          "is_home": true,
+          "team": "Brentford",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Mathias Jensen",
+          "player_out": "Yehor Yarmoliuk",
+          "player_in_id": "650616",
+          "player_out_id": "1157236"
+        },
+        {
+          "type": "Substitution",
+          "minute": 74,
+          "overload": 0,
+          "time_str": "74'",
+          "is_home": true,
+          "team": "Brentford",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Malick Diouf",
+          "player_out": "Keane Lewis-Potter",
+          "player_in_id": "1451265",
+          "player_out_id": "1010426"
+        },
+        {
+          "type": "Substitution",
+          "minute": 81,
+          "overload": 0,
+          "time_str": "81'",
+          "is_home": true,
+          "team": "Brentford",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Fábio Carvalho",
+          "player_out": "Jaidon Anthony",
+          "player_in_id": "963965",
+          "player_out_id": "1171140"
+        },
+        {
+          "type": "Substitution",
+          "minute": 82,
+          "overload": 0,
+          "time_str": "82'",
+          "is_home": true,
+          "team": "Brentford",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Mamadou Sangaré",
+          "player_out": "Vitaly Janelt",
+          "player_in_id": "1185211",
+          "player_out_id": "688273"
+        },
+        {
+          "type": "Substitution",
+          "minute": 85,
+          "overload": 0,
+          "time_str": "85'",
+          "is_home": false,
+          "team": "Everton",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Christian Nørgaard",
+          "player_out": "James Garner",
+          "player_in_id": "266520",
+          "player_out_id": "950474"
+        },
+        {
+          "type": "Goal",
+          "minute": 90,
+          "overload": null,
+          "time_str": "90'",
+          "is_home": true,
+          "team": "Brentford",
+          "player_name": "Fábio Carvalho",
+          "player_id": 963965,
+          "assist": "Mathias Jensen",
+          "home_score": 3,
+          "away_score": 0,
+          "scoreline": "3 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "AddedTime",
+          "minute": 90,
+          "overload": null,
+          "time_str": "90'",
+          "is_home": true,
+          "team": "Brentford",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Comment",
+          "minute": 90,
+          "overload": 2,
+          "time_str": "90+2'",
+          "is_home": false,
+          "team": "Everton",
+          "player_name": " ",
+          "player_id": 0
+        },
+        {
+          "type": "Half",
+          "minute": 90,
+          "overload": null,
+          "time_str": "90'",
+          "is_home": true,
+          "team": "Brentford",
+          "player_name": "Unknown",
+          "player_id": null
+        }
+      ],
+      "goals": [
+        {
+          "type": "Goal",
+          "minute": 23,
+          "overload": null,
+          "time_str": "23'",
+          "is_home": true,
+          "team": "Brentford",
+          "player_name": "Keane Lewis-Potter",
+          "player_id": 1010426,
+          "assist": "Jaidon Anthony",
+          "home_score": 0,
+          "away_score": 0,
+          "scoreline": "0 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Goal",
+          "minute": 25,
+          "overload": null,
+          "time_str": "25'",
+          "is_home": true,
+          "team": "Brentford",
+          "player_name": "Keane Lewis-Potter",
+          "player_id": 1010426,
+          "assist": null,
+          "home_score": 1,
+          "away_score": 0,
+          "scoreline": "1 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Goal",
+          "minute": 67,
+          "overload": null,
+          "time_str": "67'",
+          "is_home": true,
+          "team": "Brentford",
+          "player_name": "Vitaly Janelt",
+          "player_id": 688273,
+          "assist": "Jaidon Anthony",
+          "home_score": 2,
+          "away_score": 0,
+          "scoreline": "2 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Goal",
+          "minute": 90,
+          "overload": null,
+          "time_str": "90'",
+          "is_home": true,
+          "team": "Brentford",
+          "player_name": "Fábio Carvalho",
+          "player_id": 963965,
+          "assist": "Mathias Jensen",
+          "home_score": 3,
+          "away_score": 0,
+          "scoreline": "3 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        }
+      ],
+      "cards": [
+        {
+          "type": "Card",
+          "minute": 24,
+          "overload": null,
+          "time_str": "24'",
+          "is_home": false,
+          "team": "Everton",
+          "player_name": "Vitaliy Mykolenko",
+          "player_id": 874025,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 40,
+          "overload": null,
+          "time_str": "40'",
+          "is_home": false,
+          "team": "Everton",
+          "player_name": "James Tarkowski",
+          "player_id": 243138,
+          "card": "Red",
+          "card_description": null
+        }
+      ],
+      "substitutions": [
+        {
+          "type": "Substitution",
+          "minute": 46,
+          "overload": 0,
+          "time_str": "46'",
+          "is_home": false,
+          "team": "Everton",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Jack Grealish",
+          "player_out": "Tyrique George",
+          "player_in_id": "312765",
+          "player_out_id": "1424875"
+        },
+        {
+          "type": "Substitution",
+          "minute": 66,
+          "overload": 0,
+          "time_str": "66'",
+          "is_home": true,
+          "team": "Brentford",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Kevin Schade",
+          "player_out": "Dango Ouattara",
+          "player_in_id": "1083796",
+          "player_out_id": "1250253"
+        },
+        {
+          "type": "Substitution",
+          "minute": 69,
+          "overload": 0,
+          "time_str": "69'",
+          "is_home": false,
+          "team": "Everton",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Hayden Hackney",
+          "player_out": "Kiernan Dewsbury-Hall",
+          "player_in_id": "982394",
+          "player_out_id": "886016"
+        },
+        {
+          "type": "Substitution",
+          "minute": 69,
+          "overload": 0,
+          "time_str": "69'",
+          "is_home": false,
+          "team": "Everton",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Brennan Johnson",
+          "player_out": "Thierno Barry",
+          "player_in_id": "1076756",
+          "player_out_id": "1398392"
+        },
+        {
+          "type": "Substitution",
+          "minute": 69,
+          "overload": 0,
+          "time_str": "69'",
+          "is_home": false,
+          "team": "Everton",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Michael Keane",
+          "player_out": "Merlin Röhl",
+          "player_in_id": "290410",
+          "player_out_id": "1210384"
+        },
+        {
+          "type": "Substitution",
+          "minute": 74,
+          "overload": 0,
+          "time_str": "74'",
+          "is_home": true,
+          "team": "Brentford",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Mathias Jensen",
+          "player_out": "Yehor Yarmoliuk",
+          "player_in_id": "650616",
+          "player_out_id": "1157236"
+        },
+        {
+          "type": "Substitution",
+          "minute": 74,
+          "overload": 0,
+          "time_str": "74'",
+          "is_home": true,
+          "team": "Brentford",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Malick Diouf",
+          "player_out": "Keane Lewis-Potter",
+          "player_in_id": "1451265",
+          "player_out_id": "1010426"
+        },
+        {
+          "type": "Substitution",
+          "minute": 81,
+          "overload": 0,
+          "time_str": "81'",
+          "is_home": true,
+          "team": "Brentford",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Fábio Carvalho",
+          "player_out": "Jaidon Anthony",
+          "player_in_id": "963965",
+          "player_out_id": "1171140"
+        },
+        {
+          "type": "Substitution",
+          "minute": 82,
+          "overload": 0,
+          "time_str": "82'",
+          "is_home": true,
+          "team": "Brentford",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Mamadou Sangaré",
+          "player_out": "Vitaly Janelt",
+          "player_in_id": "1185211",
+          "player_out_id": "688273"
+        },
+        {
+          "type": "Substitution",
+          "minute": 85,
+          "overload": 0,
+          "time_str": "85'",
+          "is_home": false,
+          "team": "Everton",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Christian Nørgaard",
+          "player_out": "James Garner",
+          "player_in_id": "266520",
+          "player_out_id": "950474"
+        }
+      ]
     }
   },
   "player_events": {
@@ -58475,6 +59019,15 @@
           "time_str": "86'",
           "replaced_by": "Charly Alcaraz",
           "team": "Everton"
+        },
+        {
+          "match_id": "5795517",
+          "gameweek": 11,
+          "match": "Brentford vs Everton",
+          "minute": 69,
+          "time_str": "69'",
+          "replaced_by": "Hayden Hackney",
+          "team": "Everton"
         }
       ]
     },
@@ -58595,6 +59148,15 @@
           "match": "Newcastle United vs Everton",
           "minute": 80,
           "time_str": "80'",
+          "replaced_by": "Brennan Johnson",
+          "team": "Everton"
+        },
+        {
+          "match_id": "5795517",
+          "gameweek": 11,
+          "match": "Brentford vs Everton",
+          "minute": 69,
+          "time_str": "69'",
           "replaced_by": "Brennan Johnson",
           "team": "Everton"
         }
@@ -59569,6 +60131,15 @@
           "time_str": "77'",
           "replaced_by": "Ainsley Maitland-Niles",
           "team": "Everton"
+        },
+        {
+          "match_id": "5795517",
+          "gameweek": 11,
+          "match": "Brentford vs Everton",
+          "minute": 85,
+          "time_str": "85'",
+          "replaced_by": "Christian Nørgaard",
+          "team": "Everton"
         }
       ]
     },
@@ -59646,6 +60217,15 @@
           "minute": 73,
           "time_str": "73'",
           "replaced": "Harrison Armstrong",
+          "team": "Everton"
+        },
+        {
+          "match_id": "5795517",
+          "gameweek": 11,
+          "match": "Brentford vs Everton",
+          "minute": 69,
+          "time_str": "69'",
+          "replaced": "Kiernan Dewsbury-Hall",
           "team": "Everton"
         }
       ],
@@ -59727,6 +60307,15 @@
           "minute": 73,
           "time_str": "73'",
           "replaced": "Tyler Dibling",
+          "team": "Everton"
+        },
+        {
+          "match_id": "5795517",
+          "gameweek": 11,
+          "match": "Brentford vs Everton",
+          "minute": 69,
+          "time_str": "69'",
+          "replaced": "Thierno Barry",
           "team": "Everton"
         }
       ],
@@ -59878,6 +60467,15 @@
           "minute": 90,
           "time_str": "90'",
           "replaced_by": "Charly Alcaraz",
+          "team": "Everton"
+        },
+        {
+          "match_id": "5795517",
+          "gameweek": 11,
+          "match": "Brentford vs Everton",
+          "minute": 46,
+          "time_str": "46'",
+          "replaced_by": "Jack Grealish",
           "team": "Everton"
         }
       ]
@@ -62988,6 +63586,32 @@
           "is_own_goal": false,
           "is_home": true,
           "score_after": "0 - 0"
+        },
+        {
+          "match_id": "5795517",
+          "gameweek": 11,
+          "match": "Brentford vs Everton",
+          "minute": 23,
+          "time_str": "23'",
+          "assist": "Jaidon Anthony",
+          "team": "Brentford",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": true,
+          "score_after": "0 - 0"
+        },
+        {
+          "match_id": "5795517",
+          "gameweek": 11,
+          "match": "Brentford vs Everton",
+          "minute": 25,
+          "time_str": "25'",
+          "assist": null,
+          "team": "Brentford",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": true,
+          "score_after": "1 - 0"
         }
       ],
       "cards": [],
@@ -63055,6 +63679,15 @@
           "time_str": "59'",
           "replaced_by": "Malick Diouf",
           "team": "Brentford"
+        },
+        {
+          "match_id": "5795517",
+          "gameweek": 11,
+          "match": "Brentford vs Everton",
+          "minute": 74,
+          "time_str": "74'",
+          "replaced_by": "Malick Diouf",
+          "team": "Brentford"
         }
       ]
     },
@@ -63085,6 +63718,19 @@
           "is_own_goal": false,
           "is_home": true,
           "score_after": "0 - 0"
+        },
+        {
+          "match_id": "5795517",
+          "gameweek": 11,
+          "match": "Brentford vs Everton",
+          "minute": 67,
+          "time_str": "67'",
+          "assist": "Jaidon Anthony",
+          "team": "Brentford",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": true,
+          "score_after": "2 - 0"
         }
       ],
       "cards": [
@@ -63144,7 +63790,17 @@
         }
       ],
       "substitutions_on": [],
-      "substitutions_off": []
+      "substitutions_off": [
+        {
+          "match_id": "5795517",
+          "gameweek": 11,
+          "match": "Brentford vs Everton",
+          "minute": 82,
+          "time_str": "82'",
+          "replaced_by": "Mamadou Sangaré",
+          "team": "Brentford"
+        }
+      ]
     },
     "Michael Kayode": {
       "goals": [
@@ -63670,6 +64326,15 @@
           "time_str": "67'",
           "replaced_by": "Mathias Jensen",
           "team": "Brentford"
+        },
+        {
+          "match_id": "5795517",
+          "gameweek": 11,
+          "match": "Brentford vs Everton",
+          "minute": 74,
+          "time_str": "74'",
+          "replaced_by": "Mathias Jensen",
+          "team": "Brentford"
         }
       ]
     },
@@ -63693,6 +64358,15 @@
           "minute": 59,
           "time_str": "59'",
           "replaced": "Mamadou Sangaré",
+          "team": "Brentford"
+        },
+        {
+          "match_id": "5795517",
+          "gameweek": 11,
+          "match": "Brentford vs Everton",
+          "minute": 74,
+          "time_str": "74'",
+          "replaced": "Yehor Yarmoliuk",
           "team": "Brentford"
         }
       ],
@@ -63836,6 +64510,15 @@
           "time_str": "77'",
           "replaced_by": "Mikkel Damsgaard",
           "team": "Brentford"
+        },
+        {
+          "match_id": "5795517",
+          "gameweek": 11,
+          "match": "Brentford vs Everton",
+          "minute": 81,
+          "time_str": "81'",
+          "replaced_by": "Fábio Carvalho",
+          "team": "Brentford"
         }
       ]
     },
@@ -63947,6 +64630,15 @@
           "minute": 46,
           "time_str": "46'",
           "replaced_by": "Yehor Yarmoliuk",
+          "team": "Brentford"
+        },
+        {
+          "match_id": "5795517",
+          "gameweek": 11,
+          "match": "Brentford vs Everton",
+          "minute": 66,
+          "time_str": "66'",
+          "replaced_by": "Kevin Schade",
           "team": "Brentford"
         }
       ]
@@ -64450,6 +65142,15 @@
           "minute": 46,
           "time_str": "46'",
           "replaced": "Mathias Jensen",
+          "team": "Brentford"
+        },
+        {
+          "match_id": "5795517",
+          "gameweek": 11,
+          "match": "Brentford vs Everton",
+          "minute": 82,
+          "time_str": "82'",
+          "replaced": "Vitaly Janelt",
           "team": "Brentford"
         }
       ],
@@ -68078,6 +68779,15 @@
           "match": "Tottenham Hotspur vs Everton",
           "minute": 65,
           "time_str": "65'",
+          "replaced": "Tyrique George",
+          "team": "Everton"
+        },
+        {
+          "match_id": "5795517",
+          "gameweek": 11,
+          "match": "Brentford vs Everton",
+          "minute": 46,
+          "time_str": "46'",
           "replaced": "Tyrique George",
           "team": "Everton"
         }
@@ -73687,6 +74397,15 @@
           "time_str": "79'",
           "card": "Yellow",
           "team": "Everton"
+        },
+        {
+          "match_id": "5795517",
+          "gameweek": 11,
+          "match": "Brentford vs Everton",
+          "minute": 40,
+          "time_str": "40'",
+          "card": "Red",
+          "team": "Everton"
         }
       ],
       "substitutions_on": [],
@@ -74138,6 +74857,15 @@
           "minute": 73,
           "time_str": "73'",
           "replaced_by": "Jake O'Brien",
+          "team": "Everton"
+        },
+        {
+          "match_id": "5795517",
+          "gameweek": 11,
+          "match": "Brentford vs Everton",
+          "minute": 69,
+          "time_str": "69'",
+          "replaced_by": "Michael Keane",
           "team": "Everton"
         }
       ]
@@ -76110,6 +76838,15 @@
           "match": "Brentford vs Liverpool",
           "minute": 46,
           "time_str": "46'",
+          "replaced": "Dango Ouattara",
+          "team": "Brentford"
+        },
+        {
+          "match_id": "5795517",
+          "gameweek": 11,
+          "match": "Brentford vs Everton",
+          "minute": 66,
+          "time_str": "66'",
           "replaced": "Dango Ouattara",
           "team": "Brentford"
         }
@@ -80266,6 +81003,15 @@
           "time_str": "59'",
           "replaced": "Keane Lewis-Potter",
           "team": "Brentford"
+        },
+        {
+          "match_id": "5795517",
+          "gameweek": 11,
+          "match": "Brentford vs Everton",
+          "minute": 74,
+          "time_str": "74'",
+          "replaced": "Keane Lewis-Potter",
+          "team": "Brentford"
         }
       ],
       "substitutions_off": []
@@ -81886,6 +82632,19 @@
           "is_own_goal": false,
           "is_home": true,
           "score_after": "2 - 0"
+        },
+        {
+          "match_id": "5795517",
+          "gameweek": 11,
+          "match": "Brentford vs Everton",
+          "minute": 90,
+          "time_str": "90'",
+          "assist": "Mathias Jensen",
+          "team": "Brentford",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": true,
+          "score_after": "3 - 0"
         }
       ],
       "cards": [],
@@ -81897,6 +82656,15 @@
           "minute": 87,
           "time_str": "87'",
           "replaced": "Mikkel Damsgaard",
+          "team": "Brentford"
+        },
+        {
+          "match_id": "5795517",
+          "gameweek": 11,
+          "match": "Brentford vs Everton",
+          "minute": 81,
+          "time_str": "81'",
+          "replaced": "Jaidon Anthony",
           "team": "Brentford"
         }
       ],
@@ -82204,6 +82972,15 @@
           "match": "Arsenal vs Everton",
           "minute": 45,
           "time_str": "45+2'",
+          "card": "Yellow",
+          "team": "Everton"
+        },
+        {
+          "match_id": "5795517",
+          "gameweek": 11,
+          "match": "Brentford vs Everton",
+          "minute": 24,
+          "time_str": "24'",
           "card": "Yellow",
           "team": "Everton"
         }
@@ -83536,6 +84313,15 @@
           "time_str": "85'",
           "replaced": "Harrison Armstrong",
           "team": "Everton"
+        },
+        {
+          "match_id": "5795517",
+          "gameweek": 11,
+          "match": "Brentford vs Everton",
+          "minute": 85,
+          "time_str": "85'",
+          "replaced": "James Garner",
+          "team": "Everton"
         }
       ],
       "substitutions_off": []
@@ -84504,6 +85290,15 @@
           "minute": 89,
           "time_str": "89'",
           "replaced": "Jarrad Branthwaite",
+          "team": "Everton"
+        },
+        {
+          "match_id": "5795517",
+          "gameweek": 11,
+          "match": "Brentford vs Everton",
+          "minute": 69,
+          "time_str": "69'",
+          "replaced": "Merlin Röhl",
           "team": "Everton"
         }
       ],
