@@ -1,6 +1,6 @@
 {
-  "_cached_at": "2026-11-27T10:36:57Z",
-  "total_finished_matches": 110,
+  "_cached_at": "2026-11-28T09:53:43Z",
+  "total_finished_matches": 111,
   "matches": {
     "5795363": {
       "match_id": "5795363",
@@ -55863,6 +55863,608 @@
           "player_out_id": "950474"
         }
       ]
+    },
+    "5795533": {
+      "match_id": "5795533",
+      "round": 12,
+      "gameweek": 12,
+      "home_team": "Nottingham Forest",
+      "away_team": "Chelsea",
+      "score": "3 - 2",
+      "kickoff_time": "2026-11-27T20:00:00Z",
+      "events_count": 24,
+      "events": [
+        {
+          "type": "Goal",
+          "minute": 5,
+          "overload": null,
+          "time_str": "5'",
+          "is_home": true,
+          "team": "Nottingham Forest",
+          "player_name": "Igor Jesus",
+          "player_id": 1082102,
+          "assist": "Daniel Muñoz",
+          "home_score": 0,
+          "away_score": 0,
+          "scoreline": "0 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "AddedTime",
+          "minute": 45,
+          "overload": null,
+          "time_str": "45'",
+          "is_home": true,
+          "team": "Nottingham Forest",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Half",
+          "minute": 45,
+          "overload": null,
+          "time_str": "45'",
+          "is_home": true,
+          "team": "Nottingham Forest",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Substitution",
+          "minute": 46,
+          "overload": 0,
+          "time_str": "46'",
+          "is_home": false,
+          "team": "Chelsea",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Emanuel Emegha",
+          "player_out": "Danny Welbeck",
+          "player_in_id": "1183148",
+          "player_out_id": "113836"
+        },
+        {
+          "type": "Card",
+          "minute": 49,
+          "overload": null,
+          "time_str": "49'",
+          "is_home": false,
+          "team": "Chelsea",
+          "player_name": "Wesley Fofana",
+          "player_id": 917802,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Goal",
+          "minute": 51,
+          "overload": null,
+          "time_str": "51'",
+          "is_home": true,
+          "team": "Nottingham Forest",
+          "player_name": "Morgan Gibbs-White",
+          "player_id": 789502,
+          "assist": null,
+          "home_score": 1,
+          "away_score": 0,
+          "scoreline": "1 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Goal",
+          "minute": 54,
+          "overload": null,
+          "time_str": "54'",
+          "is_home": false,
+          "team": "Chelsea",
+          "player_name": "Emanuel Emegha",
+          "player_id": 1183148,
+          "assist": null,
+          "home_score": 2,
+          "away_score": 0,
+          "scoreline": "2 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Substitution",
+          "minute": 56,
+          "overload": 0,
+          "time_str": "56'",
+          "is_home": false,
+          "team": "Chelsea",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Levi Colwill",
+          "player_out": "Wesley Fofana",
+          "player_in_id": "1096400",
+          "player_out_id": "917802"
+        },
+        {
+          "type": "Comment",
+          "minute": 56,
+          "overload": null,
+          "time_str": "56'",
+          "is_home": false,
+          "team": "Chelsea",
+          "player_name": " ",
+          "player_id": 0
+        },
+        {
+          "type": "Card",
+          "minute": 61,
+          "overload": null,
+          "time_str": "61'",
+          "is_home": false,
+          "team": "Chelsea",
+          "player_name": "Jordan Henderson",
+          "player_id": 156008,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 70,
+          "overload": null,
+          "time_str": "70'",
+          "is_home": false,
+          "team": "Chelsea",
+          "player_name": "Xabi Alonso",
+          "player_id": 30889,
+          "card": "Yellow",
+          "card_description": {
+            "localizedKey": "coach",
+            "defaultText": "Coach"
+          }
+        },
+        {
+          "type": "Card",
+          "minute": 71,
+          "overload": null,
+          "time_str": "71'",
+          "is_home": false,
+          "team": "Chelsea",
+          "player_name": "Pedro Neto",
+          "player_id": 843040,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Substitution",
+          "minute": 72,
+          "overload": 0,
+          "time_str": "72'",
+          "is_home": true,
+          "team": "Nottingham Forest",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Dan Ndoye",
+          "player_out": "Igor Jesus",
+          "player_in_id": "1022649",
+          "player_out_id": "1082102"
+        },
+        {
+          "type": "Goal",
+          "minute": 72,
+          "overload": null,
+          "time_str": "72'",
+          "is_home": true,
+          "team": "Nottingham Forest",
+          "player_name": "Morgan Gibbs-White",
+          "player_id": 789502,
+          "assist": "Xaver Schlager",
+          "home_score": 2,
+          "away_score": 1,
+          "scoreline": "2 - 1",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Card",
+          "minute": 80,
+          "overload": null,
+          "time_str": "80'",
+          "is_home": true,
+          "team": "Nottingham Forest",
+          "player_name": "Liam Delap",
+          "player_id": 1113903,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Substitution",
+          "minute": 84,
+          "overload": 0,
+          "time_str": "84'",
+          "is_home": true,
+          "team": "Nottingham Forest",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Ibrahim Sangaré",
+          "player_out": "Xaver Schlager",
+          "player_in_id": "795371",
+          "player_out_id": "620027"
+        },
+        {
+          "type": "Substitution",
+          "minute": 84,
+          "overload": 0,
+          "time_str": "84'",
+          "is_home": true,
+          "team": "Nottingham Forest",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Chris Wood",
+          "player_out": "Liam Delap",
+          "player_in_id": "169719",
+          "player_out_id": "1113903"
+        },
+        {
+          "type": "Substitution",
+          "minute": 85,
+          "overload": 0,
+          "time_str": "85'",
+          "is_home": false,
+          "team": "Chelsea",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Geovany Quenda",
+          "player_out": "Jordan Henderson",
+          "player_in_id": "1530314",
+          "player_out_id": "156008"
+        },
+        {
+          "type": "Substitution",
+          "minute": 85,
+          "overload": 0,
+          "time_str": "85'",
+          "is_home": false,
+          "team": "Chelsea",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Marco Palestra",
+          "player_out": "Josh Acheampong",
+          "player_in_id": "1473806",
+          "player_out_id": "1400216"
+        },
+        {
+          "type": "Goal",
+          "minute": 89,
+          "overload": null,
+          "time_str": "89'",
+          "is_home": false,
+          "team": "Chelsea",
+          "player_name": "Emanuel Emegha",
+          "player_id": 1183148,
+          "assist": "Pedro Neto",
+          "home_score": 3,
+          "away_score": 1,
+          "scoreline": "3 - 1",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "AddedTime",
+          "minute": 90,
+          "overload": null,
+          "time_str": "90'",
+          "is_home": true,
+          "team": "Nottingham Forest",
+          "player_name": "Unknown",
+          "player_id": null
+        },
+        {
+          "type": "Substitution",
+          "minute": 90,
+          "overload": 3,
+          "time_str": "90+3'",
+          "is_home": true,
+          "team": "Nottingham Forest",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Ryan Yates",
+          "player_out": "James McAtee",
+          "player_in_id": "775614",
+          "player_out_id": "1107648"
+        },
+        {
+          "type": "Card",
+          "minute": 90,
+          "overload": 3,
+          "time_str": "90+3'",
+          "is_home": true,
+          "team": "Nottingham Forest",
+          "player_name": "Ibrahim Sangaré",
+          "player_id": 795371,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Half",
+          "minute": 90,
+          "overload": null,
+          "time_str": "90'",
+          "is_home": true,
+          "team": "Nottingham Forest",
+          "player_name": "Unknown",
+          "player_id": null
+        }
+      ],
+      "goals": [
+        {
+          "type": "Goal",
+          "minute": 5,
+          "overload": null,
+          "time_str": "5'",
+          "is_home": true,
+          "team": "Nottingham Forest",
+          "player_name": "Igor Jesus",
+          "player_id": 1082102,
+          "assist": "Daniel Muñoz",
+          "home_score": 0,
+          "away_score": 0,
+          "scoreline": "0 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Goal",
+          "minute": 51,
+          "overload": null,
+          "time_str": "51'",
+          "is_home": true,
+          "team": "Nottingham Forest",
+          "player_name": "Morgan Gibbs-White",
+          "player_id": 789502,
+          "assist": null,
+          "home_score": 1,
+          "away_score": 0,
+          "scoreline": "1 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Goal",
+          "minute": 54,
+          "overload": null,
+          "time_str": "54'",
+          "is_home": false,
+          "team": "Chelsea",
+          "player_name": "Emanuel Emegha",
+          "player_id": 1183148,
+          "assist": null,
+          "home_score": 2,
+          "away_score": 0,
+          "scoreline": "2 - 0",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Goal",
+          "minute": 72,
+          "overload": null,
+          "time_str": "72'",
+          "is_home": true,
+          "team": "Nottingham Forest",
+          "player_name": "Morgan Gibbs-White",
+          "player_id": 789502,
+          "assist": "Xaver Schlager",
+          "home_score": 2,
+          "away_score": 1,
+          "scoreline": "2 - 1",
+          "is_own_goal": false,
+          "is_penalty": false
+        },
+        {
+          "type": "Goal",
+          "minute": 89,
+          "overload": null,
+          "time_str": "89'",
+          "is_home": false,
+          "team": "Chelsea",
+          "player_name": "Emanuel Emegha",
+          "player_id": 1183148,
+          "assist": "Pedro Neto",
+          "home_score": 3,
+          "away_score": 1,
+          "scoreline": "3 - 1",
+          "is_own_goal": false,
+          "is_penalty": false
+        }
+      ],
+      "cards": [
+        {
+          "type": "Card",
+          "minute": 49,
+          "overload": null,
+          "time_str": "49'",
+          "is_home": false,
+          "team": "Chelsea",
+          "player_name": "Wesley Fofana",
+          "player_id": 917802,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 61,
+          "overload": null,
+          "time_str": "61'",
+          "is_home": false,
+          "team": "Chelsea",
+          "player_name": "Jordan Henderson",
+          "player_id": 156008,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 70,
+          "overload": null,
+          "time_str": "70'",
+          "is_home": false,
+          "team": "Chelsea",
+          "player_name": "Xabi Alonso",
+          "player_id": 30889,
+          "card": "Yellow",
+          "card_description": {
+            "localizedKey": "coach",
+            "defaultText": "Coach"
+          }
+        },
+        {
+          "type": "Card",
+          "minute": 71,
+          "overload": null,
+          "time_str": "71'",
+          "is_home": false,
+          "team": "Chelsea",
+          "player_name": "Pedro Neto",
+          "player_id": 843040,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 80,
+          "overload": null,
+          "time_str": "80'",
+          "is_home": true,
+          "team": "Nottingham Forest",
+          "player_name": "Liam Delap",
+          "player_id": 1113903,
+          "card": "Yellow",
+          "card_description": null
+        },
+        {
+          "type": "Card",
+          "minute": 90,
+          "overload": 3,
+          "time_str": "90+3'",
+          "is_home": true,
+          "team": "Nottingham Forest",
+          "player_name": "Ibrahim Sangaré",
+          "player_id": 795371,
+          "card": "Yellow",
+          "card_description": null
+        }
+      ],
+      "substitutions": [
+        {
+          "type": "Substitution",
+          "minute": 46,
+          "overload": 0,
+          "time_str": "46'",
+          "is_home": false,
+          "team": "Chelsea",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Emanuel Emegha",
+          "player_out": "Danny Welbeck",
+          "player_in_id": "1183148",
+          "player_out_id": "113836"
+        },
+        {
+          "type": "Substitution",
+          "minute": 56,
+          "overload": 0,
+          "time_str": "56'",
+          "is_home": false,
+          "team": "Chelsea",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Levi Colwill",
+          "player_out": "Wesley Fofana",
+          "player_in_id": "1096400",
+          "player_out_id": "917802"
+        },
+        {
+          "type": "Substitution",
+          "minute": 72,
+          "overload": 0,
+          "time_str": "72'",
+          "is_home": true,
+          "team": "Nottingham Forest",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Dan Ndoye",
+          "player_out": "Igor Jesus",
+          "player_in_id": "1022649",
+          "player_out_id": "1082102"
+        },
+        {
+          "type": "Substitution",
+          "minute": 84,
+          "overload": 0,
+          "time_str": "84'",
+          "is_home": true,
+          "team": "Nottingham Forest",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Ibrahim Sangaré",
+          "player_out": "Xaver Schlager",
+          "player_in_id": "795371",
+          "player_out_id": "620027"
+        },
+        {
+          "type": "Substitution",
+          "minute": 84,
+          "overload": 0,
+          "time_str": "84'",
+          "is_home": true,
+          "team": "Nottingham Forest",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Chris Wood",
+          "player_out": "Liam Delap",
+          "player_in_id": "169719",
+          "player_out_id": "1113903"
+        },
+        {
+          "type": "Substitution",
+          "minute": 85,
+          "overload": 0,
+          "time_str": "85'",
+          "is_home": false,
+          "team": "Chelsea",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Geovany Quenda",
+          "player_out": "Jordan Henderson",
+          "player_in_id": "1530314",
+          "player_out_id": "156008"
+        },
+        {
+          "type": "Substitution",
+          "minute": 85,
+          "overload": 0,
+          "time_str": "85'",
+          "is_home": false,
+          "team": "Chelsea",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Marco Palestra",
+          "player_out": "Josh Acheampong",
+          "player_in_id": "1473806",
+          "player_out_id": "1400216"
+        },
+        {
+          "type": "Substitution",
+          "minute": 90,
+          "overload": 3,
+          "time_str": "90+3'",
+          "is_home": true,
+          "team": "Nottingham Forest",
+          "player_name": "Unknown",
+          "player_id": null,
+          "player_in": "Ryan Yates",
+          "player_out": "James McAtee",
+          "player_in_id": "775614",
+          "player_out_id": "1107648"
+        }
+      ]
     }
   },
   "player_events": {
@@ -62612,6 +63214,15 @@
           "time_str": "72'",
           "replaced": "Neco Williams",
           "team": "Nottingham Forest"
+        },
+        {
+          "match_id": "5795533",
+          "gameweek": 12,
+          "match": "Nottingham Forest vs Chelsea",
+          "minute": 84,
+          "time_str": "84'",
+          "replaced": "Liam Delap",
+          "team": "Nottingham Forest"
         }
       ],
       "substitutions_off": []
@@ -62673,6 +63284,15 @@
           "minute": 65,
           "time_str": "65'",
           "replaced": "James McAtee",
+          "team": "Nottingham Forest"
+        },
+        {
+          "match_id": "5795533",
+          "gameweek": 12,
+          "match": "Nottingham Forest vs Chelsea",
+          "minute": 72,
+          "time_str": "72'",
+          "replaced": "Igor Jesus",
           "team": "Nottingham Forest"
         }
       ],
@@ -63151,6 +63771,15 @@
           "time_str": "46'",
           "replaced_by": "Ryan Yates",
           "team": "Nottingham Forest"
+        },
+        {
+          "match_id": "5795533",
+          "gameweek": 12,
+          "match": "Nottingham Forest vs Chelsea",
+          "minute": 84,
+          "time_str": "84'",
+          "replaced_by": "Ibrahim Sangaré",
+          "team": "Nottingham Forest"
         }
       ]
     },
@@ -63257,6 +63886,15 @@
           "minute": 72,
           "time_str": "72'",
           "replaced_by": "Luca Netz",
+          "team": "Nottingham Forest"
+        },
+        {
+          "match_id": "5795533",
+          "gameweek": 12,
+          "match": "Nottingham Forest vs Chelsea",
+          "minute": 90,
+          "time_str": "90+3'",
+          "replaced_by": "Ryan Yates",
           "team": "Nottingham Forest"
         }
       ]
@@ -71560,7 +72198,17 @@
           "team": "Chelsea"
         }
       ],
-      "substitutions_on": [],
+      "substitutions_on": [
+        {
+          "match_id": "5795533",
+          "gameweek": 12,
+          "match": "Nottingham Forest vs Chelsea",
+          "minute": 56,
+          "time_str": "56'",
+          "replaced": "Wesley Fofana",
+          "team": "Chelsea"
+        }
+      ],
       "substitutions_off": [
         {
           "match_id": "5795427",
@@ -72601,6 +73249,15 @@
           "time_str": "55'",
           "card": "Yellow",
           "team": "Chelsea"
+        },
+        {
+          "match_id": "5795533",
+          "gameweek": 12,
+          "match": "Nottingham Forest vs Chelsea",
+          "minute": 71,
+          "time_str": "71'",
+          "card": "Yellow",
+          "team": "Chelsea"
         }
       ],
       "substitutions_on": [
@@ -73005,6 +73662,15 @@
           "minute": 73,
           "time_str": "73'",
           "replaced": "Pep Chavarría",
+          "team": "Chelsea"
+        },
+        {
+          "match_id": "5795533",
+          "gameweek": 12,
+          "match": "Nottingham Forest vs Chelsea",
+          "minute": 85,
+          "time_str": "85'",
+          "replaced": "Jordan Henderson",
           "team": "Chelsea"
         }
       ],
@@ -73837,6 +74503,32 @@
           "is_own_goal": false,
           "is_home": false,
           "score_after": "1 - 1"
+        },
+        {
+          "match_id": "5795533",
+          "gameweek": 12,
+          "match": "Nottingham Forest vs Chelsea",
+          "minute": 51,
+          "time_str": "51'",
+          "assist": null,
+          "team": "Nottingham Forest",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": true,
+          "score_after": "1 - 0"
+        },
+        {
+          "match_id": "5795533",
+          "gameweek": 12,
+          "match": "Nottingham Forest vs Chelsea",
+          "minute": 72,
+          "time_str": "72'",
+          "assist": "Xaver Schlager",
+          "team": "Nottingham Forest",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": true,
+          "score_after": "2 - 1"
         }
       ],
       "cards": [],
@@ -73857,6 +74549,19 @@
           "is_own_goal": false,
           "is_home": false,
           "score_after": "1 - 1"
+        },
+        {
+          "match_id": "5795533",
+          "gameweek": 12,
+          "match": "Nottingham Forest vs Chelsea",
+          "minute": 5,
+          "time_str": "5'",
+          "assist": "Daniel Muñoz",
+          "team": "Nottingham Forest",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": true,
+          "score_after": "0 - 0"
         }
       ],
       "cards": [
@@ -73934,6 +74639,15 @@
           "minute": 90,
           "time_str": "90+2'",
           "replaced_by": "Nicolás Dominguez",
+          "team": "Nottingham Forest"
+        },
+        {
+          "match_id": "5795533",
+          "gameweek": 12,
+          "match": "Nottingham Forest vs Chelsea",
+          "minute": 72,
+          "time_str": "72'",
+          "replaced_by": "Dan Ndoye",
           "team": "Nottingham Forest"
         }
       ]
@@ -74023,6 +74737,15 @@
           "time_str": "45'",
           "card": "Yellow",
           "team": "Nottingham Forest"
+        },
+        {
+          "match_id": "5795533",
+          "gameweek": 12,
+          "match": "Nottingham Forest vs Chelsea",
+          "minute": 80,
+          "time_str": "80'",
+          "card": "Yellow",
+          "team": "Nottingham Forest"
         }
       ],
       "substitutions_on": [
@@ -74089,6 +74812,15 @@
           "minute": 87,
           "time_str": "87'",
           "replaced_by": "Igor Jesus",
+          "team": "Nottingham Forest"
+        },
+        {
+          "match_id": "5795533",
+          "gameweek": 12,
+          "match": "Nottingham Forest vs Chelsea",
+          "minute": 84,
+          "time_str": "84'",
+          "replaced_by": "Chris Wood",
           "team": "Nottingham Forest"
         }
       ]
@@ -76364,6 +77096,15 @@
           "time_str": "90+2'",
           "card": "Yellow",
           "team": "Chelsea"
+        },
+        {
+          "match_id": "5795533",
+          "gameweek": 12,
+          "match": "Nottingham Forest vs Chelsea",
+          "minute": 49,
+          "time_str": "49'",
+          "card": "Yellow",
+          "team": "Chelsea"
         }
       ],
       "substitutions_on": [],
@@ -76393,6 +77134,15 @@
           "minute": 71,
           "time_str": "71'",
           "replaced_by": "Josh Acheampong",
+          "team": "Chelsea"
+        },
+        {
+          "match_id": "5795533",
+          "gameweek": 12,
+          "match": "Nottingham Forest vs Chelsea",
+          "minute": 56,
+          "time_str": "56'",
+          "replaced_by": "Levi Colwill",
           "team": "Chelsea"
         }
       ]
@@ -76676,6 +77426,15 @@
           "minute": 73,
           "time_str": "73'",
           "replaced_by": "Malo Gusto",
+          "team": "Chelsea"
+        },
+        {
+          "match_id": "5795533",
+          "gameweek": 12,
+          "match": "Nottingham Forest vs Chelsea",
+          "minute": 85,
+          "time_str": "85'",
+          "replaced_by": "Marco Palestra",
           "team": "Chelsea"
         }
       ]
@@ -80936,6 +81695,15 @@
           "time_str": "71'",
           "replaced_by": "Geovany Quenda",
           "team": "Chelsea"
+        },
+        {
+          "match_id": "5795533",
+          "gameweek": 12,
+          "match": "Nottingham Forest vs Chelsea",
+          "minute": 46,
+          "time_str": "46'",
+          "replaced_by": "Emanuel Emegha",
+          "team": "Chelsea"
         }
       ]
     },
@@ -81214,7 +81982,17 @@
     },
     "Ibrahim Sangaré": {
       "goals": [],
-      "cards": [],
+      "cards": [
+        {
+          "match_id": "5795533",
+          "gameweek": 12,
+          "match": "Nottingham Forest vs Chelsea",
+          "minute": 90,
+          "time_str": "90+3'",
+          "card": "Yellow",
+          "team": "Nottingham Forest"
+        }
+      ],
       "substitutions_on": [
         {
           "match_id": "5795446",
@@ -81259,6 +82037,15 @@
           "minute": 79,
           "time_str": "79'",
           "replaced": "Ryan Yates",
+          "team": "Nottingham Forest"
+        },
+        {
+          "match_id": "5795533",
+          "gameweek": 12,
+          "match": "Nottingham Forest vs Chelsea",
+          "minute": 84,
+          "time_str": "84'",
+          "replaced": "Xaver Schlager",
           "team": "Nottingham Forest"
         }
       ],
@@ -83609,7 +84396,17 @@
           "score_after": "4 - 1"
         }
       ],
-      "cards": [],
+      "cards": [
+        {
+          "match_id": "5795533",
+          "gameweek": 12,
+          "match": "Nottingham Forest vs Chelsea",
+          "minute": 61,
+          "time_str": "61'",
+          "card": "Yellow",
+          "team": "Chelsea"
+        }
+      ],
       "substitutions_on": [
         {
           "match_id": "5795518",
@@ -83629,6 +84426,15 @@
           "minute": 87,
           "time_str": "87'",
           "replaced_by": "Emanuel Emegha",
+          "team": "Chelsea"
+        },
+        {
+          "match_id": "5795533",
+          "gameweek": 12,
+          "match": "Nottingham Forest vs Chelsea",
+          "minute": 85,
+          "time_str": "85'",
+          "replaced_by": "Geovany Quenda",
           "team": "Chelsea"
         }
       ]
@@ -83662,6 +84468,15 @@
           "minute": 65,
           "time_str": "65'",
           "replaced": "Jorrel Hato",
+          "team": "Chelsea"
+        },
+        {
+          "match_id": "5795533",
+          "gameweek": 12,
+          "match": "Nottingham Forest vs Chelsea",
+          "minute": 85,
+          "time_str": "85'",
+          "replaced": "Josh Acheampong",
           "team": "Chelsea"
         }
       ],
@@ -85102,6 +85917,15 @@
           "time_str": "46'",
           "replaced": "Xaver Schlager",
           "team": "Nottingham Forest"
+        },
+        {
+          "match_id": "5795533",
+          "gameweek": 12,
+          "match": "Nottingham Forest vs Chelsea",
+          "minute": 90,
+          "time_str": "90+3'",
+          "replaced": "James McAtee",
+          "team": "Nottingham Forest"
         }
       ],
       "substitutions_off": [
@@ -85426,6 +86250,32 @@
           "is_own_goal": false,
           "is_home": true,
           "score_after": "0 - 0"
+        },
+        {
+          "match_id": "5795533",
+          "gameweek": 12,
+          "match": "Nottingham Forest vs Chelsea",
+          "minute": 54,
+          "time_str": "54'",
+          "assist": null,
+          "team": "Chelsea",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": false,
+          "score_after": "2 - 0"
+        },
+        {
+          "match_id": "5795533",
+          "gameweek": 12,
+          "match": "Nottingham Forest vs Chelsea",
+          "minute": 89,
+          "time_str": "89'",
+          "assist": "Pedro Neto",
+          "team": "Chelsea",
+          "is_penalty": false,
+          "is_own_goal": false,
+          "is_home": false,
+          "score_after": "3 - 1"
         }
       ],
       "cards": [],
@@ -85437,6 +86287,15 @@
           "minute": 87,
           "time_str": "87'",
           "replaced": "Jordan Henderson",
+          "team": "Chelsea"
+        },
+        {
+          "match_id": "5795533",
+          "gameweek": 12,
+          "match": "Nottingham Forest vs Chelsea",
+          "minute": 46,
+          "time_str": "46'",
+          "replaced": "Danny Welbeck",
           "team": "Chelsea"
         }
       ],
@@ -85538,6 +86397,22 @@
           "team": "Arsenal"
         }
       ],
+      "substitutions_off": []
+    },
+    "Xabi Alonso": {
+      "goals": [],
+      "cards": [
+        {
+          "match_id": "5795533",
+          "gameweek": 12,
+          "match": "Nottingham Forest vs Chelsea",
+          "minute": 70,
+          "time_str": "70'",
+          "card": "Yellow",
+          "team": "Chelsea"
+        }
+      ],
+      "substitutions_on": [],
       "substitutions_off": []
     }
   }
